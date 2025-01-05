@@ -12,7 +12,6 @@ function App() {
   return (
       <Suspense fallback={<Loading/>}>
         <Routes>
-          <Route path='/' element={<Loading/>} />
           <Route path='/' element={<Homepage/>} />
           <Route path='/support' element={<Support/>} />
           <Route path='/about' element={<About/>} />

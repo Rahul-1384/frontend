@@ -1,0 +1,41 @@
+.logo{
+    animation: rotate 1s infinite linear;
+}
+@keyframes rotate{
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotateZ(-360deg);
+    }
+}
+
+.loading-text{
+    animation: text 3s infinite linear;
+}
+@keyframes text{
+    from{
+        color: antiquewhite;
+    }
+    to{
+        color: rgb(0, 0, 0);
+    }
+}
+.zero{
+    animation-delay: 0.1s;
+}
+.one{
+    animation-delay: 0.3s;
+}
+.two{
+    animation-delay: 0.5s;
+}
+.three{
+    animation-delay: 0.7s;
+}
+.four{
+    animation-delay: 0.9s;
+}
+.five{
+    animation-delay: 1.1s;
+}

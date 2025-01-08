@@ -145,6 +145,69 @@
     display: none;
 }
 
+.buttons-blur-effect{
+    background-color: rgba(166, 174, 166, 0.3);
+}
+
+.button-style{
+    position: relative;
+    overflow: hidden;
+    z-index: 100;
+    transition: all 0.7s;
+}
+.button-style:hover{
+    color: black;
+
+}
+.button-style::before{
+    content: "";
+    position: absolute;
+    background-color: #fdb604;
+    height: 150px;
+    width: 200px;
+    border-radius: 60px;
+    top: 80%;
+    left: 80%;
+    transition: all 0.7s ease;
+    z-index: -10;
+    
+}
+.button-style:hover::before{
+    top: -20%;
+    left: -20%;
+    border-color: #fdb604;
+}
+
+
+@keyframes modaleffect1 {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes modaleffect2 {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+.modal-open {
+    animation: modaleffect1 0.3s ease-out forwards;
+}
+
+.modal-close {
+    animation: modaleffect2 0.3s ease-in forwards;
+}
 
 
 

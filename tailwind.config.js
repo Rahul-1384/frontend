@@ -11,7 +11,11 @@ module.exports = {
       xl: '1280px',
       xxl: '1536px',
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'section-bg': "url('./images/section-bg.png')",
+      },
+    },
   },
   plugins: [],
 }

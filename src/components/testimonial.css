@@ -1,0 +1,23 @@
+/* Pagination Style */
+.swiper-pagination {
+    position: absolute;
+    bottom: 10px;  /* Adjust the distance from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px; /* Space between dots */
+    justify-content: center;
+  }
+  
+  .swiper-pagination-bullet {
+    width: 12px; /* Size of the dot */
+    height: 12px;
+    background-color: #ddd; /* Light gray for inactive dots */
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: #4f46e5; /* Purple for active dot */
+  }
+  

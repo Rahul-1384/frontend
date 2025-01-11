@@ -35,7 +35,9 @@ const Navbar = () => {
     return (
         <div className="bg-[#001E29]">
             <div className="flex justify-between items-center w-[100%] h-[4rem] m-auto px-4 relative">
-                <div className="relative z-[200] font-extrabold text-[#fdb604] text-xl">ReBook</div>
+                <NavLink to="/" className="rebook-logo relative z-[200] w-[90px] h-[50px]">
+                    
+                </NavLink>
 
                 <ul className="hidden md:flex md:mt-4 md:items-center md:space-x-6 md:text-[0.7rem] lg:text-[1rem]">
                     <li>

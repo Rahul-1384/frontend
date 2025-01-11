@@ -14,6 +14,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         'section-bg': "url('./images/section-bg.png')",
+        'rebook-logo': "url('./images/rebook-logo.png')"
+      },
+      mixBlendMode: {
+        'color-burn': 'color-burn',
       },
     },
   },

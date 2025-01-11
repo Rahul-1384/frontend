@@ -75,12 +75,27 @@ const Hero = () => {
         }, 300); // Match animation duration
     };
 
+    
+    const paragraphs = [
+        "Turning old books into new opportunities.",
+        "Bringing knowledge to your doorstep.",
+        "Innovating the way we read and learn.",
+        "Preserving the past for a brighter future."
+    ];
+
     return (
         <div className="relative">
             <img src={hero} alt="Hero-bg" className="w-full h-auto object-cover img-fluid relative"/>
             <p className="text-[#866a22] font-bold text-[0.5rem] absolute top-[27%] left-[36.8%] text-center max-w-[6rem] xxxsm:text-[0.6rem] xxxsm:max-w-[7rem] xxsm:text-[0.7rem] xxsm:max-w-[8rem] xsm:text-[0.8rem] xsm:max-w-[9rem] sm:text-[1rem] sm:max-w-[12rem] md:text-[1.2rem] md:max-w-[15rem] lg:text-[1.8rem] lg:left-[38%] lg:top-[29%] lg:max-w-[23rem] xl:text-[2rem] xl:left-[38%] xl:top-[27%] xl:max-w-[23rem]">
-                <Typed strings={["Turning old books into new opportunities."]} typeSpeed={50} backSpeed={30} backDelay={1000} loop={false}/>
-            </p>
+      <Typed
+        strings={paragraphs}
+        typeSpeed={50}
+        backSpeed={30}
+        backDelay={2000}
+        loop={true}
+        showCursor={true}
+      />
+    </p>
             <span className="absolute top-[58%] left-[47.5%] font-bold text-[#fdb604] text-[0.5rem] xsm:text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl xxl:text-2xl">
                 Ask AI
             </span>
@@ -99,7 +114,7 @@ const Hero = () => {
                 </div>
                 <div className="flex gap-4">
                     <button onClick={openModal} className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-1 border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem]">Sell Now</button>
-                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-1 border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/buy">E-Books</NavLink>
+                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-1 border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/buy">Manga</NavLink>
                 </div>
             </div>
 
@@ -127,10 +142,10 @@ const Hero = () => {
                         <h2 className="text-2xl font-bold mb-4">Choose an Option</h2>
                         <div className="flex justify-around">
                             <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                                Buy Course
+                                Sell Course
                             </button>
                             <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
-                                Buy Individual
+                                Sell Individual
                             </button>
                         </div>
                     </div>

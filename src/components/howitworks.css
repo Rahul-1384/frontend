@@ -40,15 +40,17 @@
     animation: sparkle 2s infinite ease-in-out;
   }
   
-  .slide {
-    opacity: 0;
-    transform: translateX(200px);
-    backdrop-filter: blur(20px);
-    transition: all 1s ease-in-out;
-  }
-  
-  .show {
-    opacity: 1;
-    backdrop-filter: blur(0);
-    transform: translateX(0);
+  @media (min-width: 768px){
+    .slide {
+      opacity: 0;
+      transform: translateX(100px);
+      backdrop-filter: blur(20px);
+      transition: all 1s ease-in-out;
+    }
+    
+    .show {
+      opacity: 1;
+      backdrop-filter: blur(0);
+      transform: translateX(0);
+    }
   }

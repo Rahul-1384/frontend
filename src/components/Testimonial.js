@@ -28,11 +28,11 @@ const Testimonial = ({ testimonials }) => {
   }, []);
 
   return (
-    <section className="py-24">
+    <section className="py-24 bg-[#001E29] ">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16">
-          <span className="text-sm text-gray-500 font-medium text-center block mb-2">TESTIMONIAL</span>
-          <h2 className="text-4xl text-center font-bold text-gray-900">What our happy user says!</h2>
+          <span className="text-5xl text-white font-medium text-center block mb-8">TESTIMONIAL</span>
+          <div className="text-lg text-center text-gray-400">What our happy user says!</div>
         </div>
 
         {/* Slider wrapper */}

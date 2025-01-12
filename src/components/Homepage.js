@@ -5,6 +5,8 @@ import HowItWorks from "./HowItWorks";
 import HappyUser from "./HappyUser";
 import Contact from "./Contact";
 import Testimonial from "./Testimonial";
+import Footer from "./Footer";
+import Categories from "./Categories";
 
 const Homepage = () => {
     const address = "Goverdhan chauraha, Mathura, UP, India";
@@ -56,10 +58,12 @@ const Homepage = () => {
         <div>
             <Navbar/>
             <Hero/>
+            <Categories/>
             <HowItWorks/>
             <HappyUser/>
-            <Contact address={address} phone={phone} email={email} hours={hours} socialLinks={socialLinks}/>
             <Testimonial testimonials={testimonialData}/>
+            <Contact address={address} phone={phone} email={email} hours={hours} socialLinks={socialLinks}/>
+            <Footer/>
         </div>
     );
 }

@@ -19,6 +19,10 @@ const Testimonial = ({ testimonials }) => {
         clickable: true,
         type: 'bullets', // Use dots for navigation
       },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
       speed: 1500, // Smooth scrolling effect
     });
 
@@ -56,7 +60,7 @@ const Testimonial = ({ testimonials }) => {
                       </svg>
                       <span className="text-base font-semibold text-indigo-600">{testimonial.rating}</span>
                     </div>
-                    <p className="text-base text-gray-600 leading-6 transition-all duration-500 pb-8 group-hover:text-gray-800 slide_active:text-gray-800">
+                    <p className="text-base text-gray-600 leading-6 transition-all duration-500 pb-8 group-hover:text-gray-800 slide_active:text-gray -800">
                       {testimonial.feedback}
                     </p>
                   </div>
@@ -76,6 +80,8 @@ const Testimonial = ({ testimonials }) => {
             ))}
           </div>
           <div className="swiper-pagination"></div>
+          <div className="swiper-button-next"></div>
+          <div className="swiper-button-prev"></div>
         </div>
       </div>
     </section>

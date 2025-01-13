@@ -7,6 +7,7 @@ import Contact from "./Contact";
 import Testimonial from "./Testimonial";
 import Footer from "./Footer";
 import Categories from "./Categories";
+import Trending from "./Trending";
 
 const Homepage = () => {
     const address = "Goverdhan chauraha, Mathura, UP, India";
@@ -58,6 +59,7 @@ const Homepage = () => {
         <div>
             <Navbar/>
             <Hero/>
+            <Trending/>
             <Categories/>
             <HowItWorks/>
             <HappyUser/>

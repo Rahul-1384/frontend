@@ -157,7 +157,7 @@ const SellBooks = () => {
                 <div className="col-span-2 sm:col-span-1">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Book Type</label>
                   <select
-                    name="book_type"
+                    name="book_type" 
                     value={formData.book_type}
                     onChange={handleChange}
                     required

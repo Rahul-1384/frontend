@@ -31,7 +31,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-white">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a onClick={scrollToTop} href="" className="hover:text-teal-400 no-underline transition duration-300">Home</a></li>
+              <li><a href="" className="hover:text-teal-400 no-underline transition duration-300">Home</a></li>
               <li><a href="#categories" className="hover:text-teal-400 no-underline transition duration-300">Categories</a></li>
               <li><a href="#contact" className="hover:text-teal-400 no-underline transition duration-300">Contact Us</a></li>
               <li><a href="#faq" className="hover:text-teal-400 no-underline transition duration-300">FAQ</a></li>

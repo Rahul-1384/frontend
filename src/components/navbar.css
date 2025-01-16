@@ -18,7 +18,6 @@
     width: 0;
     border-bottom: 3px solid #fdb604;
     transition: width 0.3s ease;
-    transform-origin: left;
 }
 
 .border-bottom-class:hover::before {

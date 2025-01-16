@@ -34,7 +34,7 @@ const Navbar = () => {
 
     return (
         <div className="bg-[#001E29]">
-            <div className="flex justify-between items-center w-[100%] h-[4rem] m-auto px-4 relative">
+            <div className="flex justify-between items-center w-[100%] h-[4rem] m-auto px-4 pt-7 relative">
                 <NavLink to="/" className="rebook-logo relative z-[200] w-[90px] h-[50px]">
                     
                 </NavLink>
@@ -56,7 +56,7 @@ const Navbar = () => {
                         <NavLink className="border-bottom-class no-underline text-white" to="/aboutus">About Us</NavLink>
                     </li>
                     <li className="relative">
-                        <input type="text" value={searchQuery} onChange={handleSearchChange} onKeyDown={handleKeyPress} placeholder="Search books..." className="pl-10 pr-4 py-1 w-[15rem] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fdb604] md:w-[2px] lg:w-auto"/>
+                        <input type="text" value={searchQuery} onChange={handleSearchChange} onKeyDown={handleKeyPress} placeholder="Search books..." className="pl-10 pr-4 py-1 w-[15rem] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fdb604] md:w-[2px] lg:w-[90%]"/>
                         <i className="fa fa-search absolute left-3 top-2 text-gray-400"></i>
                     </li>
                 </ul>
@@ -68,8 +68,8 @@ const Navbar = () => {
                 </button>
 
                 <div className="flex items-center gap-4 md:gap-1">
-                    <NavLink className="button-style font-bold no-underline px-4 py-2 text-[0.7rem] border-2 rounded-sm text-[#fdb604] border-[#fdb604]" to="/signup">Sign Up</NavLink>
-                    <NavLink className="hidden sm:inline-block button-style font-bold no-underline px-4 py-2 text-[0.7rem] border-2 rounded-sm text-[#fdb604] border-[#fdb604]" to="/login">Log in</NavLink>
+                    <NavLink className="button-style font-bold no-underline px-4 py-2 text-[0.6rem] border-2 rounded-sm text-[#fdb604] border-[#fdb604] lg:text-[11px]" to="/signup">Sign Up</NavLink>
+                    <NavLink className="hidden sm:inline-block button-style font-bold no-underline px-4 py-2 text-[0.6rem] border-2 rounded-sm text-[#fdb604] border-[#fdb604] lg:text-[11px]" to="/login">Log in</NavLink>
                 </div>
 
             </div>

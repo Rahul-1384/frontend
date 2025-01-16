@@ -38,4 +38,13 @@
     align-items: center;
     justify-content: center;
   }
-  
+
+  .zoomin{
+    opacity: 0;
+    backdrop-filter: blur(20px);
+    transition: all 1.5s;
+  }
+  .zoom{
+    opacity: 1;
+    backdrop-filter: blur(0);
+  }

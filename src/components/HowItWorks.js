@@ -36,9 +36,9 @@ const HowItWorks = () => {
       <h1 className="text-xl font-bold text-center text-white tracking-wide sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl xxl:text-4xl mb-12">
         How To <span className="text-red-500">Buy & Sell Books</span> On Rebook?
       </h1>
-      <div className="flex  justify-center items-center gap-4">
-        {/* <img src={buy} className="slide  rounded-md w-[80%]" alt="Buy Section" />
-        <img src={sell} className="slide  rounded-md w-[80%]" alt="Sell Section" /> */}
+      <div className="flex flex-col justify-center items-center gap-4">
+        <img src={buy} className="slide  rounded-md w-[80%] mix-blend-plus-darker" alt="Buy Section" />
+        <img src={sell} className="slide  rounded-md w-[80%] mix-blend-plus-darker" alt="Sell Section" />
         
       </div>
     </div>

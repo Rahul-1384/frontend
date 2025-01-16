@@ -20,12 +20,12 @@ function Trending() {
   };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 3000); // Adjust the interval as needed
+    const interval = setInterval(nextSlide, 6000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className='bg-[#001E28] py-20'>
+    <div className='bg-[#002831] py-20'>
         <p className='text-xl font-bold text-center text-white tracking-wide sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl xxl:text-4xl mb-12'>Trending Books</p>
         <div className="relative flex items-center justify-center w-[90%] overflow-hidden mx-auto bg-gradient-to-r p-5 shadow-xl">
             <button 

@@ -2,8 +2,9 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import { lazy, Suspense } from 'react';
 import Loading from './components/Loading';
-const Homepage = lazy(() => import('./components/Homepage'));
-const Sell = lazy(() => import('./components/Sell'));
+import AuthenticationUser from './Pages/AuthenticationUser';
+const Homepage = lazy(() => import('./Pages/Homepage'));
+const Sell = lazy(() => import('./Pages/Sell'));
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Homepage/>} />
           <Route path='/sell' element={<Sell/>} />
+          <Route path='/signup' element={<AuthenticationUser/>} />
         </Routes>
       </Suspense>
   );

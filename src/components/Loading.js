@@ -1,7 +1,7 @@
 import React from 'react';
 import './loading.css'; // Ensure this matches your CSS file path
 
-const Loader = () => {
+const Loading = () => {
   return (
     <div className="loader mx-auto mt-[250px]">
       <div>
@@ -20,4 +20,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default Loading;

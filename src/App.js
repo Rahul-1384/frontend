@@ -1,14 +1,15 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import Loading from './components/Loading';
 import Sidebar from './components/common/Sidebar';
+import { Buy } from './Pages/Buy';
 
-// Lazy-load public pages
+// Lazy-load pages
 const Homepage = lazy(() => import('./Pages/Homepage'));
 const Sell = lazy(() => import('./Pages/Sell'));
 const AuthenticationUser = lazy(() => import('./Pages/AuthenticationUser'));
-
-// Lazy-load admin pages
+const AdminLogin = lazy(() => import('./Pages/AdminLogin'));
 const OverviewPage = lazy(() => import('./Pages/OverviewPage'));
 const BooksPage = lazy(() => import('./Pages/BooksPage'));
 const UsersPage = lazy(() => import('./Pages/UsersPage'));
@@ -17,113 +18,92 @@ const OrdersPage = lazy(() => import('./Pages/OrdersPage'));
 const AnalyticsPage = lazy(() => import('./Pages/AnalyticsPage'));
 const SettingsPage = lazy(() => import('./Pages/SettingsPage'));
 
-// Layouts
 const PublicLayout = ({ children }) => <div>{children}</div>;
 
 const AdminLayout = ({ children }) => (
   <div className="flex h-screen bg-gray-900 text-gray-100 overflow-auto">
-    {/* Background Gradient */}
-    <div className="fixed inset-0 z-0">
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 opacity-80" />
-      <div className="absolute inset-0 backdrop-blur-sm" />
-    </div>
-
-    {/* Sidebar */}
     <Sidebar />
-    {/* Content */}
     <div className="flex-1">{children}</div>
   </div>
 );
 
+const ProtectedRoute = ({ children }) => {
+  const { isAdminAuthenticated } = useAuth();
+  return isAdminAuthenticated ? children : <Navigate to="/admin-login" />;
+};
+
 function App() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        {/* Public Routes (without sidebar) */}
-        <Route
-          path="/"
-          element={
-            <PublicLayout>
-              <Homepage />
-            </PublicLayout>
-          }
-        />
-        <Route
-          path="/sell"
-          element={
-            <PublicLayout>
-              <Sell />
-            </PublicLayout>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <PublicLayout>
-              <AuthenticationUser />
-            </PublicLayout>
-          }
-        />
+    <AuthProvider>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<PublicLayout><Homepage /></PublicLayout>} />
+          <Route path="/sell" element={<PublicLayout><Sell /></PublicLayout>} />
+          <Route path="/login" element={<PublicLayout><AuthenticationUser /></PublicLayout>} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path='/buy' element={<Buy />} />
 
-        {/* Admin Routes (with sidebar) */}
-        <Route
-          path="/admin"
-          element={
-            <AdminLayout>
-              <OverviewPage />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/books"
-          element={
-            <AdminLayout>
-              <BooksPage />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/users"
-          element={
-            <AdminLayout>
-              <UsersPage />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/sales"
-          element={
-            <AdminLayout>
-              <SalesPage />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/orders"
-          element={
-            <AdminLayout>
-              <OrdersPage />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/analytics"
-          element={
-            <AdminLayout>
-              <AnalyticsPage />
-            </AdminLayout>
-          }
-        />
-        <Route
-          path="/admin/settings"
-          element={
-            <AdminLayout>
-              <SettingsPage />
-            </AdminLayout>
-          }
-        />
-      </Routes>
-    </Suspense>
+          {/* Admin Routes */}
+          <Route
+            path="/xynfnsejfdf23jfdcmzqotpwcicdhesf01/admin"
+            element={
+              <ProtectedRoute>
+                <AdminLayout><OverviewPage /></AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ei9kfnsejfdf23jfdmr4wkfscqdwcicdhesf02/admin/books"
+            element={
+              <ProtectedRoute>
+                <AdminLayout><BooksPage /></AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/xymfksnfnsejfdf23jfdcmzqotfmflsdoem2cdhesf03/admin/users"
+            element={
+              <ProtectedRoute>
+                <AdminLayout><UsersPage /></AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/xynfnsejfdf23jffkfslirmdpwcicdhesf04/admin/sales"
+            element={
+              <ProtectedRoute>
+                <AdminLayout><SalesPage /></AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/fksdfoemkcsdejfdf23jfdcmzqotpwcicdhesf05/admin/orders"
+            element={
+              <ProtectedRoute>
+                <AdminLayout><OrdersPage /></AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/xynfnsk0off23jfdcfdsqotfkpicdhesf06/admin/analytics"
+            element={
+              <ProtectedRoute>
+                <AdminLayout><AnalyticsPage /></AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/qqoxkedejgndcf23jfdcmzqiendlsonf07/admin/settings"
+            element={
+              <ProtectedRoute>
+                <AdminLayout><SettingsPage /></AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Suspense>
+    </AuthProvider>
   );
 }
 

@@ -114,7 +114,7 @@ const Hero = () => {
                 </div>
                 <div className="flex gap-4">
                     <button onClick={openModal} className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-none border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem]">Sell Now</button>
-                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-none border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/buy">Manga</NavLink>
+                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-none border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/manga">Manga</NavLink>
                 </div>
             </div>
 
@@ -141,12 +141,12 @@ const Hero = () => {
                         {/* Modal Content */}
                         <h2 className="text-2xl font-bold mb-4">Choose an Option</h2>
                         <div className="flex justify-around">
-                            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                            <NavLink to='/sell' className="px-4 no-underline py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                                 Sell Course
-                            </button>
-                            <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+                            </NavLink>
+                            <NavLink to='/sell' className="px-4 no-underline py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
                                 Sell Individual
-                            </button>
+                            </NavLink>
                         </div>
                     </div>
                 </div>

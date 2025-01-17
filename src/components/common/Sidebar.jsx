@@ -8,14 +8,14 @@ const SIDEBAR_ITEMS = [
 		name: "Overview",
 		icon: BarChart2,
 		color: "#6366f1",
-		href: "/admin",
+		href: "/xynfnsejfdf23jfdcmzqotpwcicdhesf01/admin",
 	},
-	{ name: "Books", icon: ShoppingBag, color: "#8B5CF6", href: "/admin/books" },
-	{ name: "Users", icon: Users, color: "#EC4899", href: "/admin/users" },
-	{ name: "Sales", icon: DollarSign, color: "#10B981", href: "/admin/sales" },
-	{ name: "Orders", icon: ShoppingCart, color: "#F59E0B", href: "/admin/orders" },
-	{ name: "Analytics", icon: TrendingUp, color: "#3B82F6", href: "/admin/analytics" },
-	{ name: "Settings", icon: Settings, color: "#6EE7B7", href: "/admin/settings" },
+	{ name: "Books", icon: ShoppingBag, color: "#8B5CF6", href: "/ei9kfnsejfdf23jfdmr4wkfscqdwcicdhesf02/admin/books" },
+	{ name: "Users", icon: Users, color: "#EC4899", href: "/xymfksnfnsejfdf23jfdcmzqotfmflsdoem2cdhesf03/admin/users" },
+	{ name: "Sales", icon: DollarSign, color: "#10B981", href: "/xynfnsejfdf23jffkfslirmdpwcicdhesf04/admin/sales" },
+	{ name: "Orders", icon: ShoppingCart, color: "#F59E0B", href: "/fksdfoemkcsdejfdf23jfdcmzqotpwcicdhesf05/admin/orders" },
+	{ name: "Analytics", icon: TrendingUp, color: "#3B82F6", href: "/xynfnsk0off23jfdcfdsqotfkpicdhesf06/admin/analytics" },
+	{ name: "Settings", icon: Settings, color: "#6EE7B7", href: "/qqoxkedejgndcf23jfdcmzqiendlsonf07/admin/settings" },
 ];
 
 const Sidebar = () => {

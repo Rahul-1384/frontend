@@ -1,7 +1,11 @@
+
+// Fetch From API Code
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import debounce from 'lodash.debounce';
+import { useSearchParams } from 'react-router-dom';
 import './bookfilter.css';
 import { FaCartPlus, FaFilter, FaTimes } from "react-icons/fa";
+
 
 const BookCard = ({ book, addToCart }) => {
   const discountedPrice = (book.price - (book.discount || 0)).toFixed(2); // Calculate discounted price
@@ -71,8 +75,35 @@ const BookCard = ({ book, addToCart }) => {
 };
 
 
+// Helper functions for query string manipulation
+const parseQueryString = (searchParams) => {
+  const parsedFilters = {};
+  for (const [key, value] of searchParams.entries()) {
+    if (['board', 'category', 'subject', 'reference', 'competitive', 'condition', 'language', 'genre'].includes(key)) {
+      parsedFilters[key] = value.split(',');
+    } else if (key === 'sortBy') {
+      parsedFilters[key] = value;
+    }
+  }
+  return parsedFilters;
+};
+
+const buildQueryString = (filters) => {
+  const params = new URLSearchParams();
+  Object.entries(filters).forEach(([key, value]) => {
+    if (Array.isArray(value) && value.length > 0) {
+      params.set(key, value.join(','));
+    } else if (typeof value === 'string' && value) {
+      params.set(key, value);
+    }
+  });
+  return params.toString();
+};
+
 const BookFilter = () => {
-  const [filters, setFilters] = useState({
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [filters, setFilters] = useState(() => ({
     board: [],
     category: [],
     subject: [],
@@ -82,367 +113,53 @@ const BookFilter = () => {
     language: [],
     genre: [],
     sortBy: '',
-  });
+    ...parseQueryString(searchParams), // Initialize from query string
+  }));
 
-  const [loading, setLoading] = useState(false); // Set to false initially
+  const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 21;
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const [isFilterOpen, setIsFilterOpen] = useState(false); // For toggling filter on mobile
-
+  // Update query string whenever filters change
   useEffect(() => {
-    const fetchBooks = async () => {
-      setLoading(true); // Set loading to true when fetching data
-      const fetchedBooks = [
-        {
-          id: 1,
-          title: 'Mathematics for Class 10',
-          author: 'R.D. Sharma',
-          price: 300,
-          condition: 'Like New',
-          category: 'NCERT',
-          language: 'English',
-          genre: 'School',
-          subject: 'Mathematics',
-          board: 'CBSE',
-          year: 2020,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 8,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 9,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 10,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'UP',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 11,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'UP',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 12,
-          title: 'Rahul for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'UP',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 13,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 14,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'UP',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 15,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 16,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 17,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 18,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 19,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 20,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'UP',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 21,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 22,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 23,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 24,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 25,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 26,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 27,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'ICSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 28,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'UP',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 29,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'UP',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        },
-        {
-          id: 30,
-          title: 'Physics for JEE',
-          author: 'Disha Publications',
-          price: 500,
-          condition: 'Good',
-          category: 'NCERT',
-          language: 'Hindi',
-          genre: 'School',
-          subject: 'Physics',
-          board: 'CBSE',
-          year: 2019,
-          image: 'https://images.alphacoders.com/735/735617.jpg',
-        }
-        // More books...
-      ];
+    const queryString = buildQueryString(filters);
+    setSearchParams(queryString);
+  }, [filters, setSearchParams]);
 
-      // Simulate network delay
-      setTimeout(() => {
-        setBooks(fetchedBooks);
-        setLoading(false); // Set loading to false after data is fetched
-      }, 1000); // Adjust the delay as needed
+  // Fetch books from the API
+  useEffect(() => {
+    setLoading(true); // Set loading to true at the start of the useEffect
+
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/books');
+        const data = await response.json();
+
+        // Filter out duplicate books based on the 'id'
+        const uniqueBooks = data.filter((book, index, self) =>
+          index === self.findIndex((b) => b.id === book.id)
+        );
+
+        // Add only new unique books to the state (to prevent duplicates)
+        setBooks((prevBooks) => {
+          const newBooks = uniqueBooks.filter((newBook) =>
+            !prevBooks.some((book) => book.id === newBook.id)
+          );
+          return [...prevBooks, ...newBooks];
+        });
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching is done
+      }
     };
 
     fetchBooks();
-  }, []); // Fetch books when the component is mounted
+  }, []);
+
+
 
   const filteredBooks = useMemo(() => {
     const filtered = books.filter((book) => {
@@ -456,26 +173,19 @@ const BookFilter = () => {
         { key: 'language', value: book.language?.toLowerCase() },
         { key: 'genre', value: book.genre?.toLowerCase() },
       ];
-    
+
       return filterConditions.every(({ key, value }) => {
         if (!filters[key]) {
-          return true; // If filters[key] doesn't exist, consider it a match
+          return true;
         }
         return filters[key].length === 0 || (value && filters[key].includes(value));
       });
     });
-    
 
-    const uniqueBooks = filtered.reduce((acc, current) => {
-      if (!acc.some(book => book.id === current.id)) {
-        acc.push(current);
-      }
-      return acc;
-    }, []);
-
-    return uniqueBooks;
+    return filtered;
   }, [filters, books]);
 
+  // Pagination and other code...
   const sortedBooks = useMemo(() => {
     return filteredBooks.sort((a, b) => {
       switch (filters.sortBy) {
@@ -531,8 +241,12 @@ const BookFilter = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',  // Add smooth scroll behavior
+    });
   };
+  
 
   const handlePrev = () => {
     if (currentPage > 1) {
@@ -781,13 +495,13 @@ const BookFilter = () => {
           })}
           className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all mb-4"
         >
-          <span onClick={window.scrollTo(0, 0)}>Clear All Filters</span>
+          <span>Clear All Filters</span>
         </button>
       </div>
 
       {/* Books Grid */}
       <div className="w-full md:w-4/5 p-4">
-        {loading ? (
+      {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: booksPerPage }).map((_, index) => (
               <div key={index} className="bg-white p-4 border border-gray-200 rounded-xl shadow-md animate-pulse">
@@ -830,43 +544,53 @@ const BookFilter = () => {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {currentBooks.map((book) => (
-              <BookCard key={book.id} book={book} addToCart={() => console.log(`Added ${book.title} to cart`)} />
-            ))}
-          </div>
+          {/* Render filtered books */}
+          {filteredBooks.map((book) => (
+            <BookCard key={book.id} book={book} addToCart={() => console.log(`Added ${book.title} to cart`)} />
+          ))}
+        </div>
         )}
 
         {/* Pagination */}
         {currentBooks.length > 0 && (
           <div className="flex items-center justify-center mt-6 space-x-2">
             <button
-              onClick={handlePrev}
-              disabled={currentPage === 1}
-              className="px-4 py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 disabled:opacity-50"
-            >
-              Prev
-            </button>
-            {paginationRange.map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`px-4 py-2 rounded-md ${page === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600 hover:bg-gray-300'}`}
-              >
-                {page}
-              </button>
-            ))}
+            onClick={handlePrev}
+            disabled={currentPage === 1}
+            className={`px-4 py-2 rounded-md ${
+              currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
+          >
+            Previous
+          </button>
+
+          {paginationRange.map((page) => (
             <button
-              onClick={handleNext}
-              disabled={currentPage === totalPages}
-              className="px-4 py-2 bg-gray-200 text-gray-600 rounded-md hover:bg-gray-300 disabled:opacity-50"
+              key={page}
+              onClick={() => handlePageChange(page)}
+              className={`px-3 py-1 rounded-md ${
+                currentPage === page ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'
+              }`}
             >
-              Next
+              {page}
             </button>
+          ))}
+
+          <button
+            onClick={handleNext}
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 rounded-md ${
+              currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
+          >
+            Next
+          </button>
           </div>
         )}
       </div>
 
     </div>
+
   );
 };
 

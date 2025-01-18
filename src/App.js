@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Loading from './components/Loading';
 import Sidebar from './components/common/Sidebar';
 import { Buy } from './Pages/Buy';
+import Cart from './Pages/Cart';
 
 // Lazy-load pages
 const Homepage = lazy(() => import('./Pages/Homepage'));
@@ -43,6 +44,7 @@ function App() {
           <Route path="/login" element={<PublicLayout><AuthenticationUser /></PublicLayout>} />
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path='/buy' element={<Buy />} />
+          <Route path='/cart' element={<Cart />} />
 
           {/* Admin Routes */}
           <Route

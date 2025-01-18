@@ -1,0 +1,148 @@
+{
+    "books": [
+      {
+        "id": 1,
+        "title": "Physics for Beginners",
+        "author": "John Doe",
+        "board": "CBSE",
+        "category": "NCERT",
+        "subject": "Physics",
+        "condition": "New",
+        "language": "English",
+        "genre": "Academic",
+        "price": 15,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 10,
+        "title": "Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      },
+      {
+        "id": 2,
+        "title": "Chemistry Advanced",
+        "author": "Jane Smith",
+        "board": "ICSE",
+        "category": "Science",
+        "subject": "Chemistry",
+        "condition": "Used",
+        "language": "English",
+        "genre": "Academic",
+        "price": 12,
+        "image": "https://via.placeholder.com/150"
+      }
+    ]
+  }
+  

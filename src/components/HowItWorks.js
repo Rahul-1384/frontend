@@ -2,11 +2,6 @@ import React, { useEffect } from "react";
 import './howitworks.css';
 import sell from '../images/sell-section.png';
 import buy from '../images/buy-section.png';
-import sell1 from '../images/sell-section-1.png';
-import sell2 from '../images/sell-section-2.png';
-import sell3 from '../images/sell-section-3.png';
-import sell4 from '../images/sell-section-4.png';
-import sell5 from '../images/sell-section-5.png';
 
 
 const HowItWorks = () => {

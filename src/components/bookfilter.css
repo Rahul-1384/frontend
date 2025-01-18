@@ -1,0 +1,28 @@
+@media (max-width: 768px) {
+    .filter-section {
+      width: 80%;
+      height: 80%;
+      position: fixed;
+      right: 0;
+      left: 0;
+      margin: auto;
+      overflow-y: scroll;
+      border-radius: 10px;
+      box-shadow: 0px 0px 0px 800px rgba(0, 0, 0, 0.70);
+      transform: translateY(100%); /* Initial position off-screen */
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+    }
+  
+    .filter-section.open-modal {
+      transform: translateY(0); /* Slide to center */
+      opacity: 1; /* Fade in */
+    }
+  
+    .filter-section.close-modal {
+      transform: translateY(100%); /* Slide back down */
+      opacity: 0; /* Fade out */
+    }
+  }
+  
+

@@ -128,36 +128,75 @@ const BookFilter = () => {
     setSearchParams(queryString);
   }, [filters, setSearchParams]);
 
-  // Fetch books from the API
-  useEffect(() => {
-    setLoading(true); // Set loading to true at the start of the useEffect
+ // Function to fetch books from the API
+const fetchBooks = async () => {
+  setLoading(true); // Set loading to true at the start of the request
 
-    const fetchBooks = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/books');
-        const data = await response.json();
+  try {
+    const response = await fetch('http://localhost:5000/books');
+    const data = await response.json();
+    console.log("Fetched books:", data);
 
-        // Filter out duplicate books based on the 'id'
-        const uniqueBooks = data.filter((book, index, self) =>
-          index === self.findIndex((b) => b.id === book.id)
+    // Filter out duplicate books based on the 'id'
+    const uniqueBooks = data.filter((book, index, self) =>
+      index === self.findIndex((b) => b.id === book.id)
+    );
+
+    // Add or update books in state
+    setBooks((prevBooks) => {
+      return uniqueBooks.map((newBook) => {
+        // Find existing book by id
+        const existingBookIndex = prevBooks.findIndex(
+          (book) => book.id === newBook.id
         );
 
-        // Add only new unique books to the state (to prevent duplicates)
-        setBooks((prevBooks) => {
-          const newBooks = uniqueBooks.filter((newBook) =>
-            !prevBooks.some((book) => book.id === newBook.id)
-          );
-          return [...prevBooks, ...newBooks];
-        });
-      } catch (error) {
-        console.error('Error fetching books:', error);
-      } finally {
-        setLoading(false); // Set loading to false after fetching is done
-      }
-    };
+        if (existingBookIndex === -1) {
+          // If book doesn't exist, add it as a new book
+          return newBook;
+        } else {
+          // If book exists, check if the data has changed (all fields)
+          const existingBook = prevBooks[existingBookIndex];
+          const hasChanged =
+            existingBook.title !== newBook.title ||
+            existingBook.author !== newBook.author ||
+            existingBook.board !== newBook.board ||
+            existingBook.category !== newBook.category ||
+            existingBook.subject !== newBook.subject ||
+            existingBook.condition !== newBook.condition ||
+            existingBook.language !== newBook.language ||
+            existingBook.genre !== newBook.genre ||
+            existingBook.price !== newBook.price ||
+            existingBook.image !== newBook.image; // Check all fields for changes
 
-    fetchBooks();
-  }, []);
+          if (hasChanged) {
+            // If data has changed, update the book
+            return { ...existingBook, ...newBook }; // Merge changes
+          }
+
+          return existingBook; // If no changes, keep the old book data
+        }
+      });
+    });
+  } catch (error) {
+    console.error('Error fetching books:', error);
+  } finally {
+    setLoading(false); // Set loading to false after the request is completed
+  }
+};
+
+// useEffect to handle polling with debounce or throttle
+useEffect(() => {
+  fetchBooks(); // Initial fetch when component mounts
+
+  const intervalId = setInterval(() => {
+    fetchBooks(); // Polling every 30 seconds (adjust as needed)
+  }, 8000); // Change polling interval as needed
+
+  // Cleanup on component unmount
+  return () => {
+    clearInterval(intervalId); // Clear the interval when component unmounts
+  };
+}, []);
 
 
 
@@ -411,7 +450,7 @@ const BookFilter = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">Condition</label>
           <div>
-            {['Like New', 'Good', 'Just Okay (Acceptable)'].map((option) => (
+            {['Like New', 'Good', 'Acceptable'].map((option) => (
               <label key={option} className="block text-sm">
                 <input
                   type="checkbox"

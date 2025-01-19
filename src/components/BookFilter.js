@@ -190,7 +190,7 @@ useEffect(() => {
 
   const intervalId = setInterval(() => {
     fetchBooks(); // Polling every 30 seconds (adjust as needed)
-  }, 8000); // Change polling interval as needed
+  }, 60000); // Change polling interval as needed
 
   // Cleanup on component unmount
   return () => {

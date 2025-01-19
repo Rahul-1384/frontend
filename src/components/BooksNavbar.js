@@ -1,32 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
-import logo from '../images/rebook-logo.png';
-import './booksnavbar.css';
+import logo from "../images/rebook-logo.png";
+import "./booksnavbar.css";
 import { NavLink } from "react-router-dom";
-import { FiShoppingCart } from "react-icons/fi"; // Importing shopping cart icon
+import { FiShoppingCart } from "react-icons/fi";
 
 const BooksNavbar = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [results, setResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleKeyPress = async (e) => {
-    if (e.key === "Enter") {
-      setIsLoading(true);
-      try {
-        const response = await axios.get(
-          `/api/search?q=${encodeURIComponent(searchTerm)}`
-        );
-        setResults(response.data || []);
-      } catch (error) {
-        console.error("Error performing search:", error);
-        setResults([]);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-  };
 
   return (
     <nav className="bg-[#001E29] shadow-md top-0 z-10">
@@ -57,23 +36,6 @@ const BooksNavbar = () => {
               ></path>
             </svg>
           </button>
-        </div>
-
-        {/* Search Bar */}
-        <div className="relative w-1/3">
-          <input
-            type="text"
-            placeholder="Search books..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyPress={handleKeyPress}
-            className="w-full py-2 px-4 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          {isLoading && (
-            <div className="absolute top-2 right-2">
-              <div className="loader border-t-2 border-blue-500 w-4 h-4 rounded-full animate-spin"></div>
-            </div>
-          )}
         </div>
 
         {/* Desktop Navigation Buttons and Cart */}
@@ -109,33 +71,13 @@ const BooksNavbar = () => {
             <NavLink to="/sell" className="no-underline text-lg font-bold py-2">
               Sell
             </NavLink>
-            <NavLink
-              to="/login"
-              className="no-underline text-lg font-bold py-2"
-            >
+            <NavLink to="/login" className="no-underline text-lg font-bold py-2">
               Login
             </NavLink>
-            <NavLink
-              to="/cart"
-              className="no-underline text-lg font-bold py-2"
-            >
+            <NavLink to="/cart" className="no-underline text-lg font-bold py-2">
               Cart
             </NavLink>
           </div>
-        </div>
-      )}
-
-      {/* Search Results */}
-      {results.length > 0 && (
-        <div className="container mx-auto mt-4">
-          <h2 className="text-lg font-semibold mb-2">Search Results:</h2>
-          <ul className="bg-white border rounded-md shadow-lg">
-            {results.map((result, index) => (
-              <li key={index} className="px-4 py-2 hover:bg-gray-100">
-                {result}
-              </li>
-            ))}
-          </ul>
         </div>
       )}
     </nav>

@@ -1,5 +1,3 @@
-
-// Fetch From API Code
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import debounce from 'lodash.debounce';
 import { useSearchParams } from 'react-router-dom';
@@ -8,15 +6,19 @@ import { FaCartPlus, FaFilter, FaTimes } from "react-icons/fa";
 
 
 const BookCard = ({ book, addToCart }) => {
-  const discountedPrice = (book.price - (book.discount || 0)).toFixed(2); // Calculate discounted price
+  const discountedPrice = (book.price - (book.discount || 0)).toFixed(2);
 
   return (
-    <div className="border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white">
+    <div
+      className="border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white"
+      aria-label={`Book card for ${book.title}`}
+      tabIndex={0}
+    >
       {/* Image Section */}
       <div className="relative h-64">
         <img
           src={book.image}
-          alt={book.title}
+          alt={`Cover of ${book.title}`}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-t-xl"></div>
@@ -29,14 +31,14 @@ const BookCard = ({ book, addToCart }) => {
       {/* Details Section */}
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between">
-          <div className='flex items-center gap-2'>
+          <div className="flex items-center gap-2">
             <p className="text-3xl font-bold text-blue-600">₹{discountedPrice}</p>
             <p className="text-sm text-gray-400">
               <span className="font-medium">M.R.P:</span>{" "}
               <span className="line-through text-gray-400">₹{book.price}</span>
             </p>
           </div>
-          <p className='text-lg font-semibold'>{book.board}</p>
+          <p className="text-lg font-semibold">{book.board}</p>
         </div>
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-gray-600">
@@ -58,12 +60,16 @@ const BookCard = ({ book, addToCart }) => {
 
         {/* Buttons */}
         <div className="flex gap-2">
-          <button className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 rounded-md hover:from-indigo-600 hover:to-blue-500 transition-all duration-300">
+          <button
+            className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 rounded-md hover:from-indigo-600 hover:to-blue-500 transition-all duration-300"
+            aria-label={`Buy ${book.title} now`}
+          >
             Buy Now
           </button>
           <button
             onClick={() => addToCart(book)}
             className="flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 p-2 rounded-md transition-all duration-300"
+            aria-label={`Add ${book.title} to cart`}
             title="Add to Cart"
           >
             <FaCartPlus size={18} />
@@ -74,7 +80,6 @@ const BookCard = ({ book, addToCart }) => {
   );
 };
 
-
 // Helper functions for query string manipulation
 const parseQueryString = (searchParams) => {
   const parsedFilters = {};
@@ -83,6 +88,8 @@ const parseQueryString = (searchParams) => {
       parsedFilters[key] = value.split(',');
     } else if (key === 'sortBy') {
       parsedFilters[key] = value;
+    } else if (key === 'page') {
+      parsedFilters[key] = parseInt(value, 10) || 1; // Default to 1 if no page is specified
     }
   }
   return parsedFilters;
@@ -95,6 +102,8 @@ const buildQueryString = (filters) => {
       params.set(key, value.join(','));
     } else if (typeof value === 'string' && value) {
       params.set(key, value);
+    } else if (key === 'page' && value) {
+      params.set(key, value);  // Add page to query string
     }
   });
   return params.toString();
@@ -113,13 +122,15 @@ const BookFilter = () => {
     language: [],
     genre: [],
     sortBy: '',
+    page: 1, // Default to page 1
     ...parseQueryString(searchParams), // Initialize from query string
   }));
 
+  const [searchTerm, setSearchTerm] = useState(""); // Add search state
   const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const booksPerPage = 21;
+  const [currentPage, setCurrentPage] = useState(filters.page || 1);
+  const booksPerPage = 9;
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // Update query string whenever filters change
@@ -128,80 +139,40 @@ const BookFilter = () => {
     setSearchParams(queryString);
   }, [filters, setSearchParams]);
 
- // Function to fetch books from the API
-const fetchBooks = async () => {
-  setLoading(true); // Set loading to true at the start of the request
+  // Function to fetch books from the API
+  const fetchBooks = async () => {
+    setLoading(true); // Set loading to true at the start of the request
 
-  try {
-    const response = await fetch('http://localhost:5000/books');
-    const data = await response.json();
-    console.log("Fetched books:", data);
+    try {
+      const response = await fetch('http://localhost:3000/books');
+      const data = await response.json();
+      console.log("Fetched books:", data);
 
-    // Filter out duplicate books based on the 'id'
-    const uniqueBooks = data.filter((book, index, self) =>
-      index === self.findIndex((b) => b.id === book.id)
-    );
+      // Filter out duplicate books based on the 'id'
+      const uniqueBooks = data.filter((book, index, self) =>
+        index === self.findIndex((b) => b.id === book.id)
+      );
 
-    // Add or update books in state
-    setBooks((prevBooks) => {
-      return uniqueBooks.map((newBook) => {
-        // Find existing book by id
-        const existingBookIndex = prevBooks.findIndex(
-          (book) => book.id === newBook.id
-        );
-
-        if (existingBookIndex === -1) {
-          // If book doesn't exist, add it as a new book
-          return newBook;
-        } else {
-          // If book exists, check if the data has changed (all fields)
-          const existingBook = prevBooks[existingBookIndex];
-          const hasChanged =
-            existingBook.title !== newBook.title ||
-            existingBook.author !== newBook.author ||
-            existingBook.board !== newBook.board ||
-            existingBook.category !== newBook.category ||
-            existingBook.subject !== newBook.subject ||
-            existingBook.condition !== newBook.condition ||
-            existingBook.language !== newBook.language ||
-            existingBook.genre !== newBook.genre ||
-            existingBook.price !== newBook.price ||
-            existingBook.image !== newBook.image; // Check all fields for changes
-
-          if (hasChanged) {
-            // If data has changed, update the book
-            return { ...existingBook, ...newBook }; // Merge changes
-          }
-
-          return existingBook; // If no changes, keep the old book data
-        }
-      });
-    });
-  } catch (error) {
-    console.error('Error fetching books:', error);
-  } finally {
-    setLoading(false); // Set loading to false after the request is completed
-  }
-};
-
-// useEffect to handle polling with debounce or throttle
-useEffect(() => {
-  fetchBooks(); // Initial fetch when component mounts
-
-  const intervalId = setInterval(() => {
-    fetchBooks(); // Polling every 30 seconds (adjust as needed)
-  }, 60000); // Change polling interval as needed
-
-  // Cleanup on component unmount
-  return () => {
-    clearInterval(intervalId); // Clear the interval when component unmounts
+      setBooks(uniqueBooks);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    } finally {
+      setLoading(false); // Set loading to false after the request is completed
+    }
   };
-}, []);
 
+  useEffect(() => {
+    fetchBooks(); // Initial fetch when component mounts
+  }, []);
 
-
+  // Filter books based on search term and other filters
   const filteredBooks = useMemo(() => {
-    const filtered = books.filter((book) => {
+    const searchFiltered = books.filter((book) => {
+      const matchesSearchTerm = book.title.toLowerCase().includes(searchTerm.toLowerCase());
+      if (searchTerm && !matchesSearchTerm) {
+        return false; // Filter out books that do not match the search term
+      }
+
       const filterConditions = [
         { key: 'board', value: book.board?.toLowerCase() },
         { key: 'category', value: book.category?.toLowerCase() },
@@ -221,26 +192,27 @@ useEffect(() => {
       });
     });
 
-    return filtered;
-  }, [filters, books]);
+    return searchFiltered;
+  }, [filters, books, searchTerm]);
 
   // Pagination and other code...
   const sortedBooks = useMemo(() => {
     return filteredBooks.sort((a, b) => {
       switch (filters.sortBy) {
         case 'price-low-high':
-          return a.price - b.price;
+          return (a.price || 0) - (b.price || 0);
         case 'price-high-low':
-          return b.price - a.price;
+          return (b.price || 0) - (a.price || 0);
         case 'newest':
-          return b.year - a.year;
+          return (b.year || 0) - (a.year || 0);
         case 'oldest':
-          return a.year - b.year;
+          return (a.year || 0) - (b.year || 0);
         default:
           return 0;
       }
     });
   }, [filteredBooks, filters.sortBy]);
+  
 
   const toggleSelection = useCallback((value, key) => {
     setFilters((prev) => {
@@ -269,39 +241,42 @@ useEffect(() => {
       debounce((newFilters) => {
         setFilters(newFilters);
         window.scrollTo(0, 0);
-      }, 6000),
+      }, 1000),
     []
   );
 
   // Calculate the paginated books
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
-  const currentBooks = sortedBooks.slice(indexOfFirstBook, indexOfLastBook);
+  const currentBooks = filteredBooks.slice(indexOfFirstBook, indexOfLastBook);  // Ensure we slice correctly
 
+
+  
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    setFilters((prev) => ({
+      ...prev,
+      page: page, // Set page in filters object
+    }));
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',  // Add smooth scroll behavior
+      behavior: 'smooth',
     });
   };
-  
 
   const handlePrev = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      window.scrollTo(0, 0);
+      handlePageChange(currentPage - 1);
     }
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-      window.scrollTo(0, 0);
+      handlePageChange(currentPage + 1);
     }
   };
 
-  const totalPages = Math.ceil(sortedBooks.length / booksPerPage);
+  const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
 
   const paginationRange = useMemo(() => {
     const range = [];
@@ -326,9 +301,15 @@ useEffect(() => {
     return range;
   }, [currentPage, totalPages]);
 
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Reset pagination on search
+  };
+
   return (
     <div className="flex flex-col md:flex-row">
-      {/* Filter Toggle Button for Mobile */}
+      
       <button
         onClick={() => setIsFilterOpen(!isFilterOpen)}
         className="md:hidden p-4 text-white bg-blue-500 sticky top-0  z-50 flex items-center justify-between w-full"
@@ -540,7 +521,17 @@ useEffect(() => {
 
       {/* Books Grid */}
       <div className="w-full md:w-4/5 p-4">
-      {loading ? (
+      {/* Search Input */}
+      <div className="md:w-full p-4">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search for books"
+          className="w-full p-2 border border-gray-300 rounded-md mb-4"
+        />
+      </div>
+        {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {Array.from({ length: booksPerPage }).map((_, index) => (
               <div key={index} className="bg-white p-4 border border-gray-200 rounded-xl shadow-md animate-pulse">
@@ -553,7 +544,7 @@ useEffect(() => {
               </div>
             ))}
           </div>
-        ) : currentBooks.length === 0 ? (
+        ) : filteredBooks.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16">
             <img
               src="https://media.tenor.com/OJalYnY8qjAAAAAj/oops-oops-sorry.gif"
@@ -583,15 +574,15 @@ useEffect(() => {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {/* Render filtered books */}
-          {filteredBooks.map((book) => (
-            <BookCard key={book.id} book={book} addToCart={() => console.log(`Added ${book.title} to cart`)} />
-          ))}
-        </div>
+            {/* Render filtered books */}
+            {currentBooks.map((book) => (
+              <BookCard key={book.id} book={book} addToCart={() => console.log(`Added ${book.title} to cart`)} />
+            ))}
+          </div>
         )}
 
         {/* Pagination */}
-        {currentBooks.length > 0 && (
+        {filteredBooks.length > 0 && (
           <div className="flex items-center justify-center mt-6 space-x-2">
             <button
             onClick={handlePrev}
@@ -627,9 +618,7 @@ useEffect(() => {
           </div>
         )}
       </div>
-
     </div>
-
   );
 };
 

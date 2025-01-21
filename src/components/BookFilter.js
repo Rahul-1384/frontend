@@ -1,4 +1,6 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import { useCart } from "../context/CartContext";
+import { useNavigate } from 'react-router-dom';
 import debounce from 'lodash.debounce';
 import { useSearchParams } from 'react-router-dom';
 import './bookfilter.css';
@@ -7,7 +9,6 @@ import { FaCartPlus, FaFilter, FaTimes } from "react-icons/fa";
 
 const BookCard = ({ book, addToCart }) => {
   const discountedPrice = (book.price - (book.discount || 0)).toFixed(2);
-
   return (
     <div
       className="border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white"
@@ -61,7 +62,7 @@ const BookCard = ({ book, addToCart }) => {
         {/* Buttons */}
         <div className="flex gap-2">
           <button
-            className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 rounded-md hover:from-indigo-600 hover:to-blue-500 transition-all duration-300"
+            className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 rounded-md hover:from-indigo-600 hover:to-blue-500 transition-all duration-1000"
             aria-label={`Buy ${book.title} now`}
           >
             Buy Now
@@ -111,6 +112,7 @@ const buildQueryString = (filters) => {
 
 const BookFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate(); // Correctly use this hook
 
   const [filters, setFilters] = useState(() => ({
     board: [],
@@ -127,17 +129,28 @@ const BookFilter = () => {
   }));
 
   const [searchTerm, setSearchTerm] = useState(""); // Add search state
+  const [inputSearchTerm, setInputSearchTerm] = useState(""); // Temporary input state
   const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(filters.page || 1);
   const booksPerPage = 9;
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
+  // Sync filters with searchParams
+  useEffect(() => {
+    const newFilters = parseQueryString(searchParams);
+    setFilters((prev) => ({
+      ...prev,
+      ...newFilters,
+    }));
+  }, [searchParams]);
+
   // Update query string whenever filters change
   useEffect(() => {
     const queryString = buildQueryString(filters);
-    setSearchParams(queryString);
-  }, [filters, setSearchParams]);
+    navigate(`?${queryString}`, { replace: true });
+  }, [filters, navigate]);
+
 
   // Function to fetch books from the API
   const fetchBooks = async () => {
@@ -302,10 +315,31 @@ const BookFilter = () => {
   }, [currentPage, totalPages]);
 
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
+  const handleSearchSubmit = () => {
+    setSearchTerm(inputSearchTerm);
     setCurrentPage(1); // Reset pagination on search
   };
+
+  // Handle Enter Key Submission
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearchSubmit();
+    }
+  };
+
+  // Handle Search Input Change
+  const handleInputChange = (e) => {
+    setInputSearchTerm(e.target.value);
+  };
+
+  const { dispatch } = useCart(); // Ensure useCart is used correctly
+  console.log("Dispatch function initialized", !!dispatch); // Logs true/false to check if dispatch exists
+
+  // Define addToCart function correctly within BuyPage
+  // const addToCart = (book) => {
+  //   console.log('Adding to cart:', book); // Debug log
+  //   dispatch({ type: "ADD_TO_CART", payload: book });
+  // };
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -522,14 +556,21 @@ const BookFilter = () => {
       {/* Books Grid */}
       <div className="w-full md:w-4/5 p-4">
       {/* Search Input */}
-      <div className="md:w-full p-4">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Search for books"
-          className="w-full p-2 border border-gray-300 rounded-md mb-4"
-        />
+      <div className="md:w-full p-4 flex gap-4">
+      <input
+            type="text"
+            value={inputSearchTerm}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Search for books"
+            className="w-full p-2 border border-gray-300 rounded-md"
+          />
+          <button
+            onClick={handleSearchSubmit}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Search
+          </button>
       </div>
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -576,7 +617,7 @@ const BookFilter = () => {
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Render filtered books */}
             {currentBooks.map((book) => (
-              <BookCard key={book.id} book={book} addToCart={() => console.log(`Added ${book.title} to cart`)} />
+              <BookCard  key={book.id} book={book} addToCart={(book) => {dispatch({ type: "ADD_TO_CART", payload: book }); console.log('Adding to cart:', book)}} />
             ))}
           </div>
         )}

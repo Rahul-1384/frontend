@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom"; // Import useNavigate
 import './navbar.css';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    // const inputRef = useRef(null);
+
     
     const navigate = useNavigate();
 
@@ -32,6 +34,12 @@ const Navbar = () => {
         }
     };
 
+    // const handleButtonClick = () => {
+    //     if (inputRef.current) {
+    //         inputRef.current.focus(); // Set focus on the input field
+    //     }
+    // };
+
     return (
         <div className="bg-[#001E29]">
             <div className="flex justify-between items-center w-[100%] h-[4rem] m-auto px-4  relative">
@@ -39,7 +47,7 @@ const Navbar = () => {
                     
                 </NavLink>
 
-                <ul className="hidden md:flex md:mt-4 md:items-center md:space-x-6 md:text-[0.7rem] lg:text-[1rem]">
+                <ul className="navItems hidden md:flex md:mt-4 md:items-center md:space-x-6 md:text-[0.7rem] lg:text-[1rem]">
                     <li>
                         <NavLink className="border-bottom-class no-underline text-white" to="/">Home</NavLink>
                     </li>
@@ -55,9 +63,20 @@ const Navbar = () => {
                     <li>
                         <NavLink className="border-bottom-class no-underline text-white" to="/aboutus">About Us</NavLink>
                     </li>
-                    <li className="relative">
-                        <input type="text" value={searchQuery} onChange={handleSearchChange} onKeyDown={handleKeyPress} placeholder="Search books..." className="pl-10 pr-4 py-1 w-[15rem] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fdb604] md:w-[2px] lg:w-[90%]"/>
+                    {/* <li className="relative">
+                        <input type="text"  placeholder="Search books..." className="pl-10 pr-4 py-1 w-[15rem] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fdb604] md:w-[2px] lg:w-[90%]"/>
                         <i className="fa fa-search absolute left-3 top-2 text-gray-400"></i>
+                    </li> */}
+                    {/* onClick={handleButtonClick} */}
+                    <li class="input-wrapper">
+                        <button class="icon" > 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="25px" width="25px">
+                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#fff" d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"></path>
+                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#fff" d="M22 22L20 20"></path>
+                            </svg>
+                        </button>
+                        {/* ref={inputRef} */}
+                        <input autoFocus={true} placeholder="search.." value={searchQuery} onChange={handleSearchChange} onKeyDown={handleKeyPress} name="text" type="text"className="input"  />
                     </li>
                 </ul>
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
   // Smooth scroll to top function
@@ -32,9 +33,9 @@ const Footer = () => {
             <h3 className="text-2xl font-semibold text-white">Quick Links</h3>
             <ul className="space-y-2">
               <li><a href="" className="hover:text-teal-400 no-underline transition duration-300">Home</a></li>
-              <li><a href="#categories" className="hover:text-teal-400 no-underline transition duration-300">Categories</a></li>
-              <li><a href="#contact" className="hover:text-teal-400 no-underline transition duration-300">Contact Us</a></li>
-              <li><a href="#faq" className="hover:text-teal-400 no-underline transition duration-300">FAQ</a></li>
+              <li><NavLink to="#categories" className="hover:text-teal-400 no-underline transition duration-300">Categories</NavLink></li>
+              <li><NavLink to="/contactus" className="hover:text-teal-400 no-underline transition duration-300">Contact Us</NavLink></li>
+              <li><NavLink to="#faq" className="hover:text-teal-400 no-underline transition duration-300">FAQ</NavLink></li>
             </ul>
           </div>
 

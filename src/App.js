@@ -7,6 +7,9 @@ import Sidebar from "./components/common/Sidebar";
 import { Buy } from "./Pages/Buy";
 import Cart from "./Pages/CartPage";
 import BuyPage from "./components/BuyPage";
+import AboutUs from "./Pages/AboutUs";
+import ContactUs from "./Pages/ContactUs";
+import BookDetail from "./Pages/BookDetail";
 
 // Lazy-load pages
 const Homepage = lazy(() => import("./Pages/Homepage"));
@@ -58,6 +61,9 @@ function App() {
             <Route path="/buy" element={<Buy />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/buypage" element={<BuyPage />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/contactus" element={<ContactUs />} />
+            <Route path="/book/:id" element={<BookDetail />} />
 
             {/* Admin Routes */}
             <Route

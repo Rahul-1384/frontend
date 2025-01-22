@@ -7,13 +7,14 @@ import './bookfilter.css';
 import { FaCartPlus, FaFilter, FaTimes } from "react-icons/fa";
 
 
-const BookCard = ({ book, addToCart }) => {
-  const discountedPrice = (book.price - (book.discount || 0)).toFixed(2);
+const BookCard = ({ book, addToCart, onClick }) => {
+  const discountedPrice = ((book.price || 0) - (book.discount || 0)).toFixed(2);
   return (
     <div
       className="border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white"
       aria-label={`Book card for ${book.title}`}
       tabIndex={0}
+      onClick={onClick} 
     >
       {/* Image Section */}
       <div className="relative h-64">
@@ -68,7 +69,10 @@ const BookCard = ({ book, addToCart }) => {
             Buy Now
           </button>
           <button
-            onClick={() => addToCart(book)}
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent navigation on Add to Cart click
+              addToCart(book);
+            }}
             className="flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 p-2 rounded-md transition-all duration-300"
             aria-label={`Add ${book.title} to cart`}
             title="Add to Cart"
@@ -340,6 +344,12 @@ const BookFilter = () => {
   //   console.log('Adding to cart:', book); // Debug log
   //   dispatch({ type: "ADD_TO_CART", payload: book });
   // };
+
+
+  const handleCardClick = (id) => {
+    navigate(`/book/${id}`);
+    console.log("Id of the book", id);
+  };
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -617,7 +627,7 @@ const BookFilter = () => {
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Render filtered books */}
             {currentBooks.map((book) => (
-              <BookCard  key={book.id} book={book} addToCart={(book) => {dispatch({ type: "ADD_TO_CART", payload: book }); console.log('Adding to cart:', book)}} />
+              <BookCard  key={book.id} book={book} addToCart={(book) => {dispatch({ type: "ADD_TO_CART", payload: book }); console.log('Adding to cart:', book)}} onClick={() => handleCardClick(book.id)} />
             ))}
           </div>
         )}

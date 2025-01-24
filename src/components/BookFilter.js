@@ -5,28 +5,52 @@ import debounce from 'lodash.debounce';
 import { useSearchParams } from 'react-router-dom';
 import './bookfilter.css';
 import { FaCartPlus, FaFilter, FaTimes } from "react-icons/fa";
+import PropTypes from 'prop-types';
 
+const Button = ({ onClick, label, children, className, ariaLabel }) => (
+  <button
+    onClick={onClick}
+    className={`py-2 px-4 rounded-md transition-all duration-300 ${className}`}
+    aria-label={ariaLabel}
+  >
+    {children || label}
+  </button>
+);
+
+Button.propTypes = {
+  onClick: PropTypes.func,
+  label: PropTypes.string,
+  children: PropTypes.node,
+  className: PropTypes.string,
+  ariaLabel: PropTypes.string.isRequired,
+};
 
 const BookCard = ({ book, addToCart, onClick }) => {
-  const discountedPrice = ((book.price || 0) - (book.discount || 0)).toFixed(2);
+  const discountedPrice = (
+    Math.max(0, (book.price || 0) - (book.discount || 0))
+  ).toFixed(2);
+
   return (
     <div
       className="border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white"
-      aria-label={`Book card for ${book.title}`}
+      aria-label={`Book card for ${book.title || 'Untitled'}`}
       tabIndex={0}
-      onClick={onClick} 
+      onClick={onClick}
     >
       {/* Image Section */}
       <div className="relative h-64">
         <img
-          src={book.image}
-          alt={`Cover of ${book.title}`}
+          src={book.image || 'https://via.placeholder.com/150'}
+          alt={`Cover of ${book.title || 'Untitled'}`}
           className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-t-xl"></div>
         <div className="absolute bottom-4 left-4 text-white">
-          <h3 className="text-lg font-bold">{book.title}</h3>
-          <p className="text-sm">{book.author}</p>
+          <h3 className="text-lg font-bold">
+            {book.title || 'Untitled'}
+          </h3>
+          <p className="text-sm">{book.author || 'Unknown Author'}</p>
         </div>
       </div>
 
@@ -34,13 +58,21 @@ const BookCard = ({ book, addToCart, onClick }) => {
       <div className="p-4">
         <div className="mb-2 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <p className="text-3xl font-bold text-blue-600">₹{discountedPrice}</p>
-            <p className="text-sm text-gray-400">
-              <span className="font-medium">M.R.P:</span>{" "}
-              <span className="line-through text-gray-400">₹{book.price}</span>
+            <p className="text-3xl font-bold text-blue-600">
+              ₹{discountedPrice}
             </p>
+            {book.price && (
+              <p className="text-sm text-gray-400">
+                <span className="font-medium">M.R.P:</span>{" "}
+                <span className="line-through text-gray-400">
+                  ₹{book.price}
+                </span>
+              </p>
+            )}
           </div>
-          <p className="text-lg font-semibold">{book.board}</p>
+          <p className="text-lg font-semibold">
+            {book.board || 'General'}
+          </p>
         </div>
         <div className="flex items-center justify-between mb-4">
           <p className="text-sm text-gray-600">
@@ -52,37 +84,50 @@ const BookCard = ({ book, addToCart, onClick }) => {
                   : "bg-yellow-100 text-yellow-700"
               }`}
             >
-              {book.condition}
+              {book.condition || 'Unknown'}
             </span>
           </p>
           <p className="text-sm text-gray-600">
-            <span className="font-medium">Language:</span> {book.language}
+            <span className="font-medium">Language:</span>{" "}
+            {book.language || 'N/A'}
           </p>
         </div>
 
         {/* Buttons */}
         <div className="flex gap-2">
-          <button
-            className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white py-2 rounded-md hover:from-indigo-600 hover:to-blue-500 transition-all duration-1000"
-            aria-label={`Buy ${book.title} now`}
+          <Button
+            onClick={() => console.log(`Buying ${book.title}`)}
+            className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-blue-500"
+            ariaLabel={`Buy ${book.title || 'this book'} now`}
           >
             Buy Now
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation(); // Prevent navigation on Add to Cart click
-              addToCart(book);
-            }}
-            className="flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 p-2 rounded-md transition-all duration-300"
-            aria-label={`Add ${book.title} to cart`}
-            title="Add to Cart"
+          </Button>
+          <Button
+            onClick={(e) => { e.stopPropagation(); addToCart(book); }}
+            className="flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 p-2"
+            ariaLabel={`Add ${book.title || 'this book'} to cart`}
           >
             <FaCartPlus size={18} />
-          </button>
+          </Button>
         </div>
       </div>
     </div>
   );
+};
+
+BookCard.propTypes = {
+  book: PropTypes.shape({
+    title: PropTypes.string,
+    author: PropTypes.string,
+    price: PropTypes.number,
+    discount: PropTypes.number,
+    condition: PropTypes.string,
+    language: PropTypes.string,
+    board: PropTypes.string,
+    image: PropTypes.string,
+  }).isRequired,
+  addToCart: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 // Helper functions for query string manipulation
@@ -117,6 +162,26 @@ const buildQueryString = (filters) => {
 const BookFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate(); // Correctly use this hook
+  // State to hold the cart items
+  const [cart, setCart] = useState([]);
+
+  // Function to add the selected book to the cart
+  const handleCardClick = (id, title, author, category, condition) => {
+    navigate(`/books/${id}/${title}/${author}/${category}/${condition}`);
+    console.log("Id of the book", id);
+  };
+  
+  const addToCart = (book) => {
+    setCart((prevCart) => {
+      console.log('Book Added to cart', book);
+      const isBookInCart = prevCart.some((item) => item.id === book.id);
+      if (isBookInCart) {
+        return prevCart; // Prevent adding the same book again
+      }
+      return [...prevCart, book];
+    });
+    // navigate("/cart"); // Ensure this is called after adding to the cart
+  };
 
   const [filters, setFilters] = useState(() => ({
     board: [],
@@ -133,6 +198,7 @@ const BookFilter = () => {
   }));
 
   const [searchTerm, setSearchTerm] = useState(""); // Add search state
+  const [searchQuery, setSearchQuery] = useState('');
   const [inputSearchTerm, setInputSearchTerm] = useState(""); // Temporary input state
   const [loading, setLoading] = useState(true);
   const [books, setBooks] = useState([]);
@@ -319,37 +385,33 @@ const BookFilter = () => {
   }, [currentPage, totalPages]);
 
 
-  const handleSearchSubmit = () => {
-    setSearchTerm(inputSearchTerm);
-    setCurrentPage(1); // Reset pagination on search
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
-  // Handle Enter Key Submission
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSearchSubmit();
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    
+    if (searchQuery.trim()) {
+      navigate(`/search-results?query=${encodeURIComponent(searchQuery)}`);
+    }
+
+    setSearchQuery(""); // Reset search query after submitting
+  };
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSearchSubmit(event);
     }
   };
 
-  // Handle Search Input Change
-  const handleInputChange = (e) => {
-    setInputSearchTerm(e.target.value);
-  };
 
-  const { dispatch } = useCart(); // Ensure useCart is used correctly
-  console.log("Dispatch function initialized", !!dispatch); // Logs true/false to check if dispatch exists
+ 
 
-  // Define addToCart function correctly within BuyPage
-  // const addToCart = (book) => {
-  //   console.log('Adding to cart:', book); // Debug log
-  //   dispatch({ type: "ADD_TO_CART", payload: book });
+  // const handleCardClick = (id) => {
+  //   navigate(`/book/${id}`);
+  //   console.log("Id of the book", id);
   // };
-
-
-  const handleCardClick = (id) => {
-    navigate(`/book/${id}`);
-    console.log("Id of the book", id);
-  };
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -567,12 +629,14 @@ const BookFilter = () => {
       <div className="w-full md:w-4/5 p-4">
       {/* Search Input */}
       <div className="md:w-full p-4 flex gap-4">
-      <input
+        <input
+            autoFocus
+            placeholder="search.."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyPress}
+            name="text"
             type="text"
-            value={inputSearchTerm}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Search for books"
             className="w-full p-2 border border-gray-300 rounded-md"
           />
           <button
@@ -607,18 +671,21 @@ const BookFilter = () => {
             </h2>
             <p className="text-gray-500 mb-4">Try adjusting your filters or clearing them to see more results.</p>
             <button
-              onClick={() => setFilters({
-                board: [],
-                category: [],
-                subject: [],
-                reference: [],
-                competitive: [],
-                condition: [],
-                language: [],
-                genre: [],
-                sortBy: '',
-              })}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={() =>
+                setFilters({
+                  board: [],
+                  category: [],
+                  subject: [],
+                  reference: [],
+                  competitive: [],
+                  condition: [],
+                  language: [],
+                  genre: [],
+                  sortBy: '',
+                  page: 1, // Reset to the first page
+                })
+              }
+              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
             >
               Reset Filters
             </button>
@@ -627,7 +694,7 @@ const BookFilter = () => {
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {/* Render filtered books */}
             {currentBooks.map((book) => (
-              <BookCard  key={book.id} book={book} addToCart={(book) => {dispatch({ type: "ADD_TO_CART", payload: book }); console.log('Adding to cart:', book)}} onClick={() => handleCardClick(book.id)} />
+              <BookCard key={book.id} book={book} addToCart={addToCart} onClick={() => handleCardClick(book.id, book.title, book.author, book.category, book.condition)} />
             ))}
           </div>
         )}

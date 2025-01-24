@@ -52,7 +52,7 @@ const Navbar = () => {
                         <NavLink className="border-bottom-class no-underline text-white" to="/">Home</NavLink>
                     </li>
                     <li>
-                        <NavLink className="border-bottom-class no-underline text-white" to="/buy">Buy</NavLink>
+                        <NavLink className="border-bottom-class no-underline text-white" to="/products">Buy</NavLink>
                     </li>
                     <li>
                         <NavLink className="border-bottom-class no-underline text-white" to="/sell">Sell</NavLink>

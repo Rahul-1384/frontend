@@ -6,12 +6,12 @@ function BookDetail() {
   const [book, setBook] = useState(null);
 
   useEffect(() => {
-    // Simulating a fetch request (replace with your backend API)
     const fetchBookDetails = async () => {
       try {
-        // const response = await fetch(`http://localhost:3000/books/${id}`);
-
-        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+        const response = await fetch(`http://localhost:3000/books/${id}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch book details');
+        }
         const data = await response.json();
         setBook(data);
       } catch (error) {

@@ -6,10 +6,10 @@ import Loading from "./components/Loading";
 import Sidebar from "./components/common/Sidebar";
 import { Buy } from "./Pages/Buy";
 import Cart from "./Pages/CartPage";
-import BuyPage from "./components/BuyPage";
 import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import BookDetail from "./Pages/BookDetail";
+import SearchResults from "./Pages/SearchResults";
 
 // Lazy-load pages
 const Homepage = lazy(() => import("./Pages/Homepage"));
@@ -58,12 +58,12 @@ function App() {
               element={<PublicLayout><AuthenticationUser /></PublicLayout>}
             />
             <Route path="/admin-login" element={<AdminLogin />} />
-            <Route path="/buy" element={<Buy />} />
+            <Route path="/products" element={<Buy />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/buypage" element={<BuyPage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/book/:id" element={<BookDetail />} />
+            <Route path="/books/:id/:title/:author/:category/:condition" element={<BookDetail />} />
+            <Route path="/search-results" element={<SearchResults />} />
 
             {/* Admin Routes */}
             <Route

@@ -28,6 +28,39 @@ const fetchCartItems = async () => {
       deliveryDate: "Thu Jan 30",
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
     },
+    {
+      id: 2,
+      name: "Sneakers, Loafers, Walking...",
+      size: "7, White, Grey, Orange, 7",
+      seller: "AsianFootwears",
+      price: 1499,
+      discount: 653,
+      quantity: 1,
+      deliveryDate: "Thu Jan 30",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    },
+    {
+      id: 2,
+      name: "Sneakers, Loafers, Walking...",
+      size: "7, White, Grey, Orange, 7",
+      seller: "AsianFootwears",
+      price: 1499,
+      discount: 653,
+      quantity: 1,
+      deliveryDate: "Thu Jan 30",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    },
+    {
+      id: 2,
+      name: "Sneakers, Loafers, Walking...",
+      size: "7, White, Grey, Orange, 7",
+      seller: "AsianFootwears",
+      price: 1499,
+      discount: 653,
+      quantity: 1,
+      deliveryDate: "Thu Jan 30",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    },
   ];
 };
 
@@ -240,7 +273,7 @@ function DeliveryInfo() {
         <span className="font-medium text-lg">
           Deliver to: <span className="font-semibold">Dhar - 454435</span>
         </span>
-        <button className="text-blue-600 font-medium hover:underline">Change</button>
+        <button className="text-blue-600 font-medium">Change</button>
       </div>
     </div>
   );
@@ -249,7 +282,7 @@ function DeliveryInfo() {
 // Cart Item Component
 function CartItem({ item, increaseQuantity, decreaseQuantity, handleRemoveClick }) {
   return (
-    <div className="flex-1 bg-white p-4 rounded-md shadow-md mb-4">
+    <div className="flex-1 bg-white p-4 rounded-md shadow-lg mb-4">
       <div className="flex gap-4">
         <img src={item.image} alt="Product" className="w-24 h-24 rounded-md object-cover" />
         <div className="flex flex-col justify-between flex-grow">
@@ -287,7 +320,7 @@ function CartItem({ item, increaseQuantity, decreaseQuantity, handleRemoveClick 
           </button>
         </div>
         <button
-          className="text-red-600 font-medium hover:underline"
+          className="text-red-600 font-medium"
           onClick={() => handleRemoveClick(item.id)}
         >
           Remove
@@ -300,7 +333,7 @@ function CartItem({ item, increaseQuantity, decreaseQuantity, handleRemoveClick 
 // Price Details Component
 function PriceDetails({ cartItems, calculateTotalAmount }) {
   return (
-    <div className="bg-white p-4 rounded-md shadow-md w-full lg:w-1/3">
+    <div className="bg-white p-4 rounded-md shadow-md w-full h-fit lg:w-1/3">
       <h3 className="font-medium text-lg mb-4">PRICE DETAILS</h3>
       <div className="flex justify-between text-sm mb-2">
         <span>Price ({cartItems.length} item{cartItems.length > 1 ? "s" : ""})</span>
@@ -325,7 +358,7 @@ function PriceDetails({ cartItems, calculateTotalAmount }) {
 function PlaceOrderButton() {
   return (
     <div className="mt-6 flex justify-center">
-      <button className="bg-orange-500 text-white px-8 py-3 rounded-md font-medium hover:bg-orange-600">
+      <button className="border-2 border-red-500 text-red-500 px-8 py-3 rounded-md transition-all duration-200 font-medium tracking-widest hover:bg-[#fdb604] hover:border-[#fdb604] hover:text-white ">
         PLACE ORDER
       </button>
     </div>

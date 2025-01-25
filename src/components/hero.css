@@ -220,10 +220,270 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* From Uiverse.io by SnyDeTreves */ 
+/*************/
+/* Variables */
+/*************/
+
+.btn-container {
+    --pupil-color: rgb(156, 207, 255);
+    --pupil-move: 20%;
+    --sensor-height: 150px;
+    --sensor-width: 150px;
+  }
+  .btn-button {
+    --back-color: #fff;
+  }
+  .btn-lid {
+    --back-color: transparent;
+  }
+  
+  /**********/
+  /* Styles */
+  /**********/
+  
+  /* Container */
+  .btn-container {
+    position: absolute;
+    z-index: 0;
+    top: 73%;
+    left: 49%;
+  }
+  
+  /* Button */
+  .btn-button {
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 10rem;
+    cursor: pointer;
+    padding: 0.2rem;
+    scale: 0.23;
+    position: relative;
+    margin: -6.8px;
+    z-index: 1000;
+  }
+  .btn-button:hover,
+  .btn-button:hover .btn-lid {
+    animation: squint 100ms forwards;
+  }
+  .btn-button:active .btn-pupil {
+    animation: agitate 100ms infinite 500ms;
+    border-width: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .btn-lid {
+    border-radius: 10rem;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 101;
+  }
+  
+  .btn-pupil {
+    background: #000;
+    border: 0.1rem solid greenyellow;
+    border-radius: 10rem;
+    padding: 0.1rem;
+    transition: all 200ms ease-out;
+    background-color: black;
+  }
+  
+  /* Sensors */
+  .btn-sensor {
+    clip-path: polygon(0 0, 100% 0, 50% 100%, 0 0);
+    height: var(--sensor-height);
+    left: calc(20% - var(--sensor-width) / 2);
+    overflow: hidden;
+    position: absolute;
+    top: calc(50% - var(--sensor-height) / 2);
+    transform: rotate(calc(var(--a) * 1deg))
+      translateY(calc(var(--sensor-height) * -50 / 100));
+    width: var(--sensor-width);
+    z-index: 99;
+    opacity: 0.3;
+  }
+  
+  /************/
+  /* Tracking */
+  /************/
+  
+  .sensor-n:hover ~ .btn-button .btn-pupil {
+    transform: translateX(0) translateY(calc(-3 * var(--pupil-move)));
+  }
+  .sensor-ne:hover ~ .btn-button .btn-pupil {
+    transform: translateX(calc(2 * var(--pupil-move)))
+      translateY(calc(-2 * var(--pupil-move)));
+  }
+  .sensor-e:hover ~ .btn-button .btn-pupil {
+    transform: translateX(calc(3 * var(--pupil-move))) translateY(0);
+  }
+  .sensor-se:hover ~ .btn-button .btn-pupil {
+    transform: translateX(calc(2 * var(--pupil-move)))
+      translateY(calc(2 * var(--pupil-move)));
+  }
+  .sensor-s:hover ~ .btn-button .btn-pupil {
+    transform: translateX(0) translateY(calc(3 * var(--pupil-move)));
+  }
+  .sensor-sw:hover ~ .btn-button .btn-pupil {
+    transform: translateX(calc(-2 * var(--pupil-move)))
+      translateY(calc(2 * var(--pupil-move)));
+  }
+  .sensor-w:hover ~ .btn-button .btn-pupil {
+    transform: translateX(calc(-3 * var(--pupil-move))) translateY(0);
+  }
+  .sensor-nw:hover ~ .btn-button .btn-pupil {
+    transform: translateX(calc(-2 * var(--pupil-move)))
+      translateY(calc(-2 * var(--pupil-move)));
+  }
+  
+  /**************/
+  /* Animations */
+  /**************/
+  
+  @keyframes agitate {
+    0% {
+      transform: scale(1.2) translate(0%, -10%);
+    }
+  
+    25% {
+      transform: scale(1.2) translate(-10%, 10%);
+    }
+  
+    50% {
+      transform: scale(1.2) translate(10%, -5%);
+    }
+  
+    75% {
+      transform: scale(1.2) translate(-10%, -5%);
+    }
+  
+    100% {
+      transform: scale(1.2) translate(10%, 10%);
+    }
+  }
+  
+  @keyframes squint {
+    0% {
+      background: var(--back-color);
+    }
+  
+    25% {
+      background: linear-gradient(
+        0deg,
+        #000 0% 9%,
+        var(--back-color) 10% 90%,
+        #000 91% 100%
+      );
+    }
+  
+    50% {
+      background: linear-gradient(
+        0deg,
+        #000 0% 18%,
+        var(--back-color) 19% 81%,
+        #000 82% 100%
+      );
+    }
+  
+    75% {
+      background: linear-gradient(
+        0deg,
+        #000 0% 27%,
+        var(--back-color) 28% 72%,
+        #000 73% 100%
+      );
+    }
+  
+    100% {
+      background: linear-gradient(
+        0deg,
+        #000 0% 35%,
+        var(--back-color) 36% 64%,
+        #000 65% 100%
+      );
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (min-width: 426px){
     .clickable{
         width: 30px;
         height: 40px;
+    }
+    .btn-container {
+        --pupil-color: rgb(156, 207, 255);
+        --pupil-move: 20%;
+        --sensor-height: 190px;
+        --sensor-width: 200px;
+    }
+    .btn-container {
+        top: 75%;
+        left: 49.1%;
+    }
+    .btn-button{
+        scale: 0.23;
+        margin-right: -7px;
+    }
+}
+
+@media (min-width: 520px){
+    .btn-container {
+        top: 76%;
+        left: 49.1%;
+    }
+    .btn-button{
+        scale: 0.3;
+        margin-right: -6px;
     }
 }
 
@@ -237,6 +497,20 @@
     .clickable{
         width: 40px;
         height: 50px;
+    }
+    .btn-container {
+        --pupil-color: rgb(156, 207, 255);
+        --pupil-move: 20%;
+        --sensor-height: 260px;
+        --sensor-width: 260px;
+    }
+    .btn-container {
+        top: 76.5%;
+        left: 49.1%;
+    }
+    .btn-button{
+        margin-right: -4px;
+        scale: 0.4;
     }
 }
 @media (min-width: 640px){
@@ -268,6 +542,17 @@
         width: 40px;
         height: 50px;
     }
+    .btn-container {
+        --pupil-color: rgb(156, 207, 255);
+        --pupil-move: 20%;
+        --sensor-height: 300px;
+        --sensor-width: 300px;
+    }
+    .btn-container {
+        top: 77.3%;
+        left: 49.3%;
+    }
+
 
 }
 
@@ -275,6 +560,32 @@
     .clickable{
         width: 50px;
         height: 60px;
+        left: -40%;
+    }
+    .btn-container {
+        --pupil-color: rgb(156, 207, 255);
+        --pupil-move: 20%;
+        --sensor-height: 350px;
+        --sensor-width: 350px;
+    }
+    .btn-container {
+        top: 78.5%;
+        left: 49.2%;
+    }
+    .btn-button{
+        scale: 0.5;
+        margin-right: -2px;
+    }
+}
+
+@media (min-width: 905px){
+    .btn-container {
+        top: 79%;
+        left: 49.2%;
+    }
+    .btn-button{
+        scale: 0.8;
+        margin-right: 0px;
     }
 }
 
@@ -306,6 +617,32 @@
     .clickable{
         width: 70px;
         height: 80px;
+        left: -60%;
+    }
+    .btn-container {
+        --pupil-color: rgb(156, 207, 255);
+        --pupil-move: 20%;
+        --sensor-height: 480px;
+        --sensor-width: 480px;
+    }
+    .btn-container {
+        top: 79.6%;
+        left: 49.3%;
+    }
+    .btn-button{
+        scale: 0.9;
+        margin-right: 2px;
+    }
+}
+
+@media (min-width: 1200px){
+    .btn-container {
+        top: 80.3%;
+        left: 49.3%;
+    }
+    .btn-button{
+        scale: 1;
+        margin-right: 0px;
     }
 }
 
@@ -337,6 +674,21 @@
     .clickable{
         width: 90px;
         height: 100px;
+        left: -80%;
+    }
+    .btn-container {
+        --pupil-color: rgb(156, 207, 255);
+        --pupil-move: 20%;
+        --sensor-height: 600px;
+        --sensor-width: 600px;
+    }
+    .btn-container {
+        top: 80.4%;
+        left: 49.3%;
+    }
+    .btn-button{
+        scale: 1;
+        margin-right: 6px;
     }
 }
 

@@ -41,7 +41,7 @@ const Navbar = () => {
     // };
 
     return (
-        <div className="bg-[#001E29]">
+        <div className="bg-[#001E29] relative z-[100]">
             <div className="flex justify-between items-center w-[100%] h-[4rem] m-auto px-4  relative">
                 <NavLink to="/" className="rebook-logo relative z-[200] w-[90px] h-[50px]">
                     

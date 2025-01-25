@@ -24,5 +24,63 @@
       opacity: 0; /* Fade out */
     }
   }
-  
 
+
+
+
+  .buy-btn{
+    --primary: #000000;
+    --neutral-1: #e6e6e6;
+    --neutral-2: #6e6e6e;
+    display: flex;
+    justify-content: center;
+  }
+  .buy-btn span{
+    display: block;
+    opacity: 0;
+    animation: slideDown 0.8s ease forwards calc(var(--i) * 0.03s);
+  }
+
+  .buy-btn:hover span{
+    opacity: 1;
+    animation: wave 0.5s ease forwards calc(var(--i) * 0.03s);
+  }
+
+
+  @keyframes wave {
+    30% {
+      opacity: 1;
+      transform: translateY(4px) translateX(0) rotate(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-3px) translateX(0) rotate(0);
+      color: var(--primary);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) translateX(0) rotate(0);
+    }
+  }
+
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(20px) translateX(0px);
+      color: var(--primary);
+      filter: blur(5px);
+    }
+    20% {
+      opacity: 1;
+      transform: translateY(-4px) translateX(-2px) rotate(-10deg);
+      filter: blur(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(3px) translateX(3px) rotate(0);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) translateX(0) rotate(0);
+    }
+  }

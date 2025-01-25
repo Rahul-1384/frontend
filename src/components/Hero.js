@@ -119,6 +119,28 @@ const Hero = () => {
             </div>
 
 
+            {/* Moving Eyes */}
+            <div className="btn-container">
+                <div style={{"--a": 0}} className="btn-sensor sensor-n"></div>
+                <div style={{"--a": 45}} className="btn-sensor sensor-ne"></div>
+                <div style={{"--a": 90}} className="btn-sensor sensor-e"></div>
+                <div style={{"--a": 135}} className="btn-sensor sensor-se"></div>
+                <div style={{"--a": 180}} className="btn-sensor sensor-s"></div>
+                <div style={{"--a": 225}} className="btn-sensor sensor-sw"></div>
+                <div style={{"--a": 270}} className="btn-sensor sensor-w"></div>
+                <div style={{"--a": 315}} className="btn-sensor sensor-nw"></div>
+                <button className="btn-button">
+                    <div className="btn-lid"></div>
+                    <div className="btn-pupil"></div>
+                </button>
+                <div className="clickable absolute z-[100] -top-[10%] -left-[20%] rounded-full w-6 h-7 cursor-pointer  transition-transform" onClick={toggleChatbot}></div>
+                <button className="btn-button">
+                    <div className="btn-lid"></div>
+                    <div className="btn-pupil"></div>
+                </button>
+            </div>
+
+
             {isModalVisible && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-lg flex items-center justify-center z-[300]"
@@ -139,7 +161,7 @@ const Hero = () => {
                         </button>
 
                         {/* Modal Content */}
-                        <h2 className="text-2xl font-bold mb-4">Choose an Option</h2>
+                        <p className="text-2xl font-bold mb-4">Choose an Option</p>
                         <div className="flex justify-around">
                             <NavLink to='/sell' className="px-4 no-underline py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                                 Sell Course
@@ -154,7 +176,6 @@ const Hero = () => {
 
 
 
-            <div className="clickable absolute top-[77%] left-[46.9%] rounded-full w-6 h-7 cursor-pointer hover:scale-110 transition-transform" onClick={toggleChatbot}></div>
 
             {isChatbotVisible && (
                 <div className="chatbot fixed z-[200] bottom-20 right-10 bg-white shadow-lg rounded-lg w-80 sm:w-72 md:w-96 lg:w-[24rem] xl:w-[28rem] p-4 animate-slide-in max-w-full sm:bottom-10 sm:right-5">

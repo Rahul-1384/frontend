@@ -6,6 +6,7 @@ import { useSearchParams } from 'react-router-dom';
 import './bookfilter.css';
 import { FaCartPlus, FaFilter, FaTimes } from "react-icons/fa";
 import PropTypes from 'prop-types';
+import CartButton from "./CartButton";
 
 const Button = ({ onClick, label, children, className, ariaLabel }) => (
   <button
@@ -94,21 +95,23 @@ const BookCard = ({ book, addToCart, onClick }) => {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
           <Button
             onClick={() => console.log(`Buying ${book.title}`)}
-            className="flex-1 bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-indigo-600 hover:to-blue-500"
+            className="buy-btn flex-1 bg-gradient-to-r bg-blue-600 transition-all duration-1000 text-white font-semibold hover:bg-blue-700 "
             ariaLabel={`Buy ${book.title || 'this book'} now`}
           >
-            Buy Now
+            
+            <span style={{ "--i": 0 }}>B</span>
+            <span style={{ "--i": 1 }}>u</span>
+            <span style={{ "--i": 2 }}>y</span>
+            <span>&nbsp;</span> {/* Add space here */}
+            <span style={{ "--i": 4 }}>N</span>
+            <span style={{ "--i": 5 }}>o</span>
+            <span style={{ "--i": 6 }}>w</span>
+          
           </Button>
-          <Button
-            onClick={(e) => { e.stopPropagation(); addToCart(book); }}
-            className="flex items-center justify-center bg-gray-200 hover:bg-gray-300 text-gray-800 p-2"
-            ariaLabel={`Add ${book.title || 'this book'} to cart`}
-          >
-            <FaCartPlus size={18} />
-          </Button>
+          <CartButton book={book} addToCart={addToCart} />
         </div>
       </div>
     </div>

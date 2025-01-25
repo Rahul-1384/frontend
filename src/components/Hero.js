@@ -109,12 +109,12 @@ const Hero = () => {
 
             <div className="flex items-center justify-around absolute top-[65%] w-[100%] h-auto text-[0.5rem] m-auto ">
                 <div className="flex gap-4 ">
-                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-none border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/buy">Buy Now</NavLink>
-                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-none border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/buy">E-Books</NavLink>
+                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-3 bg-black border-white outline-none font-bold  xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/products">Buy Now</NavLink>
+                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-3 bg-black border-white outline-none font-bold  xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/buy">E-Books</NavLink>
                 </div>
                 <div className="flex gap-4">
-                    <button onClick={openModal} className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-none border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem]">Sell Now</button>
-                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-none border-white rounded-lg outline-none font-bold backdrop-filter backdrop-blur-lg xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/manga">Manga</NavLink>
+                    <button onClick={openModal} className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-3 bg-black border-white outline-none font-bold  xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem]">Sell Now</button>
+                    <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-3 bg-black border-white outline-none font-bold  xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/manga">Manga</NavLink>
                 </div>
             </div>
 
@@ -140,6 +140,9 @@ const Hero = () => {
                 </button>
             </div>
 
+
+            {/* Sell you books board */}
+            <NavLink to="/sell" className="blinking-text bg-white  absolute px-[0.1rem] top-[21%] right-[14%] no-underline font-bold text-[0.3rem] text-center w-fit xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] md:right-[14.3%] lg:text-[0.8rem] xl:text-[0.9rem] xl:w-20 xl:right-[14%] xxl:text-[1rem] " >Click Me <br />To Sell</NavLink>
 
             {isModalVisible && (
                 <div

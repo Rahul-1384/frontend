@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './CartPage.css';
+import BooksNavbar from "../components/BooksNavbar";
 
 // Placeholder API functions
 const fetchCartItems = async () => {
@@ -89,16 +90,31 @@ function CartPage() {
     const loadCartItems = async () => {
       try {
         const items = await fetchCartItems();
-        setCartItems(items);
+  
+        // Combine duplicates
+        const uniqueItemsMap = new Map();
+  
+        items.forEach((item) => {
+          if (uniqueItemsMap.has(item.id)) {
+            const existingItem = uniqueItemsMap.get(item.id);
+            existingItem.quantity += item.quantity; // Increase quantity
+          } else {
+            uniqueItemsMap.set(item.id, { ...item }); // Add unique item
+          }
+        });
+  
+        const uniqueItems = Array.from(uniqueItemsMap.values());
+        setCartItems(uniqueItems);
       } catch (error) {
         console.error("Error fetching cart items:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
+  
     loadCartItems();
   }, []);
+  
 
   const calculateTotalAmount = () => {
     return cartItems.reduce(
@@ -206,7 +222,7 @@ function CartPage() {
         {/* Shop Now Button */}
         <button
           className="button-style bg-orange-500  px-8 py-3 rounded-full font-semibold text-lg shadow-lg hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105"
-          onClick={() => navigate("/buy")}
+          onClick={() => navigate("/products")}
         >
           Start Shopping
         </button>
@@ -221,46 +237,49 @@ function CartPage() {
   
 
   return (
-    <div className="book-detail relative px-28 pt-7">
-      {/* Delivery Info */}
-      <DeliveryInfo />
+    <div>
+      <BooksNavbar />
+      <div className="book-detail relative px-28 pt-7">
+        {/* Delivery Info */}
+        <DeliveryInfo />
 
-      {/* Cart and Price Section */}
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Cart Section */}
-        <div className="flex-1">
-          {cartItems.map((item) => (
-            <CartItem
-              key={item.id}
-              item={item}
-              increaseQuantity={increaseQuantity}
-              decreaseQuantity={decreaseQuantity}
-              handleRemoveClick={handleRemoveClick}
-            />
-          ))}
+        {/* Cart and Price Section */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Cart Section */}
+          <div className="flex-1">
+            {cartItems.map((item) => (
+              <CartItem
+                key={item.id}
+                item={item}
+                increaseQuantity={increaseQuantity}
+                decreaseQuantity={decreaseQuantity}
+                handleRemoveClick={handleRemoveClick}
+              />
+            ))}
+          </div>
+
+          {/* Price Section */}
+          <PriceDetails cartItems={cartItems} calculateTotalAmount={calculateTotalAmount} />
         </div>
 
-        {/* Price Section */}
-        <PriceDetails cartItems={cartItems} calculateTotalAmount={calculateTotalAmount} />
+        {/* Place Order Button */}
+        <PlaceOrderButton />
+
+        {/* Footer Info */}
+        <FooterInfo />
+
+        {/* Remove Modal */}
+        {isModalOpen && (
+          <RemoveModal confirmRemove={confirmRemove} cancelRemove={cancelRemove} />
+        )}
+
+        {/* Success Message */}
+        {successMessage && (
+          <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-md shadow-md transition-opacity duration-300">
+            {successMessage}
+          </div>
+        )}
       </div>
-
-      {/* Place Order Button */}
-      <PlaceOrderButton />
-
-      {/* Footer Info */}
-      <FooterInfo />
-
-      {/* Remove Modal */}
-      {isModalOpen && (
-        <RemoveModal confirmRemove={confirmRemove} cancelRemove={cancelRemove} />
-      )}
-
-      {/* Success Message */}
-      {successMessage && (
-        <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-md shadow-md transition-opacity duration-300">
-          {successMessage}
-        </div>
-      )}
     </div>
   );
 }
@@ -283,24 +302,26 @@ function DeliveryInfo() {
 function CartItem({ item, increaseQuantity, decreaseQuantity, handleRemoveClick }) {
   return (
     <div className="flex-1 bg-white p-4 rounded-md shadow-lg mb-4">
-      <div className="flex gap-4">
-        <img src={item.image} alt="Product" className="w-24 h-24 rounded-md object-cover" />
-        <div className="flex flex-col justify-between flex-grow">
-          <div>
-            <h2 className="font-semibold text-lg">{item.name}</h2>
-            <p className="text-sm text-gray-500">
-              Size: {item.size} <br />
-              Seller: <span className="text-blue-600 font-medium">{item.seller}</span>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <img src={item.image} alt="Product" className="sm:w-24 w-full h-44 rounded-md object-cover" />
+        <div className="flex justify-between w-[100%]">
+          <div className="flex flex-col justify-between flex-grow">
+            <div>
+              <h2 className="font-semibold text-lg">{item.name}</h2>
+              <p className="text-sm text-gray-500">
+                Size: {item.size} <br />
+                Seller: <span className="text-blue-600 font-medium">{item.seller}</span>
+              </p>
+            </div>
+            <div className="text-green-600 text-sm font-medium">43% Off</div>
+            <p className="text-gray-500 text-sm">
+              Delivery by {item.deliveryDate} | <span className="font-medium text-green-600">Free</span>
             </p>
           </div>
-          <div className="text-green-600 text-sm font-medium">43% Off</div>
-          <p className="text-gray-500 text-sm">
-            Delivery by {item.deliveryDate} | <span className="font-medium text-green-600">Free</span>
-          </p>
-        </div>
-        <div className="text-right">
-          <p className="line-through text-gray-400">₹{item.price}</p>
-          <p className="font-semibold text-lg text-gray-800">₹{item.price - item.discount}</p>
+          <div className="text-right">
+            <p className="line-through text-gray-400">₹{item.price}</p>
+            <p className="font-semibold text-lg text-gray-800">₹{item.price - item.discount}</p>
+          </div>
         </div>
       </div>
       <div className="flex justify-between items-center mt-4">
@@ -333,7 +354,7 @@ function CartItem({ item, increaseQuantity, decreaseQuantity, handleRemoveClick 
 // Price Details Component
 function PriceDetails({ cartItems, calculateTotalAmount }) {
   return (
-    <div className="bg-white p-4 rounded-md shadow-md w-full h-fit lg:w-1/3">
+    <div className="bg-white p-4 rounded-md shadow-md w-full h-fit lg:w-1/3 lg:sticky lg:top-10">
       <h3 className="font-medium text-lg mb-4">PRICE DETAILS</h3>
       <div className="flex justify-between text-sm mb-2">
         <span>Price ({cartItems.length} item{cartItems.length > 1 ? "s" : ""})</span>

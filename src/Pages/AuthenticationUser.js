@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaGoogle, FaFacebookF, FaInstagram, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { NavLink } from 'react-router-dom';
 
 const AuthenticationUser = () => {
-  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    gender: '',
+    dob: ''
+  });
   const [isLogin, setIsLogin] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);  // State for showing/hiding password
+  const [showPassword, setShowPassword] = useState(false); // State for showing/hiding password
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for showing/hiding confirm password
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +28,13 @@ const AuthenticationUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if passwords match
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match!');
+      return; // Prevent submission if passwords don't match
+    }
+
     const url = isLogin ? '/api/auth/login' : '/api/auth/signup';
 
     try {
@@ -44,20 +63,101 @@ const AuthenticationUser = () => {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {!isLogin && (
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-900">
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
-                required={!isLogin}
-              />
-            </div>
+            <>
+              <div className="mb-4">
+                <label htmlFor="firstName" className="block text-sm font-medium text-gray-900">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  required={!isLogin}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="lastName" className="block text-sm font-medium text-gray-900">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  required={!isLogin}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-900">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  required={!isLogin}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="address" className="block text-sm font-medium text-gray-900">
+                  Address
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  required={!isLogin}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="gender" className="block text-sm font-medium text-gray-900">
+                  Gender
+                </label>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  required={!isLogin}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div className="mb-4">
+                <label htmlFor="dob" className="block text-sm font-medium text-gray-900">
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                  required={!isLogin}
+                />
+              </div>
+            </>
           )}
 
           {isLogin && (
@@ -77,6 +177,7 @@ const AuthenticationUser = () => {
             </div>
           )}
 
+          {/* Password Field First */}
           <div className="mb-4 relative">
             <label htmlFor="password" className="block text-sm font-medium text-gray-900">
               Password
@@ -90,7 +191,13 @@ const AuthenticationUser = () => {
               className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none pr-10"
               required
             />
-            {/* Eye Icon to toggle password visibility, centered vertically */}
+            {isLogin && (
+              <div className="flex justify-end">
+                <NavLink to="/forgot-password">Forgot Password?</NavLink>
+              </div>
+            )}
+
+            {/* Eye Icon to toggle password visibility */}
             <span
               className="absolute right-3 top-12 transform -translate-y-1/2 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
@@ -98,6 +205,30 @@ const AuthenticationUser = () => {
               {showPassword ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500" />}
             </span>
           </div>
+
+          {/* Confirm Password Field Now */}
+          {!isLogin && (
+            <div className="mb-4 relative">
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-900">
+                Confirm Password
+              </label>
+              <input
+                type={showConfirmPassword ? 'text' : 'password'}
+                id="confirmPassword"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none pr-10"
+                required={!isLogin}
+              />
+              <span
+                className="absolute right-3 top-12 transform -translate-y-1/2 cursor-pointer"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash className="text-gray-500" /> : <FaEye className="text-gray-500" />}
+              </span>
+            </div>
+          )}
 
           <button
             type="submit"

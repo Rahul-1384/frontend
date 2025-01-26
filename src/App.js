@@ -10,6 +10,8 @@ import AboutUs from "./Pages/AboutUs";
 import ContactUs from "./Pages/ContactUs";
 import BookDetail from "./Pages/BookDetail";
 import SearchResults from "./Pages/SearchResults";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 
 // Lazy-load pages
 const Homepage = lazy(() => import("./Pages/Homepage"));
@@ -64,6 +66,8 @@ function App() {
             <Route path="/contactus" element={<ContactUs />} />
             <Route path="/books/:id/:title/:author/:category/:condition" element={<BookDetail />} />
             <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
             {/* Admin Routes */}
             <Route

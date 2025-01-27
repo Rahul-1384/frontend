@@ -16,8 +16,10 @@ const AuthenticationUser = () => {
     dob: ''
   });
   const [isLogin, setIsLogin] = useState(true);
-  const [showPassword, setShowPassword] = useState(false); // State for showing/hiding password
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for showing/hiding confirm password
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(''); // State for error messages
+  const [isLoading, setIsLoading] = useState(false); // State for loader
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,25 +30,26 @@ const AuthenticationUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Check if passwords match
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match!');
-      return; // Prevent submission if passwords don't match
+    if (!isLogin && formData.password !== formData.confirmPassword) {
+      setErrorMessage('Passwords do not match!');
+      return;
     }
 
     const url = isLogin ? '/api/auth/login' : '/api/auth/signup';
+    setIsLoading(true); // Show loader when the form is submitted
 
     try {
       const response = await axios.post(url, formData);
+      setErrorMessage(''); // Clear error message on successful response
       alert(response.data.message);
       if (response.data.token) {
         localStorage.setItem('token', response.data.token);
         window.location.href = '/dashboard';
       }
     } catch (error) {
-      console.error(error);
-      alert('Authentication failed. Please try again.');
+      setErrorMessage(error.response?.data?.message || 'Authentication failed. Please try again.');
+    } finally {
+      setIsLoading(false); // Remove loader after submission is complete
     }
   };
 
@@ -57,9 +60,9 @@ const AuthenticationUser = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md p-8 bg-white bg-opacity-30 backdrop-blur-lg shadow-lg rounded-lg border border-white/30">
-        <h2 className="text-3xl font-semibold text-center text-gray-900 mb-6">
+        <p className="text-3xl font-semibold text-center text-gray-900 mb-6">
           {isLogin ? 'Login to Your Account' : 'Create an Account'}
-        </h2>
+        </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {!isLogin && (
@@ -177,7 +180,6 @@ const AuthenticationUser = () => {
             </div>
           )}
 
-          {/* Password Field First */}
           <div className="mb-4 relative">
             <label htmlFor="password" className="block text-sm font-medium text-gray-900">
               Password
@@ -196,8 +198,6 @@ const AuthenticationUser = () => {
                 <NavLink to="/forgot-password">Forgot Password?</NavLink>
               </div>
             )}
-
-            {/* Eye Icon to toggle password visibility */}
             <span
               className="absolute right-3 top-12 transform -translate-y-1/2 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
@@ -206,7 +206,6 @@ const AuthenticationUser = () => {
             </span>
           </div>
 
-          {/* Confirm Password Field Now */}
           {!isLogin && (
             <div className="mb-4 relative">
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-900">
@@ -230,11 +229,20 @@ const AuthenticationUser = () => {
             </div>
           )}
 
+          {errorMessage && (
+            <div className="mb-4 p-3 bg-red-100 text-red-700 border border-red-400 rounded-md">
+              {errorMessage}
+            </div>
+          )}
+
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            disabled={isLoading}
+            className={`w-full px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${
+              isLoading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+            }`}
           >
-            {isLogin ? 'Login' : 'Sign Up'}
+            {isLoading ? 'Loading...' : isLogin ? 'Login' : 'Sign Up'}
           </button>
         </form>
 

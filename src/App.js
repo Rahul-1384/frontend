@@ -12,6 +12,7 @@ import BookDetail from "./Pages/BookDetail";
 import SearchResults from "./Pages/SearchResults";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
+import Wishlist from "./Pages/WishList";
 
 // Lazy-load pages
 const Homepage = lazy(() => import("./Pages/Homepage"));
@@ -68,6 +69,7 @@ function App() {
             <Route path="/search-results" element={<SearchResults />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/wishlist" element={<Wishlist />} />
 
             {/* Admin Routes */}
             <Route

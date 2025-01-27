@@ -239,7 +239,7 @@ function CartPage() {
   return (
     <div>
       <BooksNavbar />
-      <div className="book-detail relative px-28 pt-7">
+      <div className="book-detail relative sm:px-28 px-2 sm:mx-28 pt-7">
         {/* Delivery Info */}
         <DeliveryInfo />
 
@@ -301,9 +301,9 @@ function DeliveryInfo() {
 // Cart Item Component
 function CartItem({ item, increaseQuantity, decreaseQuantity, handleRemoveClick }) {
   return (
-    <div className="flex-1 bg-white p-4 rounded-md shadow-lg mb-4">
+    <div className="flex-1 p-4 rounded-md shadow-md mb-4">
       <div className="flex flex-col sm:flex-row gap-4">
-        <img src={item.image} alt="Product" className="sm:w-24 w-full h-44 rounded-md object-cover" />
+        <img src={item.image} alt="Product" className="sm:w-24 w-full h-44 sm:h-fit sm:object-cover rounded-md object-cover" />
         <div className="flex justify-between w-[100%]">
           <div className="flex flex-col justify-between flex-grow">
             <div>

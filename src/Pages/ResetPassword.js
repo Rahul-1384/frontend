@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useSearchParams } from "react-router-dom"; // Assuming you use React Router for handling routes
+import { useSearchParams } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import './resetPassword.css';
-import { ImSpinner2 } from "react-icons/im"; // Spinner icon
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -14,20 +13,17 @@ const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
 
-  const token = searchParams.get("token"); // Extract token from query parameters
+  const token = searchParams.get("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       setMessage("");
       return;
     }
-
-    setLoading(true); // Show spinner
+    setLoading(true);
     try {
-      // Replace with your backend API endpoint
       const response = await fetch("https://your-backend-api.com/reset-password", {
         method: "POST",
         headers: {
@@ -35,9 +31,7 @@ const ResetPassword = () => {
         },
         body: JSON.stringify({ token, password }),
       });
-
       const data = await response.json();
-
       if (response.ok) {
         setMessage(data.message || "Your password has been reset successfully.");
         setError("");
@@ -49,7 +43,7 @@ const ResetPassword = () => {
       setError("An unexpected error occurred. Please try again later.");
       setMessage("");
     } finally {
-      setLoading(false); // Hide spinner
+      setLoading(false);
     }
   };
 
@@ -134,14 +128,13 @@ const ResetPassword = () => {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center justify-center"
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             {loading ? (
-            //   <ImSpinner2 className="animate-spin w-5 h-5 mr-2" />
-            <div class="ld-ripple">
+              <div className="ld-ripple">
                 <div></div>
                 <div></div>
-            </div>
+              </div>
             ) : (
               "Reset Password"
             )}

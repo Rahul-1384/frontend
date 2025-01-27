@@ -12,7 +12,9 @@
         "genre": "Academic",
         "price": 100,
         "discount": 20,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 2,
@@ -26,7 +28,9 @@
         "genre": "Academic",
         "price": 110,
         "discount": 19,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 3,
@@ -40,7 +44,9 @@
         "genre": "Academic",
         "price": 90,
         "discount": 35,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 4,
@@ -54,7 +60,9 @@
         "genre": "Fiction",
         "price": 80,
         "discount": 15,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 5,
@@ -68,7 +76,9 @@
         "genre": "Academic",
         "price": 180,
         "discount": 45,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 6,
@@ -82,7 +92,9 @@
         "genre": "Academic",
         "price": 140,
         "discount": 20,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 7,
@@ -96,7 +108,9 @@
         "genre": "Technical",
         "price": 250,
         "discount": 60,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 8,
@@ -110,7 +124,9 @@
         "genre": "Academic",
         "price": 110,
         "discount": 32,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 9,
@@ -124,7 +140,9 @@
         "genre": "Academic",
         "price": 90,
         "discount": 11,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 10,
@@ -138,7 +156,9 @@
         "genre": "Academic",
         "price": 160,
         "discount": 21,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 11,
@@ -152,7 +172,9 @@
         "genre": "Fiction",
         "price": 200,
         "discount": 22,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 12,
@@ -166,7 +188,9 @@
         "genre": "Academic",
         "price": 130,
         "discount": 30,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 13,
@@ -180,7 +204,9 @@
         "genre": "Academic",
         "price": 100,
         "discount": 30,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 14,
@@ -194,7 +220,9 @@
         "genre": "Technical",
         "price": 220,
         "discount": 60,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 15,
@@ -208,7 +236,9 @@
         "genre": "Academic",
         "price": 70,
         "discount": 9,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 16,
@@ -222,7 +252,9 @@
         "genre": "Non-Fiction",
         "price": 180,
         "discount": 18,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 17,
@@ -236,7 +268,9 @@
         "genre": "Academic",
         "price": 140,
         "discount": 21,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 18,
@@ -250,7 +284,9 @@
         "genre": "Non-Fiction",
         "price": 210,
         "discount": 40,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 19,
@@ -264,7 +300,9 @@
         "genre": "Academic",
         "price": 150,
         "discount": 20,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 20,
@@ -278,7 +316,9 @@
         "genre": "Non-Fiction",
         "price": 190,
         "discount": 22,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 21,
@@ -292,7 +332,9 @@
         "genre": "Academic",
         "price": 200,
         "discount": 29,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 22,
@@ -306,7 +348,9 @@
         "genre": "Technical",
         "price": 180,
         "discount": 25,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 23,
@@ -320,7 +364,9 @@
         "genre": "Non-Fiction",
         "price": 80,
         "discount": 6,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 24,
@@ -334,7 +380,9 @@
         "genre": "Fiction",
         "price": 120,
         "discount": 25,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 25,
@@ -348,7 +396,9 @@
         "genre": "Technical",
         "price": 300,
         "discount": 70,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 26,
@@ -362,7 +412,9 @@
         "genre": "Academic",
         "price": 100,
         "discount": 22,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       },
       {
         "id": 27,
@@ -376,7 +428,9 @@
         "genre": "Academic",
         "price": 170,
         "discount": 29,
-        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"
+        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
       }
     ]
   }

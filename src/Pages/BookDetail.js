@@ -13,6 +13,8 @@ function BookDetail() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [isWishlist, setIsWishlist] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
+
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -112,6 +114,38 @@ function BookDetail() {
     }
   };
 
+  const handleAddToCart = async () => {
+    if (!book) return;
+  
+    try {
+      const response = await fetch(`${API_BASE_URL}/cart`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Assuming token is stored in localStorage
+        },
+        body: JSON.stringify({
+          bookId: book.id,
+          quantity: 1, // Add 1 for each click, but you can modify to allow for multiple increments
+        }),
+      });
+  
+      if (response.ok) {
+        const updatedItem = await response.json();
+        setIsInCart(true); // Update cart status
+  
+        // If item is added to cart or quantity is increased, update the button to show updated status
+        console.log('Book added to cart or quantity updated:', updatedItem);
+      } else {
+        console.error('Failed to add book to cart');
+      }
+    } catch (error) {
+      console.error('Error adding book to cart:', error);
+    }
+  };
+  
+  
+
   return (
     <div className="book-detail">
       <BooksNavbar />
@@ -174,7 +208,7 @@ function BookDetail() {
         </div>
 
         {/* Details Section */}
-        <div className="mt-4">
+        <div className="mt-4 flex flex-col">
           <div className="flex items-center justify-between">
             <p className="text-3xl font-bold mb-2">{book.title}</p>
             {/* Wishlist and Share */}
@@ -197,19 +231,27 @@ function BookDetail() {
             <span className="line-through text-gray-500 text-sm">${book.price}</span>
             <span className="text-sm font-medium text-green-600">({book.discount}% Off)</span>
           </div>
-          <p className="text-gray-700 text-base mb-4">{book.description}</p>
-          
+          <p className="text-slate-500 text-base mb-4 -mt-3">Free Delivery</p>
         </div>
 
         {/* Buy now and Cart buttons */}
-        <div className="flex border-2 justify-around p-3 fixed-bottom">
-          <button className="flex items-center justify-center px-4 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600">
-            <FaShoppingCart className="mr-2" /> Add to Cart
+        <div className="flex border-2 justify-around p-3 bg-[#001E29] fixed-bottom">
+          <button
+            onClick={handleAddToCart}
+            className={`flex items-center justify-center px-4 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 ${isInCart ? "bg-gray-400 cursor-not-allowed" : ""}`}
+            disabled={isInCart} // Disable the button after the item is added
+          >
+            <FaShoppingCart className="mr-2" />
+            {isInCart ? `Added to Cart (Qty: ${book.quantity})` : 'Add to Cart'}
           </button>
+
+
           <button className="flex items-center justify-center px-4 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600">
             <FaCreditCard className="mr-2" /> Buy Now
           </button>
         </div>
+
+        
       </div>
     </div>
   );

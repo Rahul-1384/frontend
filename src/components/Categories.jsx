@@ -6,11 +6,13 @@ const categories = [
   { name: "Fiction", image: "https://images.unsplash.com/photo-1512820790803-83ca734da794", description: "Explore fictional worlds and stories." },
   { name: "Non-Fiction", image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c", description: "Learn about real-world topics and ideas." },
   { name: "Academic", image: "https://freebookbrowser.com/images/cool-icon/textbooks.jpg", description: "Textbooks and resources for students." },
-  { name: "Comics", image: "https://t3.ftcdn.net/jpg/03/88/27/80/240_F_388278080_JAsjDSlouLpJgnVJMMEzjWvBs2QebQyk.jpg", description: "Dive into colorful and creative comics." },
-  { name: "Mystery", image: "https://t3.ftcdn.net/jpg/09/81/10/60/240_F_981106007_pJ5c1t2XbImUfFFdzZNDnTcpZRtl6lO6.jpg", description: "Solve intriguing mysteries and thrillers." },
   { name: "Biographies", image: "https://lh3.googleusercontent.com/b8zxs8X2mcj2r7shj1ZpYaCSSwgHTqPxEQ6nIY5RjoMQFAd04V1nn2axjVKRWKfMQv8=h315", description: "Learn about inspiring lives and stories." },
   { name: "Children's Books", image: "https://t3.ftcdn.net/jpg/07/56/38/12/240_F_756381268_sf9rCDhnKkCY23xLKd4BwDK9Y3w9PUKN.jpg", description: "Books for kids filled with fun and learning." },
   { name: "Science Fiction", image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg", description: "Journey into futuristic and imaginative worlds." },
+  { name: "Class 4-8", image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg", description: "Journey into futuristic and imaginative worlds." },
+  { name: "Class 9-12", image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg", description: "Journey into futuristic and imaginative worlds." },
+
+
 ];
 
 const Categories = () => {

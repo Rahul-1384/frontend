@@ -149,9 +149,9 @@ function BookDetail() {
   return (
     <div className="book-detail">
       <BooksNavbar />
-      <div className="w-[95%] py-4 mx-auto">
+      <div className="bg-gray-700">
         <p className="text-center">Get into the world of Manga.</p>
-        <div className=" w-[100%] mx-auto flex flex-col gap-4">
+        <div className="bg-white shadow-lg p-2 w-[100%] mx-auto flex flex-col gap-4">
           <Swiper
             className="bg-black max-w-lg w-[100%]  mx-auto"
             modules={[Pagination]}
@@ -208,30 +208,45 @@ function BookDetail() {
         </div>
 
         {/* Details Section */}
-        <div className="mt-4 flex flex-col">
-          <div className="flex items-center justify-between">
-            <p className="text-3xl font-bold mb-2">{book.title}</p>
-            {/* Wishlist and Share */}
-            <div className="flex gap-4">
-              <button
-                onClick={handleWishlistToggle}
-                className={`flex flex-col items-center text-xl ${isWishlist ? "text-red-500" : "text-gray-500"}`}
-              >
-                <FaHeart className="cursor-pointer" />
-                <span className="text-sm">Wishlist</span>
-              </button>
-              <button onClick={handleShare} className="flex flex-col items-center text-xl text-gray-500">
-                <FaShareAlt className="cursor-pointer" />
-                <span className="text-sm">Share</span>
-              </button>
+        <div>
+          {/* Price details */}
+          <div className="mt-2 p-2 bg-white shadow-2xl flex flex-col">
+            <div className="flex items-center justify-between">
+              <p className="text-2xl font-bold mb-2">{book.title}</p>
+              {/* Wishlist and Share */}
+              <div className="flex gap-4">
+                <button
+                  onClick={handleWishlistToggle}
+                  className={`flex flex-col items-center text-base ${isWishlist ? "text-red-500" : "text-gray-500"}`}
+                >
+                  <FaHeart className="cursor-pointer" />
+                  <span className="text-base">Wishlist</span>
+                </button>
+                <button onClick={handleShare} className="flex flex-col items-center text-base text-gray-500">
+                  <FaShareAlt className="cursor-pointer" />
+                  <span className="text-base">Share</span>
+                </button>
+              </div>
             </div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-4xl font-bold text-green-600">${discountedPrice}</span>
+              <span className="line-through text-gray-500 text-sm">${book.price}</span>
+              <span className="text-sm font-medium text-green-600">({book.discount}% Off)</span>
+            </div>
+            <p className="text-slate-500 text-base -mt-3">Free Delivery</p>
           </div>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-4xl font-bold text-green-600">${discountedPrice}</span>
-            <span className="line-through text-gray-500 text-sm">${book.price}</span>
-            <span className="text-sm font-medium text-green-600">({book.discount}% Off)</span>
+
+
+          {/* Product Details */}
+          <div className="mt-2 p-2 bg-white text-gray-500 shadow-2xl flex flex-col">
+            <p className="font-bold mb-0">Name: {book.title.toUpperCase()}</p>
+            <p className="font-bold mb-0">Board: {book.board}</p>
+            <p className="font-bold mb-0">Author: {book.author}</p>
+            <p className="font-bold mb-0">ISBN: {book.ISBN}</p>
+            <p className="font-bold mb-0">Type: {book.type}</p>
+            <p className="font-bold mb-0">Condition: {book.condition}</p>
+
           </div>
-          <p className="text-slate-500 text-base mb-4 -mt-3">Free Delivery</p>
         </div>
 
         {/* Buy now and Cart buttons */}
@@ -244,8 +259,6 @@ function BookDetail() {
             <FaShoppingCart className="mr-2" />
             {isInCart ? `Added to Cart (Qty: ${book.quantity})` : 'Add to Cart'}
           </button>
-
-
           <button className="flex items-center justify-center px-4 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600">
             <FaCreditCard className="mr-2" /> Buy Now
           </button>

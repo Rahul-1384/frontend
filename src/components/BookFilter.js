@@ -79,10 +79,12 @@ const BookCard = ({ book, addToCart, onClick }) => {
           <p className="text-sm text-gray-600">
             <span className="font-medium">Condition:</span>{" "}
             <span
-              className={`px-2 py-1 text-xs rounded-md ${
-                book.condition === "Like New"
-                  ? "bg-green-100 text-green-700"
-                  : "bg-yellow-100 text-yellow-700"
+              className={`px-2 py-1 text-xs text-white font-bold rounded-md ${
+                book.condition === "New"
+                  ? "bg-green-500"
+                  : book.condition === "Good"
+                  ? "bg-yellow-500"
+                  : "bg-orange-600"
               }`}
             >
               {book.condition || 'Unknown'}
@@ -540,7 +542,7 @@ const BookFilter = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700 mb-2">Condition</label>
           <div>
-            {['Like New', 'Good', 'Acceptable'].map((option) => (
+            {['New', 'Good', 'Acceptable'].map((option) => (
               <label key={option} className="block text-sm">
                 <input
                   type="checkbox"

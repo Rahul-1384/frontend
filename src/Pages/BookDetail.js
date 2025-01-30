@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BooksNavbar from "../components/BooksNavbar";
 import { FaShoppingCart, FaHeart, FaShareAlt, FaCreditCard } from "react-icons/fa"; // Added Heart and Share icons
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:3000";
 
@@ -14,7 +15,7 @@ function BookDetail() {
   const [book, setBook] = useState(null);
   const [isWishlist, setIsWishlist] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -54,7 +55,6 @@ function BookDetail() {
         console.error("Error checking wishlist status:", error);
       }
     };
-
     if (book) fetchWishlistStatus();
   }, [book]);
 
@@ -65,6 +65,24 @@ function BookDetail() {
       </div>
     );
   }
+
+
+  const details = [
+    { label: "Net Quantity (N)", value: "Single" },
+    { label: "No. of Pages", value: 559 },
+    { label: "Edition", value: "2024 Latest Edition" },
+    { label: "Publisher", value: "S.Chand" },
+    { label: "Publication Year", value: 2022 },
+    { label: "Binding", value: "Paperback" },
+    { label: "Language", value: book.language },
+    { label: "Pallu Details", value: "Same as Saree" },
+    { label: "Border Width", value: "Small Border" },
+    { label: "Blouse Pattern", value: "Same as Border" },
+    { label: "Country of Origin", value: "India" },
+    { label: "Manufacturer Information", value: "Miracletex" },
+    { label: "Importer Information", value: "No information available" },
+    { label: "Packer Information", value: "No information available" },
+  ];
 
   const discountedPrice = (
     Math.max(0, (book?.price || 0) - (book?.discount || 0))
@@ -239,18 +257,42 @@ function BookDetail() {
 
           {/* Product Details */}
           <div className="mt-2 p-2 bg-white text-gray-500 shadow-2xl flex flex-col">
-            <p className="font-bold mb-0">Name: {book.title.toUpperCase()}</p>
-            <p className="font-bold mb-0">Board: {book.board}</p>
-            <p className="font-bold mb-0">Author: {book.author}</p>
-            <p className="font-bold mb-0">ISBN: {book.ISBN}</p>
-            <p className="font-bold mb-0">Type: {book.type}</p>
-            <p className="font-bold mb-0">Condition: {book.condition}</p>
-
+            <p className="text-xl text-black font-bold">Item's Details</p>
+            <div className="flex justify-between">
+              <div className="flex flex-col gap-2">
+                <p className="font-bold mb-0">Name: {book.title.toUpperCase()}</p>
+                <p className="font-bold mb-0">Board: {book.board}</p>
+                <p className="font-bold mb-0">Author: {book.author}</p>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="font-bold mb-0">ISBN: {book.ISBN}</p>
+                <p className="font-bold mb-0">Type: {book.type}</p>
+                <p className={`font-bold text-white rounded-2xl text-center px-1 py-1 ${book.condition === "New" ? "bg-green-500" : book.condition === "Good" ? "bg-yellow-500" : "bg-yellow-500"}`}>Condition: {book.condition}</p>
+              </div>
+            </div>
+            <div className="border-b pb-2" onClick={() => setIsOpen(!isOpen)}>
+              <div className="flex justify-between items-center cursor-pointer">
+                <span className="font-bold text-gray-800">Additional Details</span>
+                {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              </div>
+              {isOpen && (
+                <div className="mt-2 text-gray-800 text-sm">
+                  <div className="grid grid-cols-2 gap-y-1">
+                    {details.map((item, index) => (
+                      <React.Fragment key={index}>
+                        <span className="text-gray-800 font-semibold">{item.label}: </span>
+                        <span className="text-gray-600 font-medium">{item.value}</span>
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Buy now and Cart buttons */}
-        <div className="flex border-2 justify-around p-3 bg-[#001E29] fixed-bottom">
+        <div className="flex border-2 justify-around p-3 bg-[#001E29] ">
           <button
             onClick={handleAddToCart}
             className={`flex items-center justify-center px-4 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 ${isInCart ? "bg-gray-400 cursor-not-allowed" : ""}`}

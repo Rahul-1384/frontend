@@ -75,12 +75,6 @@ function BookDetail() {
     { label: "Publication Year", value: 2022 },
     { label: "Binding", value: "Paperback" },
     { label: "Language", value: book.language },
-    { label: "Pallu Details", value: "Same as Saree" },
-    { label: "Border Width", value: "Small Border" },
-    { label: "Blouse Pattern", value: "Same as Border" },
-    { label: "Country of Origin", value: "India" },
-    { label: "Manufacturer Information", value: "Miracletex" },
-    { label: "Importer Information", value: "No information available" },
     { label: "Packer Information", value: "No information available" },
   ];
 

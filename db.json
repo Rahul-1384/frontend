@@ -2,7 +2,7 @@
     "books": [
       {
         "id": 1,
-        "title": "Physics for Beginners",
+        "title": "physics Physics for Beginners",
         "author": "John Doe",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -20,7 +20,7 @@
       },
       {
         "id": 2,
-        "title": "Chemistry Essentials",
+        "title": "physics Chemistry Essentials",
         "author": "Jane Smith",
         "ISBN": 22941739378,
         "type": "Textbook",
@@ -38,7 +38,7 @@
       },
       {
         "id": 3,
-        "title": "Mathematics Simplified",
+        "title": "physics Mathematics Simplified",
         "author": "Albert Newton",
         "ISBN": 22941739378,
         "type": "textbook",
@@ -56,7 +56,7 @@
       },
       {
         "id": 4,
-        "title": "Literature Classics",
+        "title": "physics Literature Classics",
         "author": "Emily Bronte",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -74,7 +74,7 @@
       },
       {
         "id": 5,
-        "title": "Biology Basics",
+        "title": "physics Biology Basics",
         "author": "Anna Green",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -92,7 +92,7 @@
       },
       {
         "id": 6,
-        "title": "World History",
+        "title": "physics World History",
         "author": "Mark Twain",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -110,7 +110,7 @@
       },
       {
         "id": 7,
-        "title": "Programming in Python",
+        "title": "physics Programming in Python",
         "author": "Guido Van Rossum",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -128,7 +128,7 @@
       },
       {
         "id": 8,
-        "title": "The Wonders of Physics",
+        "title": "physics The Wonders of Physics",
         "author": "Isaac Newton",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -146,7 +146,7 @@
       },
       {
         "id": 9,
-        "title": "Organic Chemistry Explained",
+        "title": "physics Organic Chemistry Explained",
         "author": "Marie Curie",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -164,7 +164,7 @@
       },
       {
         "id": 10,
-        "title": "Algebra Adventures",
+        "title": "physics Algebra Adventures",
         "author": "Carl Gauss",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -182,7 +182,7 @@
       },
       {
         "id": 11,
-        "title": "Shakespearean Tales",
+        "title": "physics Shakespearean Tales",
         "author": "William Shakespeare",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -200,7 +200,7 @@
       },
       {
         "id": 12,
-        "title": "Zoology for Beginners",
+        "title": "physics Zoology for Beginners",
         "author": "Charles Darwin",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -218,7 +218,7 @@
       },
       {
         "id": 13,
-        "title": "Understanding World Geography",
+        "title": "physics Understanding World Geography",
         "author": "Jane Goodall",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -236,7 +236,7 @@
       },
       {
         "id": 14,
-        "title": "Learn Java Programming",
+        "title": "physics Learn Java Programming",
         "author": "James Gosling",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -254,7 +254,7 @@
       },
       {
         "id": 15,
-        "title": "The Art of Logical Thinking",
+        "title": "physics The Art of Logical Thinking",
         "author": "George Boole",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -272,7 +272,7 @@
       },
       {
         "id": 16,
-        "title": "Modern Art Movements",
+        "title": "physics Modern Art Movements",
         "author": "Pablo Picasso",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -290,7 +290,7 @@
       },
       {
         "id": 17,
-        "title": "Astronomy: A Beginner's Guide",
+        "title": "physics Astronomy: A Beginner's Guide",
         "author": "Galileo Galilei",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -308,7 +308,7 @@
       },
       {
         "id": 18,
-        "title": "Introduction to Philosophy",
+        "title": "physics Introduction to Philosophy",
         "author": "Socrates",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -326,7 +326,7 @@
       },
       {
         "id": 19,
-        "title": "Advanced Calculus",
+        "title": "physics Advanced Calculus",
         "author": "Leonhard Euler",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -344,7 +344,7 @@
       },
       {
         "id": 20,
-        "title": "Cultural Anthropology",
+        "title": "physics Cultural Anthropology",
         "author": "Margaret Mead",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -362,7 +362,7 @@
       },
       {
         "id": 21,
-        "title": "Introduction to Economics",
+        "title": "physics Introduction to Economics",
         "author": "Adam Smith",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -380,7 +380,7 @@
       },
       {
         "id": 22,
-        "title": "Programming in C++",
+        "title": "physics Programming in C++",
         "author": "Bjarne Stroustrup",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -398,7 +398,7 @@
       },
       {
         "id": 23,
-        "title": "The Basics of Ethics",
+        "title": "physics The Basics of Ethics",
         "author": "Immanuel Kant",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -416,7 +416,7 @@
       },
       {
         "id": 24,
-        "title": "Shakespeare's Sonnets",
+        "title": "physics Shakespeare's Sonnets",
         "author": "William Shakespeare",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -434,7 +434,7 @@
       },
       {
         "id": 25,
-        "title": "AI and Machine Learning",
+        "title": "physics AI and Machine Learning",
         "author": "Andrew Ng",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -452,7 +452,7 @@
       },
       {
         "id": 26,
-        "title": "Environmental Science Guide",
+        "title": "physics Environmental Science Guide",
         "author": "Rachel Carson",
         "ISBN": 22941739378,
         "type": "Reference",
@@ -470,7 +470,7 @@
       },
       {
         "id": 27,
-        "title": "Exploring Astronomy",
+        "title": "physics Exploring Astronomy",
         "author": "Neil deGrasse Tyson",
         "ISBN": 22941739378,
         "type": "Reference",

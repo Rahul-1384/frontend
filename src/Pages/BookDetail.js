@@ -161,8 +161,8 @@ function BookDetail() {
   return (
     <div className="book-detail">
       <BooksNavbar />
-      <div className="bg-gray-700">
-        <p className="text-center">Get into the world of Manga.</p>
+      <div className="bg-gray-700 flex flex-col md:flex-row">
+        {/* <p className="text-center">Get into the world of Manga.</p> */}
         <div className="bg-white shadow-lg p-2 w-[100%] mx-auto flex flex-col gap-4">
           <Swiper
             className="bg-black max-w-lg w-[100%]  mx-auto"
@@ -286,7 +286,7 @@ function BookDetail() {
         </div>
 
         {/* Buy now and Cart buttons */}
-        <div className="flex border-2 justify-around p-3 bg-[#001E29] ">
+        <div className="flex border-2 justify-around p-3 fixed-bottom bg-[#001E29] ">
           <button
             onClick={handleAddToCart}
             className={`flex items-center justify-center px-4 py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 ${isInCart ? "bg-gray-400 cursor-not-allowed" : ""}`}

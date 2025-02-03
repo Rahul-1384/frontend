@@ -631,7 +631,7 @@ const BookFilter = () => {
       </div>
 
       {/* Books Grid */}
-      <div className="w-full md:w-4/5 p-4">
+      <div className="w-full p-4">
       {/* Search Input */}
       <div className="md:w-full p-4 flex gap-4">
         <input

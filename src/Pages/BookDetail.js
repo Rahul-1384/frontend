@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import BooksNavbar from "../components/BooksNavbar";
 import { FaShoppingCart, FaHeart, FaShareAlt, FaCreditCard } from "react-icons/fa"; // Added Heart and Share icons
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Navigation  } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:3000";
@@ -155,6 +156,22 @@ function BookDetail() {
       console.error('Error adding book to cart:', error);
     }
   };
+  const sortedBooks = useMemo(() => {
+      return filteredBooks.sort((a, b) => {
+        switch (filters.sortBy) {
+          case 'price-low-high':
+            return (a.price || 0) - (b.price || 0);
+          case 'price-high-low':
+            return (b.price || 0) - (a.price || 0);
+          case 'newest':
+            return (b.year || 0) - (a.year || 0);
+          case 'oldest':
+            return (a.year || 0) - (b.year || 0);
+          default:
+            return 0;
+        }
+      });
+    }, [filteredBooks, filters.sortBy]);
   
   
 
@@ -164,38 +181,53 @@ function BookDetail() {
       <div className="bg-gray-700 flex flex-col md:flex-row">
         {/* <p className="text-center">Get into the world of Manga.</p> */}
         <div className="bg-white shadow-lg p-2 w-[100%] mx-auto flex flex-col gap-4">
-          <Swiper
-            className="bg-black max-w-lg w-[100%]  mx-auto"
-            modules={[Pagination]}
-            pagination={{ clickable: true }}
-            spaceBetween={10}
-            slidesPerView={1}
-          >
-            {book.image && book.image.length > 0 ? (
-              book.image.map((imgUrl, index) => (
-                <SwiperSlide key={index}>
-                  <div className="relative">
-                    <img
-                      src={imgUrl}
-                      alt={`Book Img ${index + 1}`}
-                      className="rounded-lg w-full object-contain"
-                    />
-                  </div>
-                </SwiperSlide>
-              ))
-            ) : (
-              <SwiperSlide>
-                <div className="relative">
-                  <img
-                    src="https://via.placeholder.com/600x400?text=No+Image"
-                    alt="No Img"
-                    className="rounded-lg w-full object-fill"
-                  />
-                </div>
-              </SwiperSlide>
-            )}
-          </Swiper>
+        <div className="relative max-w-lg w-full mx-auto">
+      {/* Swiper Component */}
+      <Swiper
+        className="bg-black"
+        modules={[Pagination, Navigation]}
+        pagination={{ clickable: true }}
+        navigation={{
+          nextEl: ".custom-swiper-button-next",
+          prevEl: ".custom-swiper-button-prev",
+        }}
+        loop={true}
+        spaceBetween={10}
+        slidesPerView={1}
+      >
+        {book.image && book.image.length > 0 ? (
+          book.image.map((imgUrl, index) => (
+            <SwiperSlide key={index}>
+              <div className="relative">
+                <img
+                  src={imgUrl}
+                  alt={`Book Img ${index + 1}`}
+                  className="rounded-lg w-full object-contain"
+                />
+              </div>
+            </SwiperSlide>
+          ))
+        ) : (
+          <SwiperSlide>
+            <div className="relative">
+              <img
+                src="https://via.placeholder.com/600x400?text=No+Image"
+                alt="No Img"
+                className="rounded-lg w-full object-fill"
+              />
+            </div>
+          </SwiperSlide>
+        )}
+      </Swiper>
 
+      {/* Navigation Buttons (Visible Only on Large Screens) */}
+      <button className="custom-swiper-button-prev hidden lg:flex absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg z-10">
+        ❮
+      </button>
+      <button className="custom-swiper-button-next hidden lg:flex absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-3 rounded-full shadow-lg z-10">
+        ❯
+      </button>
+    </div>
           {/* Similar Books Based on conditions */}
           <div>
             <p className="text-lg font-bold">Book Condition</p>

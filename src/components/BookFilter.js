@@ -33,7 +33,7 @@ const BookCard = ({ book, addToCart, onClick }) => {
 
   return (
     <div
-      className="border border-gray-200 rounded-xl shadow-md overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white"
+      className=" rounded-xl overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white"
       aria-label={`Book card for ${book.title || 'Untitled'}`}
       tabIndex={0}
       onClick={onClick}
@@ -631,9 +631,9 @@ const BookFilter = () => {
       </div>
 
       {/* Books Grid */}
-      <div className="w-full p-4">
+      <div className="w-full p-2">
       {/* Search Input */}
-      <div className="md:w-full p-4 flex gap-4">
+      <div className="md:w-full py-4 flex gap-2">
         <input
             autoFocus
             placeholder="search.."
@@ -696,7 +696,7 @@ const BookFilter = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2">
             {/* Render filtered books */}
             {currentBooks.map((book) => (
               <BookCard key={book.id} book={book} addToCart={addToCart} onClick={() => handleCardClick(book.id, book.title, book.author, book.category, book.condition)} />

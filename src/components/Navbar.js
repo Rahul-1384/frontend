@@ -102,7 +102,7 @@ const Navbar = () => {
                 </button>
                 <nav className="flex flex-col space-y-6 mt-20 px-6">
                     <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/" onClick={toggleMenu}>Home</NavLink>
-                    <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/buy" onClick={toggleMenu}>Buy</NavLink>
+                    <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/products" onClick={toggleMenu}>Buy</NavLink>
                     <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/sell" onClick={toggleMenu}>Sell</NavLink>
                     <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/contactus" onClick={toggleMenu}>Contact Us</NavLink>
                     <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/aboutus" onClick={toggleMenu}>About Us</NavLink>

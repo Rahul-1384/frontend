@@ -13,6 +13,7 @@ import SearchResults from "./Pages/SearchResults";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 import Wishlist from "./Pages/WishList";
+import FreeDonation from "./Pages/FreeDonation";
 
 // Lazy-load pages
 const Homepage = lazy(() => import("./Pages/Homepage"));
@@ -70,6 +71,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/donate-books" element={<FreeDonation />} />
 
             {/* Admin Routes */}
             <Route

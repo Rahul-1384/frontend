@@ -107,7 +107,7 @@ const Hero = () => {
                 <span></span>
             </div>
 
-            <div className="flex items-center justify-around absolute top-[65%] w-[100%] h-auto text-[0.5rem] m-auto ">
+            <div className="flex items-center justify-around absolute top-[65%] z-[10] w-[100%] h-auto text-[0.5rem] m-auto ">
                 <div className="flex gap-4 ">
                     <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-3 bg-black border-white outline-none font-bold  xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/products">Buy Now</NavLink>
                     <NavLink className="button-style no-underline text-neutral-50 px-[1rem] py-[0.3rem] border-3 bg-black border-white outline-none font-bold  xxxsm:text-[0.3rem] xxsm:text-[0.4rem] xsm:text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] lg:text-[0.8rem] xl:text-[0.9rem] xxl:text-[1rem] " to="/buy">E-Books</NavLink>

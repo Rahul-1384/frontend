@@ -478,7 +478,6 @@ const SearchResults = () => {
         </button>
       </div>
       <div className='w-full md:w-4/5 p-4'>
-        <h1 className="text-2xl font-bold mb-4">Search Results</h1>
         {/* Search Bar */}
         <form onSubmit={handleSearchSubmit} className="flex gap-4 mb-6">
           <input
@@ -495,6 +494,7 @@ const SearchResults = () => {
             Search
           </button>
         </form>
+        <h1 className="text-2xl font-bold mb-4">Search Results For {searchQuery}</h1>
 
         {/* Loading, Error, and Results display */}
         {loading && <p>Loading...</p>}

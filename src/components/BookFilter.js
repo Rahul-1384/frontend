@@ -33,7 +33,7 @@ const BookCard = ({ book, addToCart, onClick }) => {
 
   return (
     <div
-      className=" rounded-xl overflow-hidden hover:shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 bg-white"
+      className=" rounded-md overflow-hidden hover:shadow-2xl transform transition-all duration-300 ease-in-out  bg-white"
       aria-label={`Book card for ${book.title || 'Untitled'}`}
       tabIndex={0}
       onClick={onClick}

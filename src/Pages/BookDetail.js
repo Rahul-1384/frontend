@@ -156,22 +156,7 @@ function BookDetail() {
       console.error('Error adding book to cart:', error);
     }
   };
-  const sortedBooks = useMemo(() => {
-      return filteredBooks.sort((a, b) => {
-        switch (filters.sortBy) {
-          case 'price-low-high':
-            return (a.price || 0) - (b.price || 0);
-          case 'price-high-low':
-            return (b.price || 0) - (a.price || 0);
-          case 'newest':
-            return (b.year || 0) - (a.year || 0);
-          case 'oldest':
-            return (a.year || 0) - (b.year || 0);
-          default:
-            return 0;
-        }
-      });
-    }, [filteredBooks, filters.sortBy]);
+  
   
   
 

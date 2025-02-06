@@ -57,6 +57,7 @@ const Homepage = () => {
       ];
     return(
         <div>
+          
             <Navbar/>
             <Hero/>
             <Trending/>

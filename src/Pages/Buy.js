@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import BooksNavbar from '../components/BooksNavbar';
 import BookFilter from '../components/BookFilter';
 
-export const Buy = () => {
+const Buy = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = (query) => {
@@ -17,3 +17,5 @@ export const Buy = () => {
     </div>
   );
 };
+
+export default Buy;

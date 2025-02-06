@@ -4,16 +4,6 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext"; // Import CartProvider
 import Loading from "./components/Loading";
 import Sidebar from "./components/common/Sidebar";
-import { Buy } from "./Pages/Buy";
-import Cart from "./Pages/CartPage";
-import AboutUs from "./Pages/AboutUs";
-import ContactUs from "./Pages/ContactUs";
-import BookDetail from "./Pages/BookDetail";
-import SearchResults from "./Pages/SearchResults";
-import ForgotPassword from "./Pages/ForgotPassword";
-import ResetPassword from "./Pages/ResetPassword";
-import Wishlist from "./Pages/WishList";
-import FreeDonation from "./Pages/FreeDonation";
 
 // Lazy-load pages
 const Homepage = lazy(() => import("./Pages/Homepage"));
@@ -27,6 +17,16 @@ const SalesPage = lazy(() => import("./Pages/SalesPage"));
 const OrdersPage = lazy(() => import("./Pages/OrdersPage"));
 const AnalyticsPage = lazy(() => import("./Pages/AnalyticsPage"));
 const SettingsPage = lazy(() => import("./Pages/SettingsPage"));
+const Buy = lazy(() => import("./Pages/Buy"));
+const Cart = lazy(() => import("./Pages/CartPage"));
+const AboutUs = lazy(() => import("./Pages/AboutUs"));
+const ContactUs = lazy(() => import("./Pages/ContactUs"));
+const BookDetail = lazy(() => import("./Pages/BookDetail"));
+const SearchResults = lazy(() => import("./Pages/SearchResults"));
+const ForgotPassword = lazy(() => import("./Pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("./Pages/ResetPassword"));
+const Wishlist = lazy(() => import("./Pages/WishList"));
+
 
 const PublicLayout = ({ children }) => <div>{children}</div>;
 
@@ -71,7 +71,6 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/donate-books" element={<FreeDonation />} />
 
             {/* Admin Routes */}
             <Route

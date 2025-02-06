@@ -85,7 +85,7 @@ const Hero = () => {
 
     return (
         <div className="relative">
-            <img src={hero} alt="Hero-bg" className="w-full h-auto object-cover img-fluid relative"/>
+            <img loading="lazy" src={hero} alt="Hero-bg" className="w-full h-auto object-cover img-fluid relative"/>
             <p className="text-[#866a22] font-bold text-[0.5rem] absolute top-[27%] left-[36.8%] text-center max-w-[6rem] xxxsm:text-[0.6rem] xxxsm:max-w-[7rem] xxsm:text-[0.7rem] xxsm:max-w-[8rem] xsm:text-[0.8rem] xsm:max-w-[9rem] sm:text-[1rem] sm:max-w-[12rem] md:text-[1.2rem] md:max-w-[15rem] lg:text-[1.8rem] lg:left-[38%] lg:top-[29%] lg:max-w-[23rem] xl:text-[2rem] xl:left-[38%] xl:top-[27%] xl:max-w-[23rem]">
       <Typed
         strings={paragraphs}

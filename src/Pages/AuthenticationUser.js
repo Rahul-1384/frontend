@@ -5,15 +5,10 @@ import { NavLink } from 'react-router-dom';
 
 const AuthenticationUser = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
-    confirmPassword: '',
-    firstName: '',
-    lastName: '',
-    address: '',
-    gender: '',
-    dob: ''
+    password2: ''
   });
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -30,16 +25,18 @@ const AuthenticationUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isLogin && formData.password !== formData.confirmPassword) {
+    if (!isLogin && formData.password !== formData.password2) {
       setErrorMessage('Passwords do not match!');
       return;
     }
 
-    const url = isLogin ? '/api/auth/login' : '/api/auth/signup';
+    const url = isLogin ? 'http://127.0.0.1:8000/api/auth/login/' : 'http://127.0.0.1:8000/api/auth/register/';
     setIsLoading(true); // Show loader when the form is submitted
 
     try {
+      console.log("Form Data:", formData);
       const response = await axios.post(url, formData);
+      console.log(response.data);
       setErrorMessage(''); // Clear error message on successful response
       alert(response.data.message);
       if (response.data.token) {
@@ -68,29 +65,14 @@ const AuthenticationUser = () => {
           {!isLogin && (
             <>
               <div className="mb-4">
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-900">
-                  First Name
+                <label htmlFor="name" className="block text-sm font-medium text-gray-900">
+                  Username
                 </label>
                 <input
                   type="text"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
-                  required={!isLogin}
-                />
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-900">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
+                  id="name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleInputChange}
                   className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
                   required={!isLogin}
@@ -111,68 +93,19 @@ const AuthenticationUser = () => {
                   required={!isLogin}
                 />
               </div>
-
-              <div className="mb-4">
-                <label htmlFor="address" className="block text-sm font-medium text-gray-900">
-                  Address
-                </label>
-                <input
-                  type="text"
-                  id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
-                  required={!isLogin}
-                />
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="gender" className="block text-sm font-medium text-gray-900">
-                  Gender
-                </label>
-                <select
-                  id="gender"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
-                  required={!isLogin}
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div className="mb-4">
-                <label htmlFor="dob" className="block text-sm font-medium text-gray-900">
-                  Date of Birth
-                </label>
-                <input
-                  type="date"
-                  id="dob"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
-                  required={!isLogin}
-                />
-              </div>
             </>
           )}
 
           {isLogin && (
             <div className="mb-4">
-              <label htmlFor="username" className="block text-sm font-medium text-gray-900">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-900">
                 Username
               </label>
               <input
                 type="text"
-                id="username"
-                name="username"
-                value={formData.username}
+                id="name"
+                name="name"
+                value={formData.name}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
                 required={isLogin}
@@ -208,14 +141,14 @@ const AuthenticationUser = () => {
 
           {!isLogin && (
             <div className="mb-4 relative">
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-900">
+              <label htmlFor="password2" className="block text-sm font-medium text-gray-900">
                 Confirm Password
               </label>
               <input
                 type={showConfirmPassword ? 'text' : 'password'}
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
+                id="password2"
+                name="password2"
+                value={formData.password2}
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 mt-2 border rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none pr-10"
                 required={!isLogin}
@@ -238,9 +171,8 @@ const AuthenticationUser = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className={`w-full px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${
-              isLoading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
-            }`}
+            className={`w-full px-4 py-2 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300 ${isLoading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
+              }`}
           >
             {isLoading ? 'Loading...' : isLogin ? 'Login' : 'Sign Up'}
           </button>

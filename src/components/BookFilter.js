@@ -57,7 +57,7 @@ const BookCard = ({ book, addToCart, onClick }) => {
 
       {/* Details Section */}
       <div className="p-4">
-        <div className="mb-2 flex items-center justify-between">
+        <div className="mb-2 flex flex-col xsm:flex-row xsm:items-center justify-between">
           <div className="flex items-center gap-2">
             <p className="text-3xl font-bold text-blue-600">
               ₹{discountedPrice}

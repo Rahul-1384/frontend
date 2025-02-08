@@ -6,6 +6,7 @@ import { FaCartPlus, FaFilter, FaTimes } from "react-icons/fa";
 import BooksNavbar from '../components/BooksNavbar';
 
 import CartButton from "../components/CartButton";
+import Navbar from '../components/Navbar';
 
 // Reusable Button Component
 const Button = ({ onClick, children, className, ariaLabel }) => (
@@ -271,7 +272,9 @@ const SearchResults = () => {
 
   return (
     <div className="search-results ">
-      <BooksNavbar/>
+      {/* <BooksNavbar/> */}
+      <Navbar />
+
       <div className='items-center md:items-start flex flex-col md:flex-row'>
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -283,7 +286,7 @@ const SearchResults = () => {
         {/* Filter Section */}
         <div
           className={`md:w-1/5 top-[10%] filter-section bg-gray-100 p-4 md:block transition-all duration-1000 ease-in-out ${isFilterOpen ? 'open-modal' : 'close-modal'
-            } md:static absolute z-50`}
+            } md:static absolute`}
         >
           {/* Close Button */}
           <button

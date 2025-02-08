@@ -63,8 +63,8 @@ const ContactUs = () => {
   };
 
   return (
-    <div className="overflow-x-hidden">
-        <Navbar/>
+    <div>
+        <Navbar />
         <div className="relative bg-gray-800 text-white py-12 bg-contact-bg bg-cover bg-no-repeat">
         <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-transparent rounded-t-xl"></div>
         <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-transparent to-transparent rounded-t-xl"></div>
@@ -150,8 +150,8 @@ const ContactUs = () => {
           </div>
         </div>
       </div>
-    </div>
-    <Footer/>
+      </div>
+      <Footer/>
     </div>
   );
 };

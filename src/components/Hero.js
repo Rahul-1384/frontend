@@ -99,7 +99,7 @@ const Hero = () => {
             <span className="absolute top-[58%] left-[47.5%] font-bold text-[#fdb604] text-[0.5rem] xsm:text-sm sm:text-sm md:text-base lg:text-lg xl:text-xl xxl:text-2xl">
                 Ask AI
             </span>
-            <div class="indicator">
+            <div className="indicator">
                 <span></span>
                 <span></span>
                 <span></span>

@@ -418,14 +418,26 @@ const BookFilter = () => {
   //   console.log("Id of the book", id);
   // };
 
+  const [isScrolled, setIsScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      // Change UI when scrolled past 50px (adjust threshold as needed)
+      setIsScrolled(window.scrollY > 60);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <div className="flex flex-col md:flex-row">
       
       <button
         onClick={() => setIsFilterOpen(!isFilterOpen)}
-        className="md:hidden p-4 text-white bg-blue-500 sticky top-0  z-50 flex items-center justify-between w-full"
+        className={`md:hidden p-3 text-white bg-blue-500 sticky ${
+          isScrolled ? "top-[70px] left-[80%] w-fit rounded-full" : "top-0 w-full"
+        } z-10 flex items-center transition-all duration-700 justify-between`}
       >
-        <FaFilter size={18} /> Filter
+        <FaFilter size={18} />
+        {!isScrolled && <span>Filter</span>} {/* Show "Filter" only when not scrolled */}
       </button>
 
       {/* Filter Section */}

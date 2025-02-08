@@ -1,17 +1,38 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom"; // Import useNavigate
-import './navbar.css';
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { Search, Menu, X, LogIn, UserPlus, Home, ShoppingCart, BookOpen, Mail, Info } from 'lucide-react';
+import logo from '../images/rebook-logo.png';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    // const inputRef = useRef(null);
-
-    
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // Close mobile menu when route changes
+    useEffect(() => {
+        setIsMenuOpen(false);
+        setIsSearchOpen(false);
+    }, [location]);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+        if (isSearchOpen) setIsSearchOpen(false);
+    };
+
+    const toggleSearch = () => {
+        setIsSearchOpen(!isSearchOpen);
+        if (isMenuOpen) setIsMenuOpen(false);
     };
 
     const handleSearchChange = (event) => {
@@ -20,11 +41,10 @@ const Navbar = () => {
 
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-        
         if (searchQuery.trim()) {
             navigate(`/search-results?query=${encodeURIComponent(searchQuery)}`);
+            setIsSearchOpen(false);
         }
-        
         setSearchQuery("");
     };
 
@@ -34,81 +54,161 @@ const Navbar = () => {
         }
     };
 
-    // const handleButtonClick = () => {
-    //     if (inputRef.current) {
-    //         inputRef.current.focus(); // Set focus on the input field
-    //     }
-    // };
+    const navItems = [
+        { path: "/", label: "Home", icon: Home },
+        { path: "/products", label: "Buy", icon: ShoppingCart },
+        { path: "/sell", label: "Sell", icon: BookOpen },
+        { path: "/contactus", label: "Contact", icon: Mail },
+        { path: "/aboutus", label: "About", icon: Info },
+    ];
+
+    const NavItem = ({ path, label, icon: Icon, onClick }) => {
+        const isActive = location.pathname === path;
+        return (
+            <NavLink
+                to={path}
+                onClick={onClick}
+                className={`group no-underline flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
+                        ? 'text-yellow-500 bg-slate-800/50'
+                        : 'text-gray-200 hover:text-yellow-500 hover:bg-slate-800/30'
+                    }`}
+            >
+                <Icon className={`w-4 h-4 mr-2 transition-colors duration-200 ${isActive ? 'text-yellow-500' : 'text-gray-400 group-hover:text-yellow-500'
+                    }`} />
+                {label}
+            </NavLink>
+        );
+    };
 
     return (
-        <div className="bg-[#001E29] relative z-[100]">
-            <div className="flex justify-between items-center w-[100%] h-[4rem] m-auto px-4  relative">
-                <NavLink to="/" className="rebook-logo relative z-[200] w-[90px] h-[50px]">
-                    
-                </NavLink>
+        <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/95 -backdrop-blur-[2px] shadow-lg' : 'bg-slate-900'
+            }`}>
+            <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
+                <div className="relative flex items-center justify-between h-16">
+                    {/* Logo */}
+                    <NavLink
+                        to="/products"
+                        className="relative mix-blend-plus-lighter overflow-hidden z-10 flex-shrink-0 flex items-center"
+                    >
+                        <div className="w-32 h-16 bg-gradient-to-r  rounded-lg flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-200">
+                            <span className="text-slate-900 font-bold text-xl tracking-wider"><img src={logo} alt="" /></span>
+                        </div>
+                    </NavLink>
 
-                <ul className="navItems hidden md:flex md:mt-4 md:items-center md:space-x-6 md:text-[0.7rem] lg:text-[1rem]">
-                    <li>
-                        <NavLink className="border-bottom-class no-underline text-white" to="/">Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className="border-bottom-class no-underline text-white" to="/products">Buy</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className="border-bottom-class no-underline text-white" to="/sell">Sell</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className="border-bottom-class no-underline text-white" to="/contactus">Contact Us</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className="border-bottom-class no-underline text-white" to="/aboutus">About Us</NavLink>
-                    </li>
-                    {/* <li className="relative">
-                        <input type="text"  placeholder="Search books..." className="pl-10 pr-4 py-1 w-[15rem] border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#fdb604] md:w-[2px] lg:w-[90%]"/>
-                        <i className="fa fa-search absolute left-3 top-2 text-gray-400"></i>
-                    </li> */}
-                    {/* onClick={handleButtonClick} */}
-                    <li class="input-wrapper">
-                        <button class="icon" > 
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="25px" width="25px">
-                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#fff" d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"></path>
-                            <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#fff" d="M22 22L20 20"></path>
-                            </svg>
+                    {/* Desktop Navigation */}
+                    <div className="hidden lg:flex items-center space-x-1">
+                        {navItems.map((item) => (
+                            <NavItem key={item.path} {...item} />
+                        ))}
+                    </div>
+
+                    {/* Desktop Search and Auth */}
+                    <div className="hidden lg:flex items-center space-x-4">
+                        <form onSubmit={handleSearchSubmit} className="relative">
+                            <input
+                                type="text"
+                                placeholder="Search books..."
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                onKeyDown={handleKeyPress}
+                                className="w-64 px-10 py-2 pl-10 text-sm outline-none text-gray-200 bg-slate-800/50 rounded-lg border-2 border-slate-700 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500 transition-all duration-200 placeholder-gray-400"
+                            />
+                            <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                        </form>
+
+                        <div className="flex items-center space-x-2">
+                            <NavLink
+                                to="/login"
+                                className="inline-flex no-underline items-center px-4 py-2 text-sm font-medium text-slate-900 border-2 border-yellow-500 bg-yellow-500 rounded-lg hover:bg-transparent hover:text-white hover:border-2 hover:border-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200 shadow-lg hover:shadow-xl"
+                            >
+                                <LogIn className="w-4 h-4 mr-2" />
+                                Log in
+                            </NavLink>
+
+                            <NavLink
+                                to="/signup"
+                                className="inline-flex no-underline items-center px-4 py-2 text-sm font-medium text-yellow-500 bg-transparent border-2 border-yellow-500 rounded-lg hover:bg-yellow-500 hover:text-white hover:border-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200"
+                            >
+                                <UserPlus className="w-4 h-4 mr-2" />
+                                Sign up
+                            </NavLink>
+                        </div>
+                    </div>
+
+                    {/* Mobile Controls */}
+                    <div className="flex lg:hidden items-center space-x-2">
+                        <button
+                            onClick={toggleSearch}
+                            className="p-2 rounded-lg text-gray-200 hover:text-yellow-500 focus:outline-none"
+                        >
+                            <Search className="h-6 w-6" />
                         </button>
-                        {/* ref={inputRef} */}
-                        <input autoFocus={true} placeholder="search.." value={searchQuery} onChange={handleSearchChange} onKeyDown={handleKeyPress} name="text" type="text"className="input"  />
-                    </li>
-                </ul>
-
-                <button className="md:hidden text-[#fdb604] text-2xl focus:outline-none" onClick={toggleMenu}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7"/>
-                    </svg>
-                </button>
-
-                <div className="flex items-center gap-4 md:gap-1">
-                    <NavLink className="button-style font-bold no-underline px-4 py-2 text-[0.6rem] border-2 rounded-sm text-[#fdb604] border-[#fdb604] lg:text-[11px]" to="/login">Sign Up</NavLink>
-                    <NavLink className="hidden sm:inline-block button-style font-bold no-underline px-4 py-2 text-[0.6rem] border-2 rounded-sm text-[#fdb604] border-[#fdb604] lg:text-[11px]" to="/login">Log in</NavLink>
+                        <button
+                            onClick={toggleMenu}
+                            className="p-2 rounded-lg text-gray-200 hover:text-yellow-500 focus:outline-none"
+                        >
+                            {isMenuOpen ? (
+                                <X className="h-6 w-6" />
+                            ) : (
+                                <Menu className="h-6 w-6" />
+                            )}
+                        </button>
+                    </div>
                 </div>
 
+                {/* Mobile Search Bar */}
+                <div className={`lg:hidden transition-all duration-300 ease-in-out ${isSearchOpen ? 'max-h-20 opacity-100 mb-2' : 'max-h-0 opacity-0 overflow-hidden'
+                    }`}>
+                    <form onSubmit={handleSearchSubmit} className="p-2">
+                        <div className="relative">
+                            <input
+                                type="text"
+                                placeholder="Search books..."
+                                value={searchQuery}
+                                onChange={handleSearchChange}
+                                onKeyDown={handleKeyPress}
+                                className="w-full px-10 py-2 pl-10 text-sm outline-none text-gray-200 bg-slate-800/50 rounded-lg border-2 border-slate-700 focus:outline-none focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500"
+                            />
+                            <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            <div
-                className={`fixed z-[100] top-0 left-0 h-full w-[75%] bg-[#001E29] text-white shadow-lg transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "-translate-x-full"}`}>
-                <button className="text-[#fdb604] text-2xl absolute top-4 right-4 focus:outline-none" onClick={toggleMenu}>
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-                <nav className="flex flex-col space-y-6 mt-20 px-6">
-                    <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/" onClick={toggleMenu}>Home</NavLink>
-                    <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/products" onClick={toggleMenu}>Buy</NavLink>
-                    <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/sell" onClick={toggleMenu}>Sell</NavLink>
-                    <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/contactus" onClick={toggleMenu}>Contact Us</NavLink>
-                    <NavLink className="block no-underline text-white py-2 hover:bg-[#fdb604] hover:text-[#001E29] rounded" to="/aboutus" onClick={toggleMenu}>About Us</NavLink>
-                </nav>
+            {/* Mobile Menu */}
+            <div className={`lg:hidden transition-all duration-300 ease-in-out ${isMenuOpen
+                    ? 'max-h-screen opacity-100 border-t border-slate-800'
+                    : 'max-h-0 opacity-0 overflow-hidden'
+                }`}>
+                <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-900/95 backdrop-blur-md">
+                    {navItems.map((item) => (
+                        <NavItem
+                            key={item.path}
+                            {...item}
+                            onClick={toggleMenu}
+                        />
+                    ))}
+
+                    <div className="pt-4 space-y-2 px-2">
+                        <NavLink
+                            to="/login"
+                            className="flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-900 bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-colors duration-200 shadow-lg"
+                        >
+                            <LogIn className="w-4 h-4 mr-2" />
+                            Log in
+                        </NavLink>
+
+                        <NavLink
+                            to="/signup"
+                            className="flex items-center justify-center px-4 py-2 text-sm font-medium text-yellow-500 bg-transparent border-2 border-yellow-500 rounded-lg hover:bg-yellow-500 hover:text-slate-900 transition-colors duration-200"
+                        >
+                            <UserPlus className="w-4 h-4 mr-2" />
+                            Sign up
+                        </NavLink>
+                    </div>
+                </div>
             </div>
-        </div>
+        </nav>
     );
 };
 

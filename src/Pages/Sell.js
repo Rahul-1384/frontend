@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Navbar from '../components/Navbar';
 
 const SellBooks = () => {
   const [formData, setFormData] = useState({
@@ -54,7 +55,8 @@ const SellBooks = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-50 py-10 px-4 sm:px-6 lg:px-16 xl:px-20">
+    <div className="flex flex-col items-center bg-gray-50  px-0">
+      <Navbar />
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-6xl">
         <h1 className="text-3xl font-semibold mb-6 text-center text-[#c7ae6f]">Sell Your Used Books</h1>
         <form className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 lg:px-24" onSubmit={handleSubmit}>

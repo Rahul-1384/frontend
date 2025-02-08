@@ -32,10 +32,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-white">Quick Links</h3>
             <ul className="space-y-2">
-              <li><a href="" className="hover:text-teal-400 no-underline transition duration-300">Home</a></li>
-              <li><NavLink to="#categories" className="hover:text-teal-400 no-underline transition duration-300">Categories</NavLink></li>
-              <li><NavLink to="/contactus" className="hover:text-teal-400 no-underline transition duration-300">Contact Us</NavLink></li>
-              <li><NavLink to="#faq" className="hover:text-teal-400 no-underline transition duration-300">FAQ</NavLink></li>
+              <li><NavLink onClick={scrollToTop}  to="/" className="hover:text-teal-400 no-underline transition duration-300">Home</NavLink></li>
+              <li><NavLink onClick={scrollToTop}  to="#categories" className="hover:text-teal-400 no-underline transition duration-300">Categories</NavLink></li>
+              <li><NavLink onClick={scrollToTop}  to="/contactus" className="hover:text-teal-400 no-underline transition duration-300">Contact Us</NavLink></li>
+              <li><NavLink onClick={scrollToTop}  to="#faq" className="hover:text-teal-400 no-underline transition duration-300">FAQ</NavLink></li>
             </ul>
           </div>
 
@@ -59,10 +59,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-2xl font-semibold text-white">Follow Us</h3>
             <div className="flex space-x-6 text-2xl">
-              <a href="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-facebook-f"></i></a>
-              <a href="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-twitter"></i></a>
-              <a href="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-instagram"></i></a>
-              <a href="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-linkedin-in"></i></a>
+              <NavLink to="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-facebook-f"></i></NavLink>
+              <NavLink to="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-twitter"></i></NavLink>
+              <NavLink to="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-instagram"></i></NavLink>
+              <NavLink to="#" className="hover:text-teal-400 transition-transform transform hover:scale-110 animate-pulse"><i className="fab fa-linkedin-in"></i></NavLink>
             </div>
           </div>
         </div>

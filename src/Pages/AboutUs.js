@@ -5,6 +5,12 @@ import aboutHero from '../images/contact-bg.webp';
 import { NavLink } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
+import RahulRajput from '../images/Leaders/RahulRajput.jpeg';
+import Mradul from '../images/Leaders/Mradul.png';
+import RahulJadon from '../images/Leaders/RahulJadon.jpg';
+import YashRajput from '../images/Leaders/YashRajput.jpg';
+import Siddharth from '../images/Leaders/RahulRajput.jpeg';
+import Deepak from '../images/Leaders/RahulRajput.jpeg';
 
 const AboutUs = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -73,38 +79,68 @@ const AboutUs = () => {
     {
       name: "Rahul Rajput",
       role: "Frontend Lead",
-      image: "/api/placeholder/128/128",
+      image: RahulRajput,
+      socialLinks: {
+      linkedin: "https://www.linkedin.com/in/rahul1384/",
+      github: "https://github.com/Rahul1384",
+      email: "siddharth@bookefy.com"
+    },
       quote: "Leading the frontend development with modern web technologies to create an intuitive and user-friendly interface."
     },
     {
       name: "Mradul",
       role: "Database Architect",
-      image: "/api/placeholder/128/128",
+      image: Mradul,
+      socialLinks: {
+      linkedin: "https://linkedin.com/in/siddharth",
+      github: "https://github.com/siddharth",
+      email: "siddharth@bookefy.com"
+    },
       quote: "Optimizing database systems to ensure seamless access to information and efficient data management."
+    },
+    {
+      name: "Rahul Jadon",
+      role: "Business Strategy Lead",
+      image: RahulJadon,
+      socialLinks: {
+      linkedin: "https://linkedin.com/in/siddharth",
+      github: "https://github.com/siddharth",
+      email: "siddharth@bookefy.com"
+    },
+      quote: "Driving our mission to make education accessible while building a sustainable community."
     },
     {
       name: "Yash Rajput",
       role: "AI Development Lead",
-      image: "/api/placeholder/128/128",
+      image: YashRajput,
+      socialLinks: {
+      linkedin: "https://linkedin.com/in/siddharth",
+      github: "https://github.com/siddharth",
+      email: "siddharth@bookefy.com"
+    },
       quote: "Training our AI models with historical data to deliver accurate price predictions for our book inventory."
     },
     {
       name: "Siddharth",
       role: "Backend Lead",
-      image: "/api/placeholder/128/128",
+      image: Siddharth,
+      socialLinks: {
+      linkedin: "https://linkedin.com/in/siddharth",
+      github: "https://github.com/siddharth",
+      email: "siddharth@bookefy.com"
+    },
       quote: "Building robust server-side architecture to support our growing platform and ensure scalability."
     },
     {
       name: "Deepak",
       role: "Design Lead",
-      image: "/api/placeholder/128/128",
-      quote: "Creating intuitive user experiences through thoughtful design and seamless interactions."
+      image: Deepak,
+      socialLinks: {
+      linkedin: "https://linkedin.com/in/siddharth",
+      github: "https://github.com/siddharth",
+      email: "siddharth@bookefy.com"
     },
-    {
-      name: "Rahul Jadon",
-      role: "Business Strategy Lead",
-      image: "/api/placeholder/128/128",
-      quote: "Driving our mission to make education accessible while building a sustainable community."
+      quote: "Creating intuitive user experiences through thoughtful design and seamless interactions."
     }
   ];
 
@@ -249,7 +285,7 @@ const AboutUs = () => {
                   <img
                     src={leader.image}
                     alt={leader.name}
-                    className="w-24 h-24 rounded-full ring-4 ring-blue-100 group-hover:ring-blue-200 transition-all duration-300"
+                    className="w-24 h-24 rounded-full ring-4 ring-blue-200 group-hover:ring-blue-300 transition-all duration-300"
                   />
                   <div className="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
                 </div>
@@ -263,15 +299,15 @@ const AboutUs = () => {
                 </div>
 
                 <div className="mt-6 flex space-x-4">
-                  <button className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  <NavLink target='__blank' to={leader.socialLinks.linkedin} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fab fa-linkedin text-xl"></i>
-                  </button>
-                  <button className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  </NavLink>
+                  <NavLink target='__blank' to={leader.socialLinks.github} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fab fa-github text-xl"></i>
-                  </button>
-                  <button className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  </NavLink>
+                  <NavLink target='__blank' to={leader.socialLinks.email} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fas fa-envelope text-xl"></i>
-                  </button>
+                  </NavLink>
                 </div>
               </motion.div>
             ))}
@@ -313,15 +349,15 @@ const AboutUs = () => {
                 </div>
 
                 <div className="mt-6 flex space-x-4">
-                  <button className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  <NavLink target='__blank' to={leaders[currentSlide].socialLinks.linkedin} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fab fa-linkedin text-xl"></i>
-                  </button>
-                  <button className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  </NavLink>
+                  <NavLink target='__blank' to={leaders[currentSlide].socialLinks.github} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fab fa-github text-xl"></i>
-                  </button>
-                  <button className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  </NavLink>
+                  <NavLink target='__blank' to={leaders[currentSlide].socialLinks.email} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fas fa-envelope text-xl"></i>
-                  </button>
+                  </NavLink>
                 </div>
               </motion.div>
             </motion.div>
@@ -370,7 +406,6 @@ const AboutUs = () => {
         variants={fadeInUp}
         initial="initial"
         whileInView="animate"
-        viewport={{ once: true }}
       >
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">

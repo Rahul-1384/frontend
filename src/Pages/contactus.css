@@ -1,12 +1,12 @@
 .left-section{
-    transform: translateX(-200px);
+    transform: translateX(-100px);
     filter: blur(20px);
     opacity: 0.6;
     animation: showContentLeft 0.6s linear 1 forwards;
 }
 
 .right-section{
-    transform: translateX(200px);
+    transform: translateX(100px);
     filter: blur(20px);
     opacity: 0.6;
     animation: showContentRight 0.6s linear 1 forwards;

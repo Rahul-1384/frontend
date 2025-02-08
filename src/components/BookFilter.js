@@ -443,8 +443,8 @@ const BookFilter = () => {
       {/* Filter Section */}
       <div
         className={`md:w-1/5 filter-section bg-gray-100 p-4 md:block transition-all duration-1000 ease-in-out ${
-          isFilterOpen ? 'open-modal' : 'close-modal'
-        } md:static absolute z-50`}
+          isFilterOpen ? 'open-modal z-50' : 'close-modal z-0'
+        } md:static absolute `}
       >
         {/* Close Button */}
         <button

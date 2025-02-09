@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Mail, Lock, EyeOff, Eye, AlertCircle } from 'lucide-react';
+import axios from 'axios';
 
 const Input = ({ type, name, placeholder, value, onChange, error, className, icon: Icon }) => (
     <div className="relative">
@@ -49,7 +50,7 @@ const Alert = ({ children, variant = 'error' }) => {
     };
 
     return (
-        <div className={`p-4 rounded-md border ${variants[variant]} flex items-center space-x-2`}>
+        <div className={`p-4 mb-4 rounded-md border ${variants[variant]} flex items-center space-x-2`}>
             <AlertCircle className="h-4 w-4" />
             {children}
         </div>
@@ -58,15 +59,18 @@ const Alert = ({ children, variant = 'error' }) => {
 
 const LoginForm = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [loginError, setLoginError] = useState('');
+
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
-    const [errors, setErrors] = useState({});
-    const [showPassword, setShowPassword] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [loginError, setLoginError] = useState('');
 
     const validateForm = () => {
         const newErrors = {};
@@ -96,23 +100,27 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoginError('');
+        console.log(formData);
 
         if (!validateForm()) return;
 
         setIsLoading(true);
         try {
-            // TODO: Replace with actual API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            // TODO: Handle successful login (e.g., store token, update auth context)
-            console.log('Login successful:', formData);
-            // TODO: Navigate to dashboard or home page
-            // navigate('/dashboard');
+            const response = await axios.post('http://127.0.0.1:8000/api/auth/login/', formData);
+            localStorage.setItem('token', response.data.token);
+            console.log('Login successful:', response.data);
+
+            const redirectPath = location.state?.from || '/';
+            navigate(redirectPath);
         } catch (error) {
-            setLoginError('Invalid email or password. Please try again.');
+            setLoginError(error.response?.data?.message || 'Invalid email or password');
+            console.error('Error Response:', error.response); // Log full response
+            // setFormData({ password: '' }); // Clear input fields on error
         } finally {
             setIsLoading(false);
         }
     };
+
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">

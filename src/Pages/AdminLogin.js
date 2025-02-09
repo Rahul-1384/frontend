@@ -21,7 +21,7 @@ const AdminLogin = () => {
 
     if (credentials.username === mockUsername && credentials.password === mockPassword) {
       loginAdmin();
-      navigate('/xynfnsejfdf23jfdcmzqotpwcicdhesf01/admin');
+      navigate('/admin');
     } else {
       setError('Invalid username or password');
     }

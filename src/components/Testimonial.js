@@ -7,7 +7,7 @@ const testimonials = [
     id: 1, 
     name: "John Doe",
     role: "Student, MIT",
-    image: "/api/placeholder/80/80", 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzHlZdXOG9XILJ7e3vUeOY292NX7rZiBWmgw&s", 
     desc: "Bookefy has transformed how I access textbooks. The platform is intuitive and the community is incredibly helpful.",
     rating: 4
   },
@@ -15,7 +15,7 @@ const testimonials = [
     id: 2, 
     name: "Jane Smith",
     role: "Graduate Student, Stanford",
-    image: "/api/placeholder/80/80", 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzHlZdXOG9XILJ7e3vUeOY292NX7rZiBWmgw&s", 
     desc: "Finding affordable textbooks was always a challenge until I discovered Bookefy. The exchange process is seamless!",
     rating: 5
   },
@@ -23,7 +23,7 @@ const testimonials = [
     id: 3, 
     name: "Mike Johnson",
     role: "Professor, Harvard",
-    image: "/api/placeholder/80/80", 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzHlZdXOG9XILJ7e3vUeOY292NX7rZiBWmgw&s", 
     desc: "I recommend Bookefy to all my students. It's making education more accessible and affordable.",
     rating: 3
   },
@@ -31,7 +31,7 @@ const testimonials = [
     id: 4, 
     name: "Sarah Wilson",
     role: "Student, Berkeley",
-    image: "/api/placeholder/80/80", 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzHlZdXOG9XILJ7e3vUeOY292NX7rZiBWmgw&s", 
     desc: "The AI-powered pricing makes it fair for everyone. I've saved so much money using Bookefy!",
     rating: 4
   },
@@ -39,7 +39,7 @@ const testimonials = [
     id: 5, 
     name: "Alex Brown",
     role: "Research Scholar, Oxford",
-    image: "/api/placeholder/80/80", 
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzHlZdXOG9XILJ7e3vUeOY292NX7rZiBWmgw&s", 
     desc: "Excellent platform with a great selection of academic books. The community is very supportive.",
     rating: 5
   },
@@ -111,7 +111,7 @@ const Testimonial = () => {
           </p>
         </div>
 
-        <div className="relative flex items-center justify-center max-w-4xl mx-auto">
+        <div className="relative flex items-center z-1 justify-center max-w-4xl mx-auto">
           <button
             className="absolute left-0 md:-left-16 z-10 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 backdrop-blur-sm"
             onClick={() => paginate(-1)}

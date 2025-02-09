@@ -9,7 +9,7 @@ import RahulRajput from '../images/Leaders/RahulRajput.jpeg';
 import Mradul from '../images/Leaders/Mradul.png';
 import RahulJadon from '../images/Leaders/RahulJadon.jpg';
 import YashRajput from '../images/Leaders/YashRajput.jpg';
-import Siddharth from '../images/Leaders/RahulRajput.jpeg';
+import Siddharth from '../images/Leaders/Siddharth.jpg';
 import Deepak from '../images/Leaders/RahulRajput.jpeg';
 
 const AboutUs = () => {
@@ -83,7 +83,7 @@ const AboutUs = () => {
       socialLinks: {
       linkedin: "https://www.linkedin.com/in/rahul1384/",
       github: "https://github.com/Rahul1384",
-      email: "siddharth@bookefy.com"
+      email: "siddharth@Bookefy.com"
     },
       quote: "Leading the frontend development with modern web technologies to create an intuitive and user-friendly interface."
     },
@@ -94,7 +94,7 @@ const AboutUs = () => {
       socialLinks: {
       linkedin: "https://linkedin.com/in/siddharth",
       github: "https://github.com/siddharth",
-      email: "siddharth@bookefy.com"
+      email: "siddharth@Bookefy.com"
     },
       quote: "Optimizing database systems to ensure seamless access to information and efficient data management."
     },
@@ -105,7 +105,7 @@ const AboutUs = () => {
       socialLinks: {
       linkedin: "https://linkedin.com/in/siddharth",
       github: "https://github.com/siddharth",
-      email: "siddharth@bookefy.com"
+      email: "siddharth@Bookefy.com"
     },
       quote: "Driving our mission to make education accessible while building a sustainable community."
     },
@@ -116,7 +116,7 @@ const AboutUs = () => {
       socialLinks: {
       linkedin: "https://linkedin.com/in/siddharth",
       github: "https://github.com/siddharth",
-      email: "siddharth@bookefy.com"
+      email: "siddharth@Bookefy.com"
     },
       quote: "Training our AI models with historical data to deliver accurate price predictions for our book inventory."
     },
@@ -127,7 +127,7 @@ const AboutUs = () => {
       socialLinks: {
       linkedin: "https://linkedin.com/in/siddharth",
       github: "https://github.com/siddharth",
-      email: "siddharth@bookefy.com"
+      email: "siddharth@Bookefy.com"
     },
       quote: "Building robust server-side architecture to support our growing platform and ensure scalability."
     },
@@ -138,7 +138,7 @@ const AboutUs = () => {
       socialLinks: {
       linkedin: "https://linkedin.com/in/siddharth",
       github: "https://github.com/siddharth",
-      email: "siddharth@bookefy.com"
+      email: "siddharth@Bookefy.com"
     },
       quote: "Creating intuitive user experiences through thoughtful design and seamless interactions."
     }

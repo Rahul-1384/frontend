@@ -4,6 +4,9 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext"; // Import CartProvider
 import Loading from "./components/Loading";
 import Sidebar from "./components/common/Sidebar";
+import SignupForm from "./Pages/SignupForm";
+import LoginForm from "./Pages/LoginForm";
+
 
 // Lazy-load pages
 const Homepage = lazy(() => import("./Pages/Homepage"));
@@ -26,6 +29,7 @@ const SearchResults = lazy(() => import("./Pages/SearchResults"));
 const ForgotPassword = lazy(() => import("./Pages/ForgotPassword"));
 const ResetPassword = lazy(() => import("./Pages/ResetPassword"));
 const Wishlist = lazy(() => import("./Pages/WishList"));
+const Rent = lazy(() => import("./Pages/Rent"));
 
 
 const PublicLayout = ({ children }) => <div>{children}</div>;
@@ -59,7 +63,11 @@ function App() {
             />
             <Route
               path="/login"
-              element={<PublicLayout><AuthenticationUser /></PublicLayout>}
+              element={<PublicLayout><LoginForm /></PublicLayout>}
+            />
+            <Route
+              path="/signup"
+              element={<PublicLayout><SignupForm /></PublicLayout>}
             />
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/products" element={<Buy />} />
@@ -71,6 +79,7 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/rent" element={<Rent />} />
 
             {/* Admin Routes */}
             <Route

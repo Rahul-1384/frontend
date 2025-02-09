@@ -192,7 +192,7 @@ const Navbar = () => {
                     <div className="pt-4 space-y-2 px-2">
                         <NavLink
                             to="/login"
-                            className="flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-900 bg-yellow-500 rounded-lg hover:bg-yellow-600 transition-colors duration-200 shadow-lg"
+                            className="no-underline flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-900 bg-yellow-500 border-2 border-yellow-400 hover:text-white rounded-lg hover:bg-transparent hover:border-white transition-colors duration-200 shadow-lg"
                         >
                             <LogIn className="w-4 h-4 mr-2" />
                             Log in
@@ -200,7 +200,7 @@ const Navbar = () => {
 
                         <NavLink
                             to="/signup"
-                            className="flex items-center justify-center px-4 py-2 text-sm font-medium text-yellow-500 bg-transparent border-2 border-yellow-500 rounded-lg hover:bg-yellow-500 hover:text-slate-900 transition-colors duration-200"
+                            className="no-underline flex items-center justify-center px-4 py-2 text-sm font-medium text-yellow-500 bg-transparent border-2 border-yellow-500 rounded-lg hover:bg-yellow-500 hover:text-white hover:border-white transition-colors duration-200"
                         >
                             <UserPlus className="w-4 h-4 mr-2" />
                             Sign up

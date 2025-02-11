@@ -158,9 +158,9 @@ const ContactUs = () => {
 
 const ContactDetail = ({ icon, text }) => (
   <div className="flex items-center">
-    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+    <p className="w-12 h-12 bg-blue-600 transition-all duration-200 rounded-full flex items-center justify-center">
       <i className={`${icon} text-white text-lg`}></i>
-    </div>
+    </p>
     <p className="ml-4 w-96">{text}</p>
   </div>
 );

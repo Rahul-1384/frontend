@@ -10,7 +10,7 @@ import Mradul from '../images/Leaders/Mradul.png';
 import RahulJadon from '../images/Leaders/RahulJadon.jpg';
 import YashRajput from '../images/Leaders/YashRajput.jpg';
 import Siddharth from '../images/Leaders/Siddharth.jpg';
-import Deepak from '../images/Leaders/RahulRajput.jpeg';
+import Deepak from '../images/Leaders/Deepak.jpeg';
 
 const AboutUs = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

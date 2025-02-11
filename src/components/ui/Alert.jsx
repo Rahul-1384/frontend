@@ -21,7 +21,7 @@ const Alert = React.forwardRef(({ className, variant, ...props }, ref) => (
   <div
     ref={ref}
     role="alert"
-    className={`${alertVariants({ variant })} ${className} bg-white/10 backdrop-blur-sm text-white border-white/20`}
+    className={`${alertVariants({ variant })} ${className} bg-white/10 backdrop-blur-3xl text-white border-2 border-white/20`}
     {...props}
   />
 ))
@@ -39,7 +39,7 @@ AlertTitle.displayName = "AlertTitle"
 const AlertDescription = React.forwardRef(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={`text-sm [&_p]:leading-relaxed ${className}`}
+    className={`text-lg font-semibold [&_p]:leading-relaxed ${className}`}
     {...props}
   />
 ))

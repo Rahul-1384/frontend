@@ -20,24 +20,12 @@ function App() {
           <Routes>
             {/* Public Routes */}
             {publicRoutes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={<PublicLayout>{route.element}</PublicLayout>}
-              />
+              <Route key={index} path={route.path} element={<PublicLayout>{route.element}</PublicLayout>} />
             ))}
 
             {/* Admin Routes */}
             {adminRoutes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  <ProtectedRoute>
-                    <AdminLayout>{route.element}</AdminLayout>
-                  </ProtectedRoute>
-                }
-              />
+              <Route key={index} path={route.path} element={<ProtectedRoute><AdminLayout>{route.element}</AdminLayout></ProtectedRoute>} />
             ))}
           </Routes>
         </Suspense>

@@ -15,7 +15,7 @@ const Loading = () => {
           ))}
         </ul>
       </div>
-      <span className='font-extrabold text-3xl'><b className='text-[#EF4444] '>B</b>o<b className='text-[#EF4444]'>o</b>ook</span>
+      <span className='font-extrabold text-3xl'><b className='text-[#EF4444] '>B</b>ook<b className='text-[#EF4444]'>e</b>fy</span>
     </div>
   );
 };

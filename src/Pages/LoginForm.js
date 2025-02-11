@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Mail, Lock, EyeOff, Eye, AlertCircle } from 'lucide-react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const Input = ({ type, name, placeholder, value, onChange, error, className, icon: Icon }) => (
     <div className="relative">
@@ -60,62 +61,53 @@ const Alert = ({ children, variant = 'error' }) => {
 const LoginForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { loginUser } = useAuth(); // Get login function from context
+
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
 
+    const from = location.state?.from?.pathname || '/';
 
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
-
     const validateForm = () => {
         const newErrors = {};
+        if (!formData.email) newErrors.email = 'Email is required';
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email format';
 
-        if (!formData.email) {
-            newErrors.email = 'Email is required';
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = 'Invalid email format';
-        }
-
-        if (!formData.password) {
-            newErrors.password = 'Password is required';
-        }
-
+        if (!formData.password) newErrors.password = 'Password is required';
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-        if (errors[name]) {
-            setErrors(prev => ({ ...prev, [name]: '' }));
-        }
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        if (errors[name]) setErrors((prev) => ({ ...prev, [name]: '' }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoginError('');
-        console.log(formData);
-
+        setLoginError("");
         if (!validateForm()) return;
 
         setIsLoading(true);
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/auth/login/', formData);
-            localStorage.setItem('token', response.data.token);
-            console.log('Login successful:', response.data);
+            const response = await axios.post("http://127.0.0.1:8000/api/auth/login/", formData);
+            const { token } = response.data; // Extract token object
 
-            const redirectPath = location.state?.from || '/';
-            navigate(redirectPath);
+            console.log("Login Successful", response.data);
+            loginUser(token); // Pass token to AuthContext
+
+            navigate("/", { replace: true });
         } catch (error) {
-            setLoginError(error.response?.data?.message || 'Invalid email or password');
-            console.error('Error Response:', error.response); // Log full response
-            // setFormData({ password: '' }); // Clear input fields on error
+            setLoginError(error.response?.data?.message || "Invalid email or password");
+            console.error("Error Response:", error.response);
         } finally {
             setIsLoading(false);
         }

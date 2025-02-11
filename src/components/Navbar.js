@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { Search, Menu, X, LogIn, UserPlus, Home, ShoppingCart, BookOpen, Mail, Info } from 'lucide-react';
 import logo from '../images/rebook-logo.png';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
+    const { isAuthenticated, user, logoutUser } = useAuth();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [isScrolled, setIsScrolled] = useState(false);
@@ -116,7 +119,15 @@ const Navbar = () => {
                             <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
                         </form>
 
-                        <div className="flex items-center space-x-2">
+                        {user ? (
+                            <div className="flex items-center gap-2 text-black">
+                                <button className="rounded-full px-3 py-2 bg-white font-bold text-xl">{user?.name[0]}</button>
+                                <div className="text-white text-2xl">Hey <span className="text-lg">{user?.name}!</span></div>
+                                <button onClick={logoutUser} className="ml-4 text-red-500">Logout</button>
+                          </div>
+                        ) : 
+                        (
+                            <div className="flex items-center space-x-2">
                             <NavLink
                                 to="/login"
                                 className="inline-flex no-underline items-center px-4 py-2 text-sm font-medium text-slate-900 border-2 border-yellow-500 bg-yellow-500 rounded-lg hover:bg-transparent hover:text-white hover:border-2 hover:border-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200 shadow-lg hover:shadow-xl"
@@ -133,6 +144,7 @@ const Navbar = () => {
                                 Sign up
                             </NavLink>
                         </div>
+                        )}
                     </div>
 
                     {/* Mobile Controls */}
@@ -189,7 +201,15 @@ const Navbar = () => {
                         />
                     ))}
 
-                    <div className="pt-4 space-y-2 px-2">
+                    {user ? (
+                        <div className="flex items-center gap-2 text-black">
+                            <button className="rounded-full px-[15px] py-[7px] bg-white font-bold text-lg">{user?.name[0]}</button>
+                            <div className="text-white text-xl">Hey <span className="text-lg">{user?.name}!</span></div>
+                            <button onClick={logoutUser} className="ml-4 text-red-500">Logout</button>
+                        </div>
+                    ) : 
+                    (
+                        <div className="pt-4 space-y-2 px-2">
                         <NavLink
                             to="/login"
                             className="no-underline flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-900 bg-yellow-500 border-2 border-yellow-400 hover:text-white rounded-lg hover:bg-transparent hover:border-white transition-colors duration-200 shadow-lg"
@@ -206,6 +226,7 @@ const Navbar = () => {
                             Sign up
                         </NavLink>
                     </div>
+                    )}
                 </div>
             </div>
         </nav>

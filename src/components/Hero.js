@@ -86,7 +86,7 @@ const Hero = () => {
         <div className="min-h-screen flex flex-col items-center justify-center">
           {/* Hero Content */}
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h1 className="text-5xl md:text-7xl font-bold mt-4 text-pink-300 mb-8 animate-text-shine">
+            <h1 className="text-5xl md:text-7xl font-bold mt-4 text-blue-600 mb-8 animate-text-shine">
               Bookefy
             </h1>
             <div className="text-xl md:text-3xl text-purple-200 font-medium mb-12 h-20">

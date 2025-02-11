@@ -16,6 +16,8 @@ const ForgotPassword = lazy(() => import("../Pages/ForgotPassword"));
 const ResetPassword = lazy(() => import("../Pages/ResetPassword"));
 const Wishlist = lazy(() => import("../Pages/WishList"));
 const Rent = lazy(() => import("../Pages/Rent"));
+const Categories = lazy(() => import("../Pages/Categories"));
+const CategoryDetails = lazy(() => import("../Pages/CategoryDetails"));
 
 // Admin Pages
 const OverviewPage = lazy(() => import("../Pages/OverviewPage"));
@@ -43,6 +45,8 @@ export const publicRoutes = [
   { path: "/reset-password", element: <ResetPassword /> },
   { path: "/wishlist", element: <Wishlist /> },
   { path: "/rent", element: <Rent /> },
+  { path: "/categories", element: <Categories /> },
+  { path: "/categories/:categoryId", element: <CategoryDetails /> },
 ];
 
 // Admin Routes

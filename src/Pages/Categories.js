@@ -1,68 +1,172 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import Fuse from 'fuse.js';
 import { 
   Search, Grid3X3, LayoutList, X, 
-  ChevronRight, Bookmark, BookmarkCheck,
-  Star, TrendingUp, Clock, Filter
+  Bookmark, BookmarkCheck
 } from 'lucide-react';
 
 // Sample categories data
 const categories = [
   {
-    id: 'tech',
-    name: 'Technology',
-    description: 'Latest in tech and programming',
-    imageUrl: '/api/placeholder/400/300',
-    itemCount: 342,
-    trending: true,
-    rating: 4.8,
-    lastUpdated: '2024-02-10'
+    id: "class-4-8",
+    name: "Class 4-8",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Comprehensive study materials for middle school students.",
+    bookCount: 245,
+    path: "/categories/class-4-8"
   },
   {
-    id: 'design',
-    name: 'Design',
-    description: 'UI/UX and graphic design resources',
-    imageUrl: '/api/placeholder/400/300',
-    itemCount: 256,
-    trending: false,
-    rating: 4.6,
-    lastUpdated: '2024-02-09'
+    id: "class-9-12",
+    name: "Class 9-12",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Advanced learning resources for high school students.",
+    bookCount: 189,
+    path: "/categories/class-9-12"
   },
   {
-    id: 'business',
-    name: 'Business',
-    description: 'Business and entrepreneurship guides',
-    imageUrl: '/api/placeholder/400/300',
-    itemCount: 189,
-    trending: true,
-    rating: 4.7,
-    lastUpdated: '2024-02-11'
+    id: "reference",
+    name: "Reference Books",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Comprehensive reference materials across subjects.",
+    bookCount: 312,
+    path: "/categories/reference"
   },
   {
-    id: 'marketing',
-    name: 'Marketing',
-    description: 'Digital marketing strategies',
-    imageUrl: '/api/placeholder/400/300',
-    itemCount: 215,
-    trending: false,
-    rating: 4.5,
-    lastUpdated: '2024-02-08'
+    id: "competition",
+    name: "Competition Books",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Prepare for competitive exams with our curated collection.",
+    bookCount: 167,
+    path: "/categories/competition"
+  },
+  {
+    id: "academic",
+    name: "Academic",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Essential academic resources and textbooks.",
+    bookCount: 423,
+    path: "/categories/academic"
+  },
+  {
+    id: "biographies",
+    name: "Biographies",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Inspiring stories of remarkable individuals.",
+    bookCount: 156,
+    path: "/categories/biographies"
+  },
+  {
+    id: "children",
+    name: "Children's Books",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Engaging books for young readers.",
+    bookCount: 278,
+    path: "/categories/children"
+  },
+  {
+    id: "science-fiction",
+    name: "Science Fiction",
+    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
+    description: "Explore futuristic and imaginative worlds.",
+    bookCount: 198,
+    path: "/categories/science-fiction"
   }
 ];
 
+// Configure Fuse instance with search options
+const fuseOptions = {
+  keys: ['name', 'description'],
+  threshold: 0.3,
+  location: 0,
+  distance: 100,
+  minMatchCharLength: 2,
+  shouldSort: true,
+  includeScore: true,
+  useExtendedSearch: true,
+};
+
+const fuse = new Fuse(categories, fuseOptions);
+
 const SearchBar = ({ onSearch, searchTerm, setSearchTerm }) => {
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    setSelectedIndex(-1);
+    onSearch(value);
+
+    if (value.trim()) {
+      const results = fuse.search(value, { limit: 5 });
+      setSuggestions(results);
+      setShowSuggestions(true);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (!showSuggestions) return;
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex(prev => 
+          prev < suggestions.length - 1 ? prev + 1 : prev
+        );
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex(prev => prev > -1 ? prev - 1 : prev);
+        break;
+      case 'Enter':
+        if (selectedIndex > -1) {
+          handleSuggestionClick(suggestions[selectedIndex]);
+        }
+        break;
+      case 'Escape':
+        setShowSuggestions(false);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion.item.name);
+    onSearch(suggestion.item.name);
+    setShowSuggestions(false);
+    setSelectedIndex(-1);
+  };
+
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full max-w-md" ref={searchRef}>
       <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
         <Search className="h-5 w-5 text-gray-400" />
       </div>
       <input
         type="text"
         value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          onSearch(e.target.value);
-        }}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+        onFocus={() => searchTerm.trim() && setShowSuggestions(true)}
         className="w-full pl-10 pr-12 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all"
         placeholder="Search categories..."
       />
@@ -71,34 +175,86 @@ const SearchBar = ({ onSearch, searchTerm, setSearchTerm }) => {
           onClick={() => {
             setSearchTerm('');
             onSearch('');
+            setSuggestions([]);
+            setShowSuggestions(false);
+            setSelectedIndex(-1);
           }}
           className="absolute inset-y-0 right-3 flex items-center"
         >
           <X className="h-5 w-5 text-gray-400 hover:text-gray-600" />
         </button>
       )}
+
+      {/* Suggestions Dropdown */}
+      <AnimatePresence>
+        {showSuggestions && suggestions.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden"
+          >
+            <ul className="divide-y divide-gray-100">
+              {suggestions.map((suggestion, index) => (
+                <li
+                  key={suggestion.item.id}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  className={`px-4 py-3 cursor-pointer transition-colors ${
+                    index === selectedIndex ? 'bg-blue-50' : 'hover:bg-gray-50'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-medium text-gray-900">
+                        {suggestion.item.name}
+                      </h4>
+                      <p className="text-sm text-gray-500 truncate">
+                        {suggestion.item.description}
+                      </p>
+                    </div>
+                    <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">
+                      {((1 - suggestion.score) * 100).toFixed(0)}%
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
 
-const CategoryCard = ({ category, isGrid }) => {
+const CategoryCard = ({ category, isGrid, searchScore }) => {
+  const navigate = useNavigate();
   const [isBookmarked, setIsBookmarked] = useState(false);
 
   const toggleBookmark = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsBookmarked(!isBookmarked);
   };
+
+  const handleClick = () => {
+    navigate(`/categories/${category.id}`);
+  };
+
+  const scoreLabel = searchScore !== undefined 
+    ? `Match: ${((1 - searchScore) * 100).toFixed(0)}%` 
+    : null;
 
   if (!isGrid) {
     return (
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="bg-white rounded-xl p-4 flex items-center gap-6 hover:shadow-lg transition-all group"
+        className="bg-white rounded-xl p-4 flex items-center gap-6 hover:shadow-lg transition-all group cursor-pointer"
+        onClick={handleClick}
       >
         <div className="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0">
           <img
-            src={category.imageUrl}
+            src={category.image}
             alt={category.name}
             className="w-full h-full object-cover"
           />
@@ -106,21 +262,15 @@ const CategoryCard = ({ category, isGrid }) => {
         <div className="flex-grow">
           <div className="flex items-center gap-2 mb-1">
             <h3 className="text-lg font-semibold">{category.name}</h3>
-            {category.trending && (
-              <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full flex items-center gap-1">
-                <TrendingUp className="w-3 h-3" /> Trending
+            {scoreLabel && (
+              <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">
+                {scoreLabel}
               </span>
             )}
           </div>
           <p className="text-gray-600 text-sm mb-2">{category.description}</p>
           <div className="flex items-center gap-4 text-sm text-gray-500">
-            <span className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-yellow-400" /> {category.rating}
-            </span>
-            <span>{category.itemCount} items</span>
-            <span className="flex items-center gap-1">
-              <Clock className="w-4 h-4" /> Updated {category.lastUpdated}
-            </span>
+            <span>{category.bookCount} books</span>
           </div>
         </div>
         <button
@@ -141,11 +291,12 @@ const CategoryCard = ({ category, isGrid }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative bg-white rounded-xl overflow-hidden hover:shadow-xl transition-all"
+      className="group relative bg-white rounded-xl overflow-hidden hover:shadow-xl transition-all cursor-pointer"
+      onClick={handleClick}
     >
       <div className="aspect-w-16 aspect-h-9 relative">
         <img
-          src={category.imageUrl}
+          src={category.image}
           alt={category.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
@@ -153,9 +304,16 @@ const CategoryCard = ({ category, isGrid }) => {
       </div>
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="text-lg font-semibold group-hover:text-blue-600 transition-colors">
-            {category.name}
-          </h3>
+          <div className="flex items-center gap-2">
+            <h3 className="text-lg font-semibold group-hover:text-blue-600 transition-colors">
+              {category.name}
+            </h3>
+            {scoreLabel && (
+              <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-full">
+                {scoreLabel}
+              </span>
+            )}
+          </div>
           <button
             onClick={toggleBookmark}
             className="p-1.5 rounded-full hover:bg-gray-100 transition-all"
@@ -169,17 +327,7 @@ const CategoryCard = ({ category, isGrid }) => {
         </div>
         <p className="text-gray-600 text-sm mb-3">{category.description}</p>
         <div className="flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1">
-              <Star className="w-4 h-4 text-yellow-400" /> {category.rating}
-            </span>
-            <span className="text-gray-500">{category.itemCount} items</span>
-          </div>
-          {category.trending && (
-            <span className="bg-red-100 text-red-600 text-xs px-2 py-1 rounded-full flex items-center gap-1">
-              <TrendingUp className="w-3 h-3" /> Trending
-            </span>
-          )}
+          <span className="text-gray-500">{category.bookCount} books</span>
         </div>
       </div>
     </motion.div>
@@ -189,47 +337,24 @@ const CategoryCard = ({ category, isGrid }) => {
 const Categories = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isGrid, setIsGrid] = useState(true);
-  const [filteredCategories, setFilteredCategories] = useState(categories);
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [filters, setFilters] = useState({
-    trending: false,
-    rating: 0,
-  });
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleSearch = (value) => {
-    const filtered = categories.filter(
-      category =>
-        category.name.toLowerCase().includes(value.toLowerCase()) ||
-        category.description.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredCategories(filtered);
-  };
+    setIsSearching(!!value);
+    if (!value.trim()) {
+      setSearchResults(categories.map(category => ({ item: category })));
+      return;
+    }
 
-  const applyFilters = () => {
-    let filtered = [...categories];
-    
-    if (filters.trending) {
-      filtered = filtered.filter(category => category.trending);
-    }
-    
-    if (filters.rating > 0) {
-      filtered = filtered.filter(category => category.rating >= filters.rating);
-    }
-    
-    if (searchTerm) {
-      filtered = filtered.filter(
-        category =>
-          category.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          category.description.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    
-    setFilteredCategories(filtered);
+    const results = fuse.search(value);
+    setSearchResults(results);
   };
 
   useEffect(() => {
-    applyFilters();
-  }, [filters, searchTerm]);
+    // Initialize with all categories
+    setSearchResults(categories.map(category => ({ item: category })));
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -251,56 +376,6 @@ const Categories = () => {
           />
           
           <div className="flex items-center gap-4">
-            <div className="relative">
-              <button
-                onClick={() => setFilterOpen(!filterOpen)}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-gray-200 hover:border-blue-500 transition-all"
-              >
-                <Filter className="w-5 h-5" />
-                Filters
-              </button>
-              
-              <AnimatePresence>
-                {filterOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg p-4 z-10"
-                  >
-                    <div className="space-y-4">
-                      <div>
-                        <label className="flex items-center gap-2">
-                          <input
-                            type="checkbox"
-                            checked={filters.trending}
-                            onChange={(e) => setFilters({ ...filters, trending: e.target.checked })}
-                            className="rounded text-blue-500"
-                          />
-                          Show only trending
-                        </label>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Minimum Rating
-                        </label>
-                        <select
-                          value={filters.rating}
-                          onChange={(e) => setFilters({ ...filters, rating: Number(e.target.value) })}
-                          className="w-full rounded-lg border-gray-200"
-                        >
-                          <option value={0}>All ratings</option>
-                          <option value={4.5}>4.5 and above</option>
-                          <option value={4}>4.0 and above</option>
-                          <option value={3.5}>3.5 and above</option>
-                        </select>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-            
             <div className="flex gap-2 bg-gray-100 p-1 rounded-lg">
               <button
                 onClick={() => setIsGrid(true)}
@@ -328,17 +403,18 @@ const Categories = () => {
               ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               : "space-y-4"
           }>
-            {filteredCategories.map((category) => (
+            {searchResults.map((result) => (
               <CategoryCard
-                key={category.id}
-                category={category}
+                key={result.item.id}
+                category={result.item}
                 isGrid={isGrid}
+                searchScore={isSearching ? result.score : undefined}
               />
             ))}
           </div>
         </AnimatePresence>
 
-        {filteredCategories.length === 0 && (
+        {searchResults.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-600">No categories found matching your criteria</p>
           </div>

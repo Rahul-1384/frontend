@@ -91,6 +91,7 @@ const booksData = {
       size: "15.2 MB",
       pages: 250
     },
+    
     // Add more books...
   ],
   // Add more categories...

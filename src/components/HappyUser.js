@@ -1,184 +1,236 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { UserGroupIcon, ThumbUpIcon, GlobeAltIcon } from "@heroicons/react/solid";
-import './happyUser.css';
+import { TrendingUp, Sparkle } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
-const HappyUser = () => {
-  const [activeUsers, setActiveUsers] = useState(0);
-  const [satisfiedCustomers, setSatisfiedCustomers] = useState(0);
-  const [globalReach, setGlobalReach] = useState(0);
-  const [startAnimation, setStartAnimation] = useState(false);
-  const sectionRef = useRef(null);
+const HappyUser = ({ 
+  stats = null,
+  animationDuration = 7000,
+  animationStagger = 200,
+  enableCharts = true,
+  className 
+}) => {
+  const defaultStats = useMemo(() => ({
+    activeUsers: 12000,
+    globalReach: 10000,
+    satisfiedCustomers: 20000,
+  }), []); // Empty array ensures it's only created once
 
-  useEffect(() => {
-    // Setup IntersectionObserver to start animation when the section comes into view
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setStartAnimation(true); // Start animation when section enters the viewport
-        } else {
-          setStartAnimation(false); // Optionally, reset if the section goes out of view
-        }
-      },
-      { threshold: 0.5 } // Trigger when 50% of the section is visible
-    );
+  const [metrics, setMetrics] = useState({
+    activeUsers: 0,
+    satisfiedCustomers: 0,
+    globalReach: 0
+  });
+  
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+  // Memoize trend data generation
+  const generateTrendData = useCallback((baseValue) => {
+    return Array.from({ length: 12 }, (_, i) => ({
+      month: new Date(0, i).toLocaleString('default', { month: 'short' }),
+      value: Math.floor(baseValue * (0.8 + Math.random() * 0.4))
+    }));
+  }, []);
 
-    return () => {
-      if (sectionRef.current) {
-        observer.disconnect();
+  const trendData = useMemo(() => ({
+    activeUsers: generateTrendData(defaultStats.activeUsers),
+    satisfiedCustomers: generateTrendData(defaultStats.satisfiedCustomers),
+    globalReach: generateTrendData(defaultStats.globalReach)
+  }), [defaultStats.activeUsers, defaultStats.globalReach, defaultStats.satisfiedCustomers, generateTrendData]);
+
+  const animateValue = useCallback((start, end, duration, setValue) => {
+    const startTime = performance.now();
+    
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.floor(easeOutCubic * (end - start) + start));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
       }
     };
+    
+    requestAnimationFrame(animate);
   }, []);
 
   useEffect(() => {
-    if (startAnimation) {
-      const incrementCounters = (targetValue, setValue) => {
-        let count = 0;
-        const increment = Math.ceil(targetValue / 100); // Control animation speed by increment step
-        const interval = setInterval(() => {
-          count += increment;
-          if (count >= targetValue) {
-            setValue(targetValue);
-            clearInterval(interval);
-          } else {
-            setValue(count);
-          }
-        }, 200); // Control speed of animation (20ms per step)
-      };
+    const targetValues = stats || defaultStats;
 
-      incrementCounters(12, setActiveUsers);
-      incrementCounters(10, setSatisfiedCustomers);
-      incrementCounters(20, setGlobalReach);
-    }
-  }, [startAnimation]);
-
-
-
-
-  useEffect(() => {
-      const slides = document.querySelectorAll('.left');
-      if (slides.length === 0) return;
-  
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('showLeft');
-          } else {
-            entry.target.classList.remove('showLeft');
-          }
-        });
+    if (!hasAnimated) {
+      Object.entries(targetValues).forEach(([key, value], index) => {
+        setTimeout(() => {
+          animateValue(0, value, animationDuration, (newValue) => 
+            setMetrics(prev => ({ ...prev, [key]: newValue }))
+          );
+        }, index * animationStagger);
       });
-  
-      slides.forEach((el) => observer.observe(el));
-  
-      return () => {
-        slides.forEach((el) => observer.unobserve(el));
-      };
-    }, []);
+      setHasAnimated(true);
+    }
+  }, [stats, hasAnimated, animationDuration, animationStagger, animateValue, defaultStats]);
 
+  const DetailChart = ({ data, color }) => (
+    <div>
+      <ResponsiveContainer width="100%" height={200}>
+        <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id={`gradient-${color}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={color} stopOpacity={0.3}/>
+              <stop offset="95%" stopColor={color} stopOpacity={0}/>
+            </linearGradient>
+          </defs>
+          <XAxis 
+            dataKey="month" 
+            stroke="#94a3b8" 
+            fontSize={12}
+            tickLine={false}
+          />
+          <YAxis 
+            stroke="#94a3b8" 
+            fontSize={12}
+            tickLine={false}
+            axisLine={false}
+            tickFormatter={value => `${(value / 1000).toFixed(0)}k`}
+          />
+          <Tooltip 
+            contentStyle={{ 
+              background: 'rgba(255, 255, 255, 0.9)',
+              border: 'none',
+              borderRadius: '8px',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            }}
+            formatter={value => [`${value.toLocaleString()}`, 'Value']}
+          />
+          <Area 
+            type="monotone" 
+            dataKey="value" 
+            stroke={color}
+            fill={`url(#gradient-${color})`}
+            strokeWidth={2}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
 
-    // middle
-    useEffect(() => {
-        const slides = document.querySelectorAll('.middle');
-        if (slides.length === 0) return;
+  const StatCard = ({ icon: Icon, value, label, color, details, metric, index }) => {
+    const isSelected = selectedCard === index;
     
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('showMiddle');
-            } else {
-              entry.target.classList.remove('showMiddle');
-            }
-          });
-        });
-    
-        slides.forEach((el) => observer.observe(el));
-    
-        return () => {
-          slides.forEach((el) => observer.unobserve(el));
-        };
-      }, []);
+    const getGrowthRate = () => {
+      const data = trendData[metric];
+      const lastTwo = data.slice(-2);
+      return ((lastTwo[1].value - lastTwo[0].value) / lastTwo[0].value * 100).toFixed(1);
+    };
 
+    return (
+      <div 
+        className={`
+          bg-white rounded-xl shadow-lg p-6
+          transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer
+          ${isSelected ? 'ring-2 ring-offset-2 ring-blue-500' : ''}
+        `}
+        onClick={() => setSelectedCard(isSelected ? null : index)}
+      >
+        <div className="relative group">
+          <div className={`
+            w-16 h-16 mx-auto mb-4 p-3 rounded-full
+            bg-gradient-to-br from-${color}-100 to-${color}-200
+            transition-transform duration-300 group-hover:scale-110
+          `}>
+            <Icon className={`w-full h-full text-${color}-500`} />
+          </div>
 
+          <div className="absolute -top-2 -right-2 animate-pulse">
+            <Sparkle className={`w-5 h-5 text-${color}-500`} />
+          </div>
+        </div>
 
-    // Right
-    useEffect(() => {
-        const slides = document.querySelectorAll('.right');
-        if (slides.length === 0) return;
-    
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('showRight');
-            } else {
-              entry.target.classList.remove('showRight');
-            }
-          });
-        });
-    
-        slides.forEach((el) => observer.observe(el));
-    
-        return () => {
-          slides.forEach((el) => observer.unobserve(el));
-        };
-      }, []);
+        <h3 className={`
+          text-3xl font-bold text-${color}-500 mb-2
+          transition-all duration-300
+          ${isSelected ? 'scale-110' : 'scale-100'}
+        `}>
+          {value.toLocaleString()}+
+        </h3>
+        
+        <p className="text-gray-600 dark:text-gray-300 font-medium">{label}</p>
+
+        {isSelected && (
+          <div className="mt-6 space-y-4">
+            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center gap-2">
+                <TrendingUp className={`w-4 h-4 text-${color}-500`} />
+                <span className="text-sm font-medium">Growth</span>
+              </div>
+              <span className={`font-bold text-${color}-500`}>
+                {getGrowthRate()}%
+              </span>
+            </div>
+
+            {enableCharts && (
+              <div className="pt-4">
+                <h4 className="font-medium mb-4 text-sm text-gray-600">
+                  Monthly Trend
+                </h4>
+                <DetailChart 
+                  data={trendData[metric]} 
+                  color={`var(--${color}-500)`} 
+                />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const stat = [
+    {
+      icon: UserGroupIcon,
+      value: metrics.activeUsers,
+      label: "Active Users",
+      color: "blue",
+      details: "Monthly active users across platforms",
+      metric: "activeUsers"
+    },
+    {
+      icon: ThumbUpIcon,
+      value: metrics.satisfiedCustomers,
+      label: "Satisfied Customers",
+      color: "green",
+      details: "Customers with 4+ star ratings",
+      metric: "satisfiedCustomers"
+    },
+    {
+      icon: GlobeAltIcon,
+      value: metrics.globalReach,
+      label: "Global Reach",
+      color: "purple",
+      details: "Countries with active users",
+      metric: "globalReach"
+    }
+  ];
 
   return (
-    <div ref={sectionRef} className="overflow-hidden flex flex-col justify-center items-center gap-20 select-none text-center py-20 rounded-lg  mx-auto transition-transform duration-300">
-      <div className="text-2xl font-bold text-center text-gray-800 mb-10 tracking-wide md:text-3xl lg:text-4xl xl:text-5xl xxl:text-6xl">
-        Happy Users
-      </div>
-      <div className="flex flex-wrap flex-col justify-center gap-3 sm:flex-row sm:w-[70%] sm:justify-between">
+    <section className={`py-12 bg-gradient-to-b from-gray-50 to-white ${className}`}>
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-12">
+          Our Growing{" "}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-green-500 to-purple-500">
+            Community
+          </span>
+        </h2>
 
-        <div className="left text-center group transform hover:scale-105 transition-transform duration-300">
-          <div className="relative w-16 h-16 mx-auto mb-4">
-            <UserGroupIcon className="w-16 h-16 text-blue-500 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" />
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-white bg-blue-500 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              Teamwork!
-            </div>
-          </div>
-          <p className="text-3xl font-bold text-blue-500">
-            {activeUsers.toLocaleString()}+
-          </p>
-          <p className="text-gray-600 group-hover:text-gray-800 transition-colors">
-            Active Users
-          </p>
-        </div>
-
-        <div className="middle text-center group transform hover:scale-105 transition-transform duration-300">
-          <div className="relative w-16 h-16 mx-auto mb-4">
-            <ThumbUpIcon className="w-16 h-16 text-green-500 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" />
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-white bg-green-500 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              Satisfaction!
-            </div>
-          </div>
-          <p className="text-3xl font-bold text-green-500">
-            {satisfiedCustomers.toLocaleString()}+
-          </p>
-          <p className="text-gray-600 group-hover:text-gray-800 transition-colors">
-            Satisfied Customers
-          </p>
-        </div>
-
-        <div className="right text-center group transform hover:scale-105 transition-transform duration-300">
-          <div className="relative w-16 h-16 mx-auto mb-4">
-            <GlobeAltIcon className="w-16 h-16 text-purple-500 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-300" />
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-xs text-white bg-purple-500 px-2 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              Worldwide!
-            </div>
-          </div>
-          <p className="text-3xl font-bold text-purple-500">
-            {globalReach.toLocaleString()}+
-          </p>
-          <p className="text-gray-600 group-hover:text-gray-800 transition-colors">
-            Total Visited
-          </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {stat.map((stat, index) => (
+            <StatCard key={stat.metric} {...stat} index={index} />
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

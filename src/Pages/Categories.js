@@ -194,7 +194,7 @@ const SearchBar = ({ onSearch, searchTerm, setSearchTerm }) => {
             exit={{ opacity: 0, y: -10 }}
             className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden"
           >
-            <ul className="divide-y divide-gray-100">
+            <ul className="divide-y  divide-gray-100">
               {suggestions.map((suggestion, index) => (
                 <li
                   key={suggestion.item.id}

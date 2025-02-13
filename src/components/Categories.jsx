@@ -291,7 +291,7 @@ const CategoryCard = ({ category, index, viewType }) => {
             className={`absolute top-4 right-4 w-8 h-8 rounded-full 
               ${isBookmarked ? 'bg-blue-500' : 'bg-white/10 backdrop-blur-sm'} 
               flex items-center justify-center transition-all duration-300
-              hover:scale-110 z-10`}
+              hover:scale-110 z-1`}
           >
             <motion.div
               initial={false}

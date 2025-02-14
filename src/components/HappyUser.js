@@ -137,7 +137,7 @@ const HappyUser = ({
         <div className="relative group">
           <div className={`
             w-16 h-16 mx-auto mb-4 p-3 rounded-full
-            bg-gradient-to-br from-${color}-100 to-${color}-200
+            bg-gradient-to-br from-${color}-100 to-${color}-200 shadow-inner
             transition-transform duration-300 group-hover:scale-110
           `}>
             <Icon className={`w-full h-full text-${color}-500`} />

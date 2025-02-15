@@ -18,6 +18,8 @@ const Wishlist = lazy(() => import("../Pages/WishList"));
 const Rent = lazy(() => import("../Pages/Rent"));
 const Categories = lazy(() => import("../Pages/Categories"));
 const CategoryDetails = lazy(() => import("../Pages/CategoryDetails"));
+const ChangePassword = lazy(() => import("../Pages/ChangePassword"));
+
 
 // Admin Pages
 const OverviewPage = lazy(() => import("../Pages/OverviewPage"));
@@ -47,6 +49,8 @@ export const publicRoutes = [
   { path: "/rent", element: <Rent /> },
   { path: "/categories", element: <Categories /> },
   { path: "/categories/:categoryId", element: <CategoryDetails /> },
+  { path: "/change-password", element: <ChangePassword /> },
+
 ];
 
 // Admin Routes

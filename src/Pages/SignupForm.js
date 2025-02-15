@@ -1,13 +1,40 @@
-
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Facebook, Instagram, Mail, User, Lock, EyeOff, Eye, AlertCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '../components/ui/Alert';
+import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 
+// API client setup
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://127.0.0.1:8000/api';
 
-const Input = ({ type, name, placeholder, value, onChange, error, className, icon: Icon }) => (
+const apiClient = {
+    post: async (endpoint, data) => {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        const responseData = await response.json();
+
+        if (!response.ok) {
+            throw responseData; // Throw the entire response so we can access field-specific errors
+        }
+
+        return responseData;
+    }
+};
+
+// Input Component
+const Input = ({ type, name, placeholder, value, onChange, error, className = '', icon: Icon, rightIcon: RightIcon }) => (
     <div className="relative">
-        {Icon && <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">{Icon}</div>}
+        {Icon && (
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                <Icon className="h-5 w-5" />
+            </div>
+        )}
         <input
             type={type}
             name={name}
@@ -15,11 +42,20 @@ const Input = ({ type, name, placeholder, value, onChange, error, className, ico
             value={value}
             onChange={onChange}
             className={`w-full px-10 py-2 rounded-md border ${error ? 'border-red-500' : 'border-gray-300'} 
-        focus:outline-none focus:ring-2 focus:ring-blue-500 ${Icon ? 'pl-10' : ''} ${className}`}
+                focus:outline-none focus:ring-2 focus:ring-blue-500 
+                ${Icon ? 'pl-10' : ''} 
+                ${RightIcon ? 'pr-10' : ''}
+                ${className}`}
         />
+        {RightIcon && (
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                {RightIcon}
+            </div>
+        )}
     </div>
 );
 
+// Button Component
 const Button = ({ children, onClick, disabled, variant = 'primary', className = '', type = 'button' }) => {
     const baseStyles = "px-4 py-2 rounded-md font-medium transition-colors duration-200";
     const variants = {
@@ -39,33 +75,66 @@ const Button = ({ children, onClick, disabled, variant = 'primary', className = 
     );
 };
 
-const Card = ({ children, className = '' }) => (
-    <div className={`bg-white rounded-lg shadow-md ${className}`}>
-        {children}
+// Terms and Conditions Modal Component
+const TermsAndConditionsModal = ({ onClose }) => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="bg-white rounded-lg max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6">
+            <h3 className="text-xl font-bold mb-4">Terms and Conditions</h3>
+            <div className="prose prose-sm">
+                <h4>1. Acceptance of Terms</h4>
+                <p>By accessing and using this service, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+                <h4>2. User Account</h4>
+                <p>You are responsible for maintaining the confidentiality of your account and password. You agree to accept responsibility for all activities that occur under your account.</p>
+
+                <h4>3. Privacy Policy</h4>
+                <p>Your use of the service is subject to our Privacy Policy. Please review our Privacy Policy, which also governs the Site and informs users of our data collection practices.</p>
+
+                <h4>4. Electronic Communications</h4>
+                <p>By using this service, you consent to receive electronic communications from us.</p>
+
+                <h4>5. Account Security</h4>
+                <p>You are responsible for safeguarding the password that you use to access the service and for any activities or actions under your password.</p>
+
+                <h4>6. Termination</h4>
+                <p>We may terminate or suspend your account and bar access to the service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever.</p>
+
+                <h4>7. Changes to Terms</h4>
+                <p>We reserve the right to modify these terms from time to time at our sole discretion. Therefore, you should review these pages periodically.</p>
+
+                <h4>8. Contact Information</h4>
+                <p>If you have any questions about these Terms, please contact us at support@example.com.</p>
+            </div>
+            <div className="mt-6 flex justify-end">
+                <Button onClick={onClose} className="ml-2">
+                    Close
+                </Button>
+            </div>
+        </div>
     </div>
 );
 
-const Alert = ({ children, variant = 'error' }) => {
-    const variants = {
-        error: 'bg-red-50 text-red-700 border-red-200',
-        success: 'bg-green-50 text-green-700 border-green-200'
-    };
+// Social Login Button Component
+const SocialButton = ({ provider, icon: Icon, onClick, disabled }) => (
+    <Button
+        variant="outline"
+        onClick={onClick}
+        disabled={disabled}
+        className="flex items-center justify-center hover:bg-gray-50 w-full"
+    >
+        <Icon className="w-5 h-5" />
+    </Button>
+);
 
-    return (
-        <div className={`p-4 rounded-md border ${variants[variant]} flex items-center space-x-2`}>
-            <AlertCircle className="h-4 w-4" />
-            {children}
-        </div>
-    );
-};
-
+// Main SignupForm Component
 const SignupForm = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         name: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        acceptedTerms: false
     });
 
     const [errors, setErrors] = useState({});
@@ -73,22 +142,26 @@ const SignupForm = () => {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [signupError, setSignupError] = useState('');
+    const [showTerms, setShowTerms] = useState(false);
 
     const validateForm = () => {
         const newErrors = {};
 
+        // Email validation
         if (!formData.email) {
             newErrors.email = 'Email is required';
         } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
             newErrors.email = 'Invalid email format';
         }
 
+        // Name validation
         if (!formData.name) {
             newErrors.name = 'Name is required';
         } else if (formData.name.length < 2) {
             newErrors.name = 'Name must be at least 2 characters';
         }
 
+        // Password validation
         if (!formData.password) {
             newErrors.password = 'Password is required';
         } else if (formData.password.length < 8) {
@@ -97,10 +170,16 @@ const SignupForm = () => {
             newErrors.password = 'Password must contain uppercase, lowercase and numbers';
         }
 
+        // Confirm password validation
         if (!formData.confirmPassword) {
             newErrors.confirmPassword = 'Please confirm your password';
         } else if (formData.password !== formData.confirmPassword) {
             newErrors.confirmPassword = 'Passwords do not match';
+        }
+
+        // Terms acceptance validation
+        if (!formData.acceptedTerms) {
+            newErrors.acceptedTerms = 'You must accept the Terms and Conditions';
         }
 
         setErrors(newErrors);
@@ -108,8 +187,11 @@ const SignupForm = () => {
     };
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
         if (errors[name]) {
             setErrors(prev => ({ ...prev, [name]: '' }));
         }
@@ -123,12 +205,35 @@ const SignupForm = () => {
 
         setIsLoading(true);
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            // Navigate programmatically or use a callback
-            console.log('Signup successful:', formData);
+            const response = await apiClient.post('/auth/register/', {
+                email: formData.email,
+                name: formData.name,
+                password: formData.password,
+                password2: formData.confirmPassword,
+                tc: true
+            });
+
+            console.log('Signup successful:', response);
+            navigate('/verify-email', { 
+                state: { email: formData.email }
+            });
         } catch (error) {
-            setSignupError('Failed to create account. Please try again.');
+            console.error("Signup error:", error.errors.email);
+            if (error.errors.email  && Array.isArray(error.errors.email)) {
+                setErrors(prev => ({ ...prev, email: error.errors.email[0].toUpperCase() }));
+            }
+            if (error.errors.name && Array.isArray(error.errors.name)) {
+                setErrors(prev => ({ ...prev, name: error.errors.name[0] }));
+            }
+            if (error.errors.password && Array.isArray(error.errors.password)) {
+                setErrors(prev => ({ ...prev, password: error.errors.password[0] }));
+            }
+            if (error.errors.non_field_errors && Array.isArray(error.errors.non_field_errors)) {
+                setSignupError(error.errors.non_field_errors[0]);
+            }
+            else {
+                setSignupError('Failed to create an account. Please try again.');
+            }
         } finally {
             setIsLoading(false);
         }
@@ -137,62 +242,67 @@ const SignupForm = () => {
     const handleSocialAuth = async (provider) => {
         setIsLoading(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            console.log(`${provider} auth initiated`);
+            const response = await apiClient.post(`/auth/${provider.toLowerCase()}`, {});
+            window.location.href = response.authUrl;
         } catch (error) {
             setSignupError(`Failed to authenticate with ${provider}`);
-        } finally {
             setIsLoading(false);
         }
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-            <Card className="w-full max-w-md p-6">
-                <div className="text-center mb-6">
-                    <h2 className="text-2xl font-bold">Create an account</h2>
-                    <p className="text-sm text-gray-500">Enter your details to create your account</p>
-                </div>
+            {showTerms && <TermsAndConditionsModal onClose={() => setShowTerms(false)} />}
+            
+            <Card className="w-full text-black max-w-md">
+                <CardHeader>
+                    <CardTitle className="text-2xl font-bold text-black text-center">Create an account</CardTitle>
+                    <p className="text-sm text-gray-500 text-center">Enter your details to create your account</p>
+                </CardHeader>
 
-                {signupError && (
-                    <Alert className="mb-4">
-                        {signupError}
-                    </Alert>
-                )}
+                <CardContent>
+                    {signupError && (
+                        <Alert variant="destructive" className="mb-4">
+                            <AlertCircle className="h-4 w-4" />
+                            <AlertDescription className="text-red-500 text-sm font-normal text-left p-0">{signupError}</AlertDescription>
+                        </Alert>
+                    )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2">
-                        <Input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            error={errors.email}
-                            icon={<Mail className="h-5 w-5" />}
-                        />
-                        {errors.email && (
-                            <p className="text-sm text-red-500">{errors.email}</p>
-                        )}
-                    </div>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        {/* Email Input */}
+                        <div className="space-y-2">
+                            <Input
+                                type="email"
+                                name="email"
+                                placeholder="Email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                error={errors.email}
+                                icon={Mail}
+                            />
+                            {errors.email && (
+                                <p className="text-sm text-red-500">{errors.email}</p>
+                            )}
+                        </div>
 
-                    <div className="space-y-2">
-                        <Input
-                            type="text"
-                            name="name"
-                            placeholder="Full Name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            error={errors.name}
-                            icon={<User className="h-5 w-5" />}
-                        />
-                        {errors.name && (
-                            <p className="text-sm text-red-500">{errors.name}</p>
-                        )}
-                    </div>
+                        {/* Name Input */}
+                        <div className="space-y-2">
+                            <Input
+                                type="text"
+                                name="name"
+                                placeholder="Full Name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                error={errors.name}
+                                icon={User}
+                            />
+                            {errors.name && (
+                                <p className="text-sm text-red-500">{errors.name}</p>
+                            )}
+                        </div>
 
-                    <div className="space-y-2">
-                        <div className="relative">
+                        {/* Password Input */}
+                        <div className="space-y-2">
                             <Input
                                 type={showPassword ? "text" : "password"}
                                 name="password"
@@ -200,23 +310,24 @@ const SignupForm = () => {
                                 value={formData.password}
                                 onChange={handleChange}
                                 error={errors.password}
-                                icon={<Lock className="h-5 w-5" />}
+                                icon={Lock}
+                                rightIcon={
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                    </button>
+                                }
                             />
-                            <button
-                                type="button"
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                onClick={() => setShowPassword(!showPassword)}
-                            >
-                                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
+                            {errors.password && (
+                                <p className="text-sm text-red-500">{errors.password}</p>
+                            )}
                         </div>
-                        {errors.password && (
-                            <p className="text-sm text-red-500">{errors.password}</p>
-                        )}
-                    </div>
 
-                    <div className="space-y-2">
-                        <div className="relative">
+                        {/* Confirm Password Input */}
+                        <div className="space-y-2">
                             <Input
                                 type={showConfirmPassword ? "text" : "password"}
                                 name="confirmPassword"
@@ -224,36 +335,65 @@ const SignupForm = () => {
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 error={errors.confirmPassword}
-                                icon={<Lock className="h-5 w-5" />}
+                                icon={Lock}
+                                rightIcon={
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="text-gray-400 hover:text-gray-600"
+                                    >
+                                        {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                                    </button>
+                                }
                             />
-                            <button
-                                type="button"
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            >
-                                {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-                            </button>
+                            {errors.confirmPassword && (
+                                <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+                            )}
                         </div>
-                        {errors.confirmPassword && (
-                            <p className="text-sm text-red-500">{errors.confirmPassword}</p>
-                        )}
-                    </div>
 
-                    <Button
-                        type="submit"
-                        disabled={isLoading}
-                        className="w-full"
-                    >
-                        {isLoading ? (
-                            <div className="flex items-center justify-center">
-                                <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin mr-2" />
-                                Creating account...
+                        {/* Terms and Conditions */}
+                        <div className="space-y-2">
+                            <div className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    id="terms"
+                                    name="acceptedTerms"
+                                    checked={formData.acceptedTerms}
+                                    onChange={handleChange}
+                                    className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                />
+                                <label htmlFor="terms" className="text-sm text-gray-600">
+                                    I accept the{' '}
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowTerms(true)}
+                                        className="text-blue-600 hover:text-blue-800"
+                                    >
+                                        Terms and Conditions
+                                    </button>
+                                </label>
                             </div>
-                        ) : (
-                            'Sign Up'
-                        )}
-                    </Button>
-                </form>
+                            {errors.acceptedTerms && (
+                                <p className="text-sm text-red-500">{errors.acceptedTerms}</p>
+                            )}
+                        </div>
+
+                        {/* Submit Button */}
+                        <Button
+                            type="submit"
+                            disabled={isLoading}
+                            className="w-full"
+                        >
+                            {isLoading ? (
+                                <div className="flex items-center justify-center">
+                                    <div className="w-5 h-5 border-t-2 border-b-2 border-white rounded-full animate-spin mr-2" />
+                                    Creating account...
+                                </div>
+                            ) : (
+                                'Sign Up'
+                            )}
+                        </Button>
+                    </form>
 
                 <div className="relative my-6">
                     <div className="absolute inset-0 flex items-center">
@@ -339,6 +479,7 @@ const SignupForm = () => {
                         Login
                     </button>
                 </p>
+                </CardContent>
             </Card>
         </div>
     );

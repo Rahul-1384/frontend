@@ -51,7 +51,7 @@ const Alert = ({ children, variant = 'error' }) => {
     };
 
     return (
-        <div className={`p-4 mb-4 rounded-md border ${variants[variant]} flex items-center space-x-2`}>
+        <div className={`p-4 mb-4 rounded-md border ${variants[variant]} flex gap-x-2 items-center`}>
             <AlertCircle className="h-4 w-4" />
             {children}
         </div>
@@ -95,6 +95,12 @@ const LoginForm = () => {
         e.preventDefault();
         setLoginError("");
         if (!validateForm()) return;
+
+        const existingToken = localStorage.getItem("authToken");
+        if (existingToken) {
+            navigate("/", { replace: true }); // Redirect if already logged in
+            return;
+        }
 
         setIsLoading(true);
         try {

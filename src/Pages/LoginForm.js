@@ -96,11 +96,11 @@ const LoginForm = () => {
         setLoginError("");
         if (!validateForm()) return;
 
-        const existingToken = localStorage.getItem("authToken");
-        if (existingToken) {
-            navigate("/", { replace: true }); // Redirect if already logged in
-            return;
-        }
+        // const existingToken = localStorage.getItem("authToken");
+        // if (existingToken) {
+        //     navigate("/", { replace: true }); // Redirect if already logged in
+        //     return;
+        // }
 
         setIsLoading(true);
         try {

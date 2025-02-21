@@ -1,9 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
-import { Mail, ArrowRight, AlertCircle } from 'lucide-react';
+import { Mail, ArrowRight, AlertCircle, CheckCircle, X } from 'lucide-react';
 import { Alert, AlertDescription } from '../components/ui/Alert';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import emailjs from '@emailjs/browser';
+import { motion, AnimatePresence } from 'framer-motion';
+
+
+// Toast Component
+const Toast = ({ message, type, onClose }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 50, x: "-50%" }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+      className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-auto sm:min-w-[320px] sm:max-w-[400px] px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 z-50 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      }`}
+    >
+      {type === 'success' ? (
+        <CheckCircle className="w-5 h-5 text-white" />
+      ) : (
+        <AlertCircle className="w-5 h-5 text-white" />
+      )}
+      <span className="text-white flex-grow text-sm sm:text-base">{message}</span>
+      <button
+        onClick={onClose}
+        className="ml-4 text-white hover:text-gray-200 focus:outline-none"
+      >
+        <X className="w-4 h-4" />
+      </button>
+    </motion.div>
+  );
+  
+  // Success Screen Component
+  const SuccessScreen = ({ email }) => (
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="w-full max-w-md text-center">
+        <div className="mx-auto h-16 w-16 flex items-center justify-center rounded-full bg-green-100 mb-6">
+          <svg className="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+  
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+          Email Verified!
+        </h1>
+  
+        <p className="text-base text-gray-600 mb-8">
+          Your account has been successfully created
+        </p>
+  
+        <button
+          onClick={() => window.location.href = '/login'}
+          className="w-full sm:w-auto px-8 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          Continue to Login
+        </button>
+      </div>
+    </div>
+  );
+
 
 const VerifyEmail = () => {
     const navigate = useNavigate();
@@ -16,17 +72,19 @@ const VerifyEmail = () => {
     useEffect(() => {
         if (!email || !name) {
             console.log('Missing required state data:', { email, name });
-            navigate('/signup', { 
-                state: { 
-                    error: 'Please sign up with your email first' 
-                }
-            });
+            showToast('Please complete the signup process first', 'error');
+            setTimeout(() => {
+                navigate('/signup', { 
+                    state: { 
+                        error: 'Please sign up with your email first' 
+                    }
+                });
+            }, 2000); // Give time for the toast to be visible before navigation
             return;
         }
 
-        // Generate OTP only if email is present
         generateAndSendOTP();
-    }, [email, navigate]);
+    }, [email, navigate]); // Added name to dependencies
 
     const maskedEmail = email ? email.replace(/(\w)([\w.-]*)(\w)@([\w.]+)/g, '$1*****$3@$4') : '';
   
@@ -37,6 +95,20 @@ const VerifyEmail = () => {
     const [canResend, setCanResend] = useState(false);
     const [generatedOTP, setGeneratedOTP] = useState('');
     const [isInitialLoading, setIsInitialLoading] = useState(true);
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+    const [toast, setToast] = useState(null);
+
+    useEffect(() => {
+        return () => {
+            sessionStorage.removeItem('otpSent');
+        };
+    }, []);
+
+    // Show toast message
+    const showToast = (message, type) => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 3000);
+    };
 
     // Timer for resend button
     useEffect(() => {
@@ -58,12 +130,9 @@ const VerifyEmail = () => {
         }
 
         setIsLoading(true);
-        // Generate a 6-digit OTP
         const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log('Generated OTP:', newOTP); // Debug log - remove in production
         setGeneratedOTP(newOTP);
 
-        // Send email using EmailJS
         try {
             const templateParams = {
                 to_name: name,
@@ -77,10 +146,11 @@ const VerifyEmail = () => {
                 templateParams,
                 'ozNZvvM_KCQA3q7YP'
             );
-            console.log('✅ OTP email sent successfully');
+            
+            showToast('OTP sent successfully! Check your email', 'success');
         } catch (error) {
             console.error('Failed to send email:', error);
-            setError('Failed to send verification code. Please try again.');
+            showToast('Failed to send verification code', 'error');
         } finally {
             setIsLoading(false);
             setIsInitialLoading(false);
@@ -130,38 +200,42 @@ const VerifyEmail = () => {
         e.preventDefault();
         setError('');
         const otpString = otp.join('');
-
+    
         if (otpString.length !== 6) {
-            setError('Please enter a complete 6-digit code');
-            return;
+          showToast('Please enter a complete 6-digit code', 'error');
+          return;
         }
-
+    
         setIsLoading(true);
         try {
-            console.log('Verifying OTP:', otpString, 'against:', generatedOTP); // Debug log
-            // Verify OTP against generated OTP
-            if (otpString === generatedOTP) {
-                // Add success message and navigate
-                setTimeout(() => {
-                    navigate('/login', { 
-                        state: { 
-                            message: 'Email verified successfully! Please login to continue.' 
-                        }
-                    });
-                }, 1000); // Small delay to show success state
-            } else {
-                throw new Error('Invalid verification code. Please try again.');
-            }
+          if (otpString === generatedOTP) {
+            showToast('Verification successful!', 'success');
+            setTimeout(() => {
+              setShowSuccessScreen(true);
+              setTimeout(() => {
+                navigate('/login', { 
+                  state: { 
+                    message: 'Email verified successfully! Please login to continue.' 
+                  }
+                });
+              }, 2000);
+            }, 1000);
+          } else {
+            throw new Error('Invalid verification code');
+          }
         } catch (error) {
-            setError(error.message);
-            // Clear OTP fields on error
-            setOtp(['', '', '', '', '', '']);
+          showToast(error.message, 'error');
+          setOtp(['', '', '', '', '', '']);
         } finally {
-            setIsLoading(false);
+          setIsLoading(false);
         }
-    };
+      };
+    
+      if (showSuccessScreen) {
+        return <SuccessScreen email={email} />;
+      }
 
-    const handleResend = async () => {
+      const handleResend = async () => {
         if (!canResend) return;
         
         setIsLoading(true);
@@ -169,10 +243,10 @@ const VerifyEmail = () => {
             await generateAndSendOTP();
             setResendTimer(30);
             setCanResend(false);
-            setOtp(['', '', '', '', '', '']); // Clear OTP fields
-            setError(''); // Clear any existing errors
+            setOtp(['', '', '', '', '', '']);
+            showToast('New OTP sent successfully!', 'success');
         } catch (error) {
-            setError('Failed to resend verification code');
+            showToast('Failed to resend verification code', 'error');
         } finally {
             setIsLoading(false);
         }
@@ -261,6 +335,16 @@ const VerifyEmail = () => {
                     </form>
                 </CardContent>
             </Card>
+            {/* Toast Notifications */}
+            <AnimatePresence>
+                {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast(null)}
+                />
+                )}
+            </AnimatePresence>
         </div>
     );
 };

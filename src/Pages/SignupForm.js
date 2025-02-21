@@ -1,8 +1,36 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Facebook, Instagram, Mail, User, Lock, EyeOff, Eye, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect  } from 'react';
+import { useNavigate, useLocation  } from 'react-router-dom';
+import { Facebook, Instagram, Mail, User, Lock, EyeOff, Eye, AlertCircle, CheckCircle, X } from 'lucide-react';
 import { Alert, AlertDescription } from '../components/ui/Alert';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
+import { motion, AnimatePresence } from 'framer-motion';
+
+// Toast Component
+const Toast = ({ message, type, onClose }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 50, x: "-50%" }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -50 }}
+      className={`fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[95%] sm:w-auto sm:min-w-[320px] sm:max-w-[400px] px-6 py-3 rounded-lg shadow-lg flex items-center justify-between gap-2 z-50 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      }`}
+    >
+      <div className='flex items-center gap-2'>
+      {type === 'success' ? (
+        <CheckCircle className="w-5 h-5 text-white" />
+      ) : (
+        <AlertCircle className="w-5 h-5 text-white" />
+      )}
+      <span className="text-white flex-grow text-sm sm:text-base">{message}</span>
+      </div>
+      <button
+        onClick={onClose}
+        className="ml-4 text-white hover:text-gray-200 focus:outline-none"
+      >
+        <X className="w-4 h-4" />
+      </button>
+    </motion.div>
+);
 
 // API client setup
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://127.0.0.1:8000/api';
@@ -129,6 +157,8 @@ const SocialButton = ({ provider, icon: Icon, onClick, disabled }) => (
 // Main SignupForm Component
 const SignupForm = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
 
     const [formData, setFormData] = useState({
         email: '',
@@ -144,6 +174,22 @@ const SignupForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [signupError, setSignupError] = useState('');
     const [showTerms, setShowTerms] = useState(false);
+    const [toast, setToast] = useState(null);
+
+    // Show toast message
+    const showToast = (message, type) => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 3000);
+    };
+
+
+    useEffect(() => {
+        if (location.state?.error) {
+            showToast(location.state.error, 'error');
+            // Clear the error from location state to prevent it from persisting
+            window.history.replaceState({}, document.title);
+        }
+    }, [location]);
 
     const validateForm = () => {
         const newErrors = {};
@@ -165,10 +211,13 @@ const SignupForm = () => {
         // Password validation
         if (!formData.password) {
             newErrors.password = 'Password is required';
+            // showToast('Password is required', 'error');
         } else if (formData.password.length < 8) {
             newErrors.password = 'Password must be at least 8 characters';
+            showToast('Password must be at least 8 characters', 'error');
         } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
             newErrors.password = 'Password must contain uppercase, lowercase and numbers';
+            showToast('Password requirements not met', 'error');
         }
 
         // Confirm password validation
@@ -227,15 +276,16 @@ const SignupForm = () => {
     
             if (data.token?.access && data.token?.refresh) {
                 localStorage.setItem('authToken', JSON.stringify(data.token));
-                console.log('✅ Tokens stored:', data.token);
+                showToast('Account created successfully!', 'success');
             } else {
                 throw new Error('Invalid token response from server');
             }
-    
-            console.log('✅ Signup successful:', data.msg);
-            
+                
             // Navigate to email verification page with email state
-            navigate('/verify-email', { state: { email: formData.email, name:formData.name } });
+            setTimeout(() => {
+                navigate('/verify-email', { state: { email: formData.email, name: formData.name } });
+            }, 1500);
+
         } catch (error) {
             console.error("Signup error:", error);
             
@@ -245,8 +295,10 @@ const SignupForm = () => {
                 Object.entries(error.errors).forEach(([field, messages]) => {
                     if (Array.isArray(messages)) {
                         fieldErrors[field] = messages[0];
+                        showToast(messages[0], 'error');
                     } else if (typeof messages === 'string') {
                         fieldErrors[field] = messages;
+                        showToast(messages, 'error');
                     }
                 });
                 
@@ -259,12 +311,15 @@ const SignupForm = () => {
                     const nonFieldError = Array.isArray(error.errors.non_field_errors) 
                         ? error.errors.non_field_errors[0] 
                         : error.errors.non_field_errors;
-                    setSignupError(nonFieldError);
+                    // setSignupError(nonFieldError);
+                    showToast(nonFieldError, 'error');
                 }
             } else if (error.message) {
-                setSignupError(error.message);
+                // setSignupError(error.message);
+                showToast(error.message, 'error');
             } else {
-                setSignupError('Failed to create an account. Please try again.');
+                // setSignupError('Failed to create an account. Please try again.');
+                showToast('Failed to create an account. Please try again.', 'error');
             }
         } finally {
             setIsLoading(false);
@@ -277,7 +332,9 @@ const SignupForm = () => {
             const response = await apiClient.post(`/auth/${provider.toLowerCase()}`, {});
             window.location.href = response.authUrl;
         } catch (error) {
-            setSignupError(`Failed to authenticate with ${provider}`);
+            const errorMessage = `Failed to authenticate with ${provider}`;
+            // setSignupError(errorMessage);
+            showToast(errorMessage, 'error');
             setIsLoading(false);
         }
     };
@@ -296,7 +353,9 @@ const SignupForm = () => {
                     {signupError && (
                         <Alert variant="destructive" className="mb-4">
                             <AlertCircle className="h-4 w-4" />
-                            <AlertDescription className="text-red-500 text-sm font-normal text-left p-0">{signupError}</AlertDescription>
+                            <AlertDescription className="text-red-500 text-sm font-normal text-left p-0">
+                                {signupError}
+                            </AlertDescription>
                         </Alert>
                     )}
 
@@ -513,6 +572,16 @@ const SignupForm = () => {
                 </p>
                 </CardContent>
             </Card>
+            {/* Toast Notifications */}
+            <AnimatePresence>
+                {toast && (
+                    <Toast
+                        message={toast.message}
+                        type={toast.type}
+                        onClose={() => setToast(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 };

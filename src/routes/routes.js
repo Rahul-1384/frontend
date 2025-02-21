@@ -17,6 +17,10 @@ const SearchResults = lazy(() => import("../Pages/SearchResults"));
 const ForgotPassword = lazy(() => import("../Pages/ForgotPassword"));
 const ResetPassword = lazy(() => import("../Pages/ResetPassword"));
 const Wishlist = lazy(() => import("../Pages/WishList"));
+const MyOrders = lazy(() => import("../Pages/MyOrders"));
+const TrackOrders = lazy(() => import("../Pages/TrackOrders"));
+const Profile = lazy(() => import("../Pages/Profile"));
+
 const Rent = lazy(() => import("../Pages/Rent"));
 const Categories = lazy(() => import("../Pages/Categories"));
 const CategoryDetails = lazy(() => import("../Pages/CategoryDetails"));
@@ -56,6 +60,9 @@ export const publicRoutes = [
   { path: "/categories/:categoryId", element: <CategoryDetails /> },
   { path: "/change-password", element: <ChangePassword /> },
   { path: "/ebooks", element: <EBooksSection /> },
+  { path: "/orders", element: <MyOrders /> },
+  { path: "/track-orders", element: <TrackOrders /> },
+  { path: "/profile", element: <Profile /> },
 
 ];
 

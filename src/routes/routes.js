@@ -1,3 +1,4 @@
+import { elements } from "chart.js";
 import { lazy } from "react";
 
 // Lazy-load Pages for better performance
@@ -5,6 +6,7 @@ const Homepage = lazy(() => import("../Pages/Homepage"));
 const Sell = lazy(() => import("../Pages/Sell"));
 const LoginForm = lazy(() => import("../Pages/LoginForm"));
 const SignupForm = lazy(() => import("../Pages/SignupForm"));
+const VerifyEmail = lazy(() => import("../Pages/VerifyEmail"));
 const AdminLogin = lazy(() => import("../Pages/AdminLogin"));
 const Buy = lazy(() => import("../Pages/Buy"));
 const Cart = lazy(() => import("../Pages/CartPage"));
@@ -19,6 +21,8 @@ const Rent = lazy(() => import("../Pages/Rent"));
 const Categories = lazy(() => import("../Pages/Categories"));
 const CategoryDetails = lazy(() => import("../Pages/CategoryDetails"));
 const ChangePassword = lazy(() => import("../Pages/ChangePassword"));
+const EBooksSection = lazy(() => import("../Pages/EBooksSection"));
+
 
 
 // Admin Pages
@@ -36,6 +40,7 @@ export const publicRoutes = [
   { path: "/sell", element: <Sell /> },
   { path: "/login", element: <LoginForm /> },
   { path: "/signup", element: <SignupForm /> },
+  { path: "/verify-email", element: <VerifyEmail /> },
   { path: "/admin-login", element: <AdminLogin /> },
   { path: "/products", element: <Buy /> },
   { path: "/cart", element: <Cart /> },
@@ -50,6 +55,7 @@ export const publicRoutes = [
   { path: "/categories", element: <Categories /> },
   { path: "/categories/:categoryId", element: <CategoryDetails /> },
   { path: "/change-password", element: <ChangePassword /> },
+  { path: "/ebooks", element: <EBooksSection /> },
 
 ];
 

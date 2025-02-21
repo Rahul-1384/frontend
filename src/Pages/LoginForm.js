@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Mail, Lock, EyeOff, Eye, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import Toast from '../components/ui/Toast';
 
 const Input = ({ type, name, placeholder, value, onChange, error, className, icon: Icon }) => (
     <div className="relative">
@@ -62,6 +63,7 @@ const LoginForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { loginUser } = useAuth(); // Get login function from context
+    const [showToast, setShowToast] = useState(false);
 
     const [errors, setErrors] = useState({});
     const [showPassword, setShowPassword] = useState(false);
@@ -107,10 +109,19 @@ const LoginForm = () => {
             const response = await axios.post("http://127.0.0.1:8000/api/auth/login/", formData);
             const { token } = response.data; // Extract token object
 
-            console.log("Login Successful", response.data);
+            // console.log("Login Successful", response.data);
             loginUser(token); // Pass token to AuthContext
+            setShowToast(true); // Show the toast notification
+            
+            // Hide the toast after 3 seconds and then navigate
+            setTimeout(() => {
+                setShowToast(false);
+                setTimeout(() => {
+                    navigate("/", { replace: true });
+                }, 300); // Wait for toast exit animation
+            }, 4000);
 
-            navigate("/", { replace: true });
+            // navigate("/", { replace: true });
         } catch (error) {
             setLoginError(error.response?.data?.message || "Invalid email or password");
             console.error("Error Response:", error.response);
@@ -122,6 +133,11 @@ const LoginForm = () => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+            <Toast 
+                message="Login successful! Redirecting..." 
+                isVisible={showToast}
+                onClose={() => setShowToast(false)}
+            />
             <Card className="w-full max-w-md p-6">
                 <div className="text-center mb-6">
                     <h2 className="text-2xl font-bold">Welcome back</h2>

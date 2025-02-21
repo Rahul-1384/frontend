@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
             });
 
             setUser(response.data);
-            console.log(response.data);
+            // console.log(response.data);
         } catch (error) {
             console.error("Profile Fetch Error:", error.response);
             if (error.response?.status === 401) {

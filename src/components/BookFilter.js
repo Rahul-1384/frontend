@@ -664,7 +664,7 @@ const BookFilter = () => {
           </button>
       </div>
         {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {Array.from({ length: booksPerPage }).map((_, index) => (
               <div key={index} className="bg-white p-4 border border-gray-200 rounded-xl shadow-md animate-pulse">
                 <div className="relative h-64 bg-gray-300 rounded-md"></div>
@@ -708,7 +708,7 @@ const BookFilter = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
             {/* Render filtered books */}
             {currentBooks.map((book) => (
               <BookCard key={book.id} book={book} addToCart={addToCart} onClick={() => handleCardClick(book.id, book.title, book.author, book.category, book.condition)} />

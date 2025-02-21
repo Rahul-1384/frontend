@@ -129,6 +129,7 @@ const SocialButton = ({ provider, icon: Icon, onClick, disabled }) => (
 // Main SignupForm Component
 const SignupForm = () => {
     const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         email: '',
         name: '',
@@ -200,38 +201,69 @@ const SignupForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSignupError('');
-
+    
         if (!validateForm()) return;
-
+    
         setIsLoading(true);
         try {
-            const response = await apiClient.post('/auth/register/', {
-                email: formData.email,
-                name: formData.name,
-                password: formData.password,
-                password2: formData.confirmPassword,
-                tc: true
+            const response = await fetch('http://127.0.0.1:8000/api/auth/register/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.email,
+                    name: formData.name,
+                    password: formData.password,
+                    password2: formData.confirmPassword,
+                    tc: true
+                })
             });
-
-            console.log('Signup successful:', response);
-            navigate('/verify-email', { 
-                state: { email: formData.email }
-            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || 'Signup failed');
+            }
+    
+            const data = await response.json();  // Expected: { token: { access, refresh }, msg: 'Register SuccessFully' }
+    
+            if (data.token?.access && data.token?.refresh) {
+                localStorage.setItem('authToken', JSON.stringify(data.token));
+                console.log('✅ Tokens stored:', data.token);
+            } else {
+                throw new Error('Invalid token response from server');
+            }
+    
+            console.log('✅ Signup successful:', data.msg);
+            
+            // Navigate to email verification page with email state
+            navigate('/verify-email', { state: { email: formData.email, name:formData.name } });
         } catch (error) {
-            console.error("Signup error:", error.errors.email);
-            if (error.errors.email  && Array.isArray(error.errors.email)) {
-                setErrors(prev => ({ ...prev, email: error.errors.email[0].toUpperCase() }));
-            }
-            if (error.errors.name && Array.isArray(error.errors.name)) {
-                setErrors(prev => ({ ...prev, name: error.errors.name[0] }));
-            }
-            if (error.errors.password && Array.isArray(error.errors.password)) {
-                setErrors(prev => ({ ...prev, password: error.errors.password[0] }));
-            }
-            if (error.errors.non_field_errors && Array.isArray(error.errors.non_field_errors)) {
-                setSignupError(error.errors.non_field_errors[0]);
-            }
-            else {
+            console.error("Signup error:", error);
+            
+            if (error.errors) {
+                const fieldErrors = {};
+                
+                Object.entries(error.errors).forEach(([field, messages]) => {
+                    if (Array.isArray(messages)) {
+                        fieldErrors[field] = messages[0];
+                    } else if (typeof messages === 'string') {
+                        fieldErrors[field] = messages;
+                    }
+                });
+                
+                setErrors(prev => ({
+                    ...prev,
+                    ...fieldErrors
+                }));
+    
+                if (error.errors.non_field_errors) {
+                    const nonFieldError = Array.isArray(error.errors.non_field_errors) 
+                        ? error.errors.non_field_errors[0] 
+                        : error.errors.non_field_errors;
+                    setSignupError(nonFieldError);
+                }
+            } else if (error.message) {
+                setSignupError(error.message);
+            } else {
                 setSignupError('Failed to create an account. Please try again.');
             }
         } finally {

@@ -8,6 +8,8 @@ import Testimonial from "../components/Testimonial";
 import Footer from "../components/Footer";
 import Categories from "../components/Categories";
 import Trending from "../components/Trending";
+import OurServices from "../components/OurServices";
+import DownloadApp from "../components/DownloadApp";
 
 const Homepage = () => {
     return(
@@ -18,8 +20,10 @@ const Homepage = () => {
             <Trending/>
             <Categories/>
             <HowItWorks/>
+            <OurServices/>
             <HappyUser/>
             <Testimonial/>
+            <DownloadApp/>
             <Contact/>
             <Footer/>
         </div>

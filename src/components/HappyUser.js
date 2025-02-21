@@ -14,7 +14,7 @@ const HappyUser = ({
     activeUsers: 12000,
     globalReach: 10000,
     satisfiedCustomers: 20000,
-  }), []); // Empty array ensures it's only created once
+  }), []);
 
   const [metrics, setMetrics] = useState({
     activeUsers: 0,
@@ -25,7 +25,6 @@ const HappyUser = ({
   const [selectedCard, setSelectedCard] = useState(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
-  // Memoize trend data generation
   const generateTrendData = useCallback((baseValue) => {
     return Array.from({ length: 12 }, (_, i) => ({
       month: new Date(0, i).toLocaleString('default', { month: 'short' }),
@@ -78,18 +77,18 @@ const HappyUser = ({
         <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id={`gradient-${color}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor={color} stopOpacity={0.3}/>
+              <stop offset="5%" stopColor={color} stopOpacity={0.2}/>
               <stop offset="95%" stopColor={color} stopOpacity={0}/>
             </linearGradient>
           </defs>
           <XAxis 
             dataKey="month" 
-            stroke="#94a3b8" 
+            stroke="#64748b" 
             fontSize={12}
             tickLine={false}
           />
           <YAxis 
-            stroke="#94a3b8" 
+            stroke="#64748b" 
             fontSize={12}
             tickLine={false}
             axisLine={false}
@@ -97,10 +96,10 @@ const HappyUser = ({
           />
           <Tooltip 
             contentStyle={{ 
-              background: 'rgba(255, 255, 255, 0.9)',
-              border: 'none',
+              background: '#ffffff',
+              border: '1px solid #e2e8f0',
               borderRadius: '8px',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
             }}
             formatter={value => [`${value.toLocaleString()}`, 'Value']}
           />
@@ -128,44 +127,73 @@ const HappyUser = ({
     return (
       <div 
         className={`
-          bg-white rounded-xl shadow-lg p-6
-          transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer
-          ${isSelected ? 'ring-2 ring-offset-2 ring-blue-500' : ''}
+          bg-white rounded-xl shadow-sm border border-gray-100
+          transition-all duration-300 hover:shadow-md cursor-pointer
+          ${isSelected ? 'ring-2 ring-offset-2' : ''}
+          ${color === 'indigo' ? 'ring-indigo-500' : ''}
+          ${color === 'emerald' ? 'ring-emerald-500' : ''}
+          ${color === 'violet' ? 'ring-violet-500' : ''}
+          p-6
         `}
         onClick={() => setSelectedCard(isSelected ? null : index)}
       >
         <div className="relative group">
           <div className={`
             w-16 h-16 mx-auto mb-4 p-3 rounded-full
-            bg-gradient-to-br from-${color}-100 to-${color}-200 shadow-inner
+            ${color === 'indigo' ? 'bg-indigo-50' : ''}
+            ${color === 'emerald' ? 'bg-emerald-50' : ''}
+            ${color === 'violet' ? 'bg-violet-50' : ''}
             transition-transform duration-300 group-hover:scale-110
           `}>
-            <Icon className={`w-full h-full text-${color}-500`} />
+            <Icon className={`
+              w-full h-full
+              ${color === 'indigo' ? 'text-indigo-500' : ''}
+              ${color === 'emerald' ? 'text-emerald-500' : ''}
+              ${color === 'violet' ? 'text-violet-500' : ''}
+            `} />
           </div>
 
           <div className="absolute -top-2 -right-2 animate-pulse">
-            <Sparkle className={`w-5 h-5 text-${color}-500`} />
+            <Sparkle className={`
+              w-5 h-5
+              ${color === 'indigo' ? 'text-indigo-500' : ''}
+              ${color === 'emerald' ? 'text-emerald-500' : ''}
+              ${color === 'violet' ? 'text-violet-500' : ''}
+            `} />
           </div>
         </div>
 
         <h3 className={`
-          text-3xl font-bold text-${color}-500 mb-2
+          text-3xl font-bold mb-2
+          ${color === 'indigo' ? 'text-indigo-600' : ''}
+          ${color === 'emerald' ? 'text-emerald-600' : ''}
+          ${color === 'violet' ? 'text-violet-600' : ''}
           transition-all duration-300
           ${isSelected ? 'scale-110' : 'scale-100'}
         `}>
           {value.toLocaleString()}+
         </h3>
         
-        <p className="text-gray-600 dark:text-gray-300 font-medium">{label}</p>
+        <p className="text-gray-600 font-medium">{label}</p>
 
         {isSelected && (
           <div className="mt-6 space-y-4">
             <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center gap-2">
-                <TrendingUp className={`w-4 h-4 text-${color}-500`} />
+                <TrendingUp className={`
+                  w-4 h-4
+                  ${color === 'indigo' ? 'text-indigo-500' : ''}
+                  ${color === 'emerald' ? 'text-emerald-500' : ''}
+                  ${color === 'violet' ? 'text-violet-500' : ''}
+                `} />
                 <span className="text-sm font-medium">Growth</span>
               </div>
-              <span className={`font-bold text-${color}-500`}>
+              <span className={`
+                font-bold
+                ${color === 'indigo' ? 'text-indigo-500' : ''}
+                ${color === 'emerald' ? 'text-emerald-500' : ''}
+                ${color === 'violet' ? 'text-violet-500' : ''}
+              `}>
                 {getGrowthRate()}%
               </span>
             </div>
@@ -177,7 +205,7 @@ const HappyUser = ({
                 </h4>
                 <DetailChart 
                   data={trendData[metric]} 
-                  color={`var(--${color}-500)`} 
+                  color={color === 'indigo' ? '#6366f1' : color === 'emerald' ? '#10b981' : '#8b5cf6'} 
                 />
               </div>
             )}
@@ -192,7 +220,7 @@ const HappyUser = ({
       icon: UserGroupIcon,
       value: metrics.activeUsers,
       label: "Active Users",
-      color: "blue",
+      color: "indigo",
       details: "Monthly active users across platforms",
       metric: "activeUsers"
     },
@@ -200,7 +228,7 @@ const HappyUser = ({
       icon: ThumbUpIcon,
       value: metrics.satisfiedCustomers,
       label: "Satisfied Customers",
-      color: "green",
+      color: "emerald",
       details: "Customers with 4+ star ratings",
       metric: "satisfiedCustomers"
     },
@@ -208,18 +236,18 @@ const HappyUser = ({
       icon: GlobeAltIcon,
       value: metrics.globalReach,
       label: "Global Reach",
-      color: "purple",
+      color: "violet",
       details: "Countries with active users",
       metric: "globalReach"
     }
   ];
 
   return (
-    <section className={`py-12 bg-gradient-to-b from-gray-50 to-white ${className}`}>
+    <section className={`py-12 bg-white ${className}`}>
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12">
           Our Growing{" "}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-green-500 to-purple-500">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-emerald-500 to-violet-500">
             Community
           </span>
         </h2>

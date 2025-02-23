@@ -1,7 +1,7 @@
 {
     "books": [
       {
-        "id": 1,
+        "id":"b5a1e7c9-8d3b-4a3d-89c0-2c2f9a92f2f4",
         "title": "Physics for Beginners",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "John Doe",
@@ -15,12 +15,12 @@
         "genre": "Academic",
         "price": 100,
         "discount": 20,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUCIleEWfO4WAJV6zc1GjPi--ODEl78PUxWg&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 2,
+        "id":"2f5d3d16-0c93-4a7a-89e2-2b2a8e8d3457",
         "title": "Chemistry Essentials",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Jane Smith",
@@ -34,12 +34,12 @@
         "genre": "Academic",
         "price": 110,
         "discount": 19,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 3,
+        "id":"1c6f4a2d-5d88-4643-988f-617e99fcf92e",
         "title": "Mathematics Simplified",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Albert Newton",
@@ -53,12 +53,12 @@
         "genre": "Academic",
         "price": 90,
         "discount": 35,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 4,
+        "id":" 3e5d6c19-778d-46e3-b5a3-10dfb8e5afad",
         "title": "Literature Classics",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Emily Bronte",
@@ -72,12 +72,12 @@
         "genre": "Fiction",
         "price": 80,
         "discount": 15,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 5,
+        "id":" 4f2d7914-1e34-4a65-9a3e-5236de1974f8",
         "title": "Biology Basics",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Anna Green",
@@ -91,12 +91,12 @@
         "genre": "Academic",
         "price": 180,
         "discount": 45,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 6,
+        "id":"5d9e2a18-ef64-4c67-a25b-89b8a9fc5f78",
         "title": "World History",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Mark Twain",
@@ -110,12 +110,12 @@
         "genre": "Academic",
         "price": 140,
         "discount": 20,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 7,
+        "id":"6a2e5c9d-0e4c-4f7a-8a4c-71a8b9e4cd5e",
         "title": "Programming in Python",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Guido Van Rossum",
@@ -129,12 +129,12 @@
         "genre": "Technical",
         "price": 250,
         "discount": 60,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 8,
+        "id":"7d1c6b84-315e-491d-b9b3-19e3f4c579a1",
         "title": "The Wonders of Physics",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Isaac Newton",
@@ -148,12 +148,12 @@
         "genre": "Academic",
         "price": 110,
         "discount": 32,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 9,
+        "id":"8f2a794b-4e1a-4b5f-924e-731a7b3c9e1f",
         "title": "Organic Chemistry Explained",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Marie Curie",
@@ -167,12 +167,12 @@
         "genre": "Academic",
         "price": 90,
         "discount": 11,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 10,
+        "id": "9a3e1c57-73d1-4e89-b6a2-15e7c9f4a9b8",
         "title": "Algebra Adventures",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Carl Gauss",
@@ -186,12 +186,12 @@
         "genre": "Academic",
         "price": 160,
         "discount": 21,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 11,
+        "id": "a5e2c49d-2e6a-4c8b-9d31-4817b5f2a7d1",
         "title": "Shakespearean Tales",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "William Shakespeare",
@@ -205,12 +205,12 @@
         "genre": "Fiction",
         "price": 200,
         "discount": 22,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 12,
+        "id": "b7d9a1e5-4e7c-49f8-89d3-781c5b7a2e14",
         "title": "Zoology for Beginners",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Charles Darwin",
@@ -224,12 +224,12 @@
         "genre": "Academic",
         "price": 130,
         "discount": 30,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 13,
+        "id": "c4e5d7b2-15a3-4b1c-8f3a-9d71e5b8c2f9",
         "title": "Understanding World Geography",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Jane Goodall",
@@ -243,12 +243,12 @@
         "genre": "Academic",
         "price": 100,
         "discount": 30,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 14,
+        "id": "d2a8c5e4-73e1-4a5f-b3d1-4f79b2e5a7c8",
         "title": "Learn Java Programming",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "James Gosling",
@@ -262,12 +262,12 @@
         "genre": "Technical",
         "price": 220,
         "discount": 60,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 15,
+        "id": "e19b3a5f-2e1d-45c7-a8b3-7d5f2e4c9a17",
         "title": "The Art of Logical Thinking",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "George Boole",
@@ -281,12 +281,12 @@
         "genre": "Academic",
         "price": 70,
         "discount": 9,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 16,
+        "id": "f4a7e1c2-59d3-4b8a-9f2c-31e7a5d8b4c1",
         "title": "Modern Art Movements",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Pablo Picasso",
@@ -300,12 +300,12 @@
         "genre": "Non-Fiction",
         "price": 180,
         "discount": 18,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 17,
+        "id": "011f4a2d-7c5e-4b9d-8f3a-9e2a7b5d1c84",
         "title": "Astronomy: A Beginner's Guide",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Galileo Galilei",
@@ -319,12 +319,12 @@
         "genre": "Academic",
         "price": 140,
         "discount": 21,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 18,
+        "id": "121a7d9b-3e1c-45f2-89b3-7a5e4c9d2f8a",
         "title": "Introduction to Philosophy",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Socrates",
@@ -338,12 +338,12 @@
         "genre": "Non-Fiction",
         "price": 210,
         "discount": 40,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 19,
+        "id": "232e5c7a-4b1f-49a3-d8b9-1e5a2c7d3f4b",
         "title": "Advanced Calculus",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Leonhard Euler",
@@ -357,12 +357,12 @@
         "genre": "Academic",
         "price": 150,
         "discount": 20,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 20,
+        "id": "349b2e7d-1a5c-4f3a-89d1-7e5b4c8f2a19",
         "title": "Cultural Anthropology",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Margaret Mead",
@@ -376,12 +376,12 @@
         "genre": "Non-Fiction",
         "price": 190,
         "discount": 22,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 21,
+        "id": "45f7d3a1-9b2e-4c5f-8a3b-1d7a2e5c4f9b",
         "title": "Introduction to Economics",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Adam Smith",
@@ -395,12 +395,12 @@
         "genre": "Academic",
         "price": 200,
         "discount": 29,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 22,
+        "id": "56e1c9b3-2a7f-4d5a-b3f9-7c4e1a5d8f2b",
         "title": "Programming in C++",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Bjarne Stroustrup",
@@ -414,12 +414,12 @@
         "genre": "Technical",
         "price": 180,
         "discount": 25,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 23,
+        "id": "67f5a2d1-c9b3-4e8a-5f4c-1d7a3e2b9f8c",
         "title": "The Basics of Ethics",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Immanuel Kant",
@@ -433,12 +433,12 @@
         "genre": "Non-Fiction",
         "price": 80,
         "discount": 6,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 24,
+        "id": "78a9d1b3-5c7e-4f2a-89f3-1e5a4c7d2b19",
         "title": "Shakespeare's Sonnets",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "William Shakespeare",
@@ -452,12 +452,12 @@
         "genre": "Fiction",
         "price": 120,
         "discount": 25,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 25,
+        "id": "89b3e5a7-1c4f-2d9a-7f3b-5e1a2c9d4f8a",
         "title": "AI and Machine Learning",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Andrew Ng",
@@ -471,12 +471,12 @@
         "genre": "Technical",
         "price": 300,
         "discount": 70,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 26,
+        "id": "90c2a5e1-b7d9-4f3a-1c8f-2e5a4b7d3f9c",
         "title": "Environmental Science Guide",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Rachel Carson",
@@ -490,12 +490,12 @@
         "genre": "Academic",
         "price": 100,
         "discount": 22,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       },
       {
-        "id": 27,
+        "id": "a1f7e5c9-3b2a-4d1c-89f3-7e4a5c2b9d18",
         "title": "Exploring Astronomy",
         "description": "Reading books is a kind of enjoyment. Reading books is a good habit. We bring you a different kinds of books. You can carry this book where ever you want. It is easy to carry. It can be an ideal gift to yourself and to your loved ones. Care instruction keep away from fire.",
         "author": "Neil deGrasse Tyson",
@@ -509,9 +509,9 @@
         "genre": "Academic",
         "price": 170,
         "discount": 29,
-        "image": ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM7SOTbegIs-D7Qc8-YYuhlLinXYiA_mkg8w&s"]
+        "image": ["https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+      "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417",
+    "https://booksandyou.in/cdn/shop/files/49fe18d2d0031980b66120f7e5f9bef5.webp?v=1726815417"]
       }
     ]
   }

@@ -190,6 +190,7 @@ const Navbar = () => {
     };
 
     return (
+        // <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/95 -backdrop-blur-[2px] shadow-lg' : 'bg-transparent'
         <nav className={`sticky top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-slate-900/95 -backdrop-blur-[2px] shadow-lg' : 'bg-slate-900'
             }`}>
             <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">

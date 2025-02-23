@@ -267,64 +267,58 @@ const SignupForm = () => {
                 })
             });
     
+            const data = await response.json(); // Parsing response first for both success and error cases
+    
             if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.detail || 'Signup failed');
+                throw data; // Throw the entire response JSON if not OK
             }
     
-            const data = await response.json();  // Expected: { token: { access, refresh }, msg: 'Register SuccessFully' }
-    
+            // ✅ On successful registration
             if (data.token?.access && data.token?.refresh) {
                 localStorage.setItem('authToken', JSON.stringify(data.token));
                 showToast('Account created successfully!', 'success');
+    
+                setTimeout(() => {
+                    navigate('/verify-email', { state: { email: formData.email, name: formData.name } });
+                }, 1500);
             } else {
                 throw new Error('Invalid token response from server');
             }
-                
-            // Navigate to email verification page with email state
-            setTimeout(() => {
-                navigate('/verify-email', { state: { email: formData.email, name: formData.name } });
-            }, 1500);
-
-        } catch (error) {
-            console.error("Signup error:", error);
-            
-            if (error.errors) {
+    
+        } catch (error) {    
+            // ✅ Handling error messages from the backend properly
+            if (error?.errors) {
                 const fieldErrors = {};
-                
+    
                 Object.entries(error.errors).forEach(([field, messages]) => {
-                    if (Array.isArray(messages)) {
-                        fieldErrors[field] = messages[0];
-                        showToast(messages[0], 'error');
-                    } else if (typeof messages === 'string') {
-                        fieldErrors[field] = messages;
-                        showToast(messages, 'error');
-                    }
+                    const message = Array.isArray(messages) ? messages[0] : messages;
+                    fieldErrors[field] = message;
+                    showToast(message, 'error');
                 });
-                
+    
                 setErrors(prev => ({
                     ...prev,
                     ...fieldErrors
                 }));
     
                 if (error.errors.non_field_errors) {
-                    const nonFieldError = Array.isArray(error.errors.non_field_errors) 
-                        ? error.errors.non_field_errors[0] 
+                    const nonFieldError = Array.isArray(error.errors.non_field_errors)
+                        ? error.errors.non_field_errors[0]
                         : error.errors.non_field_errors;
-                    // setSignupError(nonFieldError);
                     showToast(nonFieldError, 'error');
                 }
+            } else if (error.detail) {
+                showToast(error.detail, 'error');
             } else if (error.message) {
-                // setSignupError(error.message);
                 showToast(error.message, 'error');
             } else {
-                // setSignupError('Failed to create an account. Please try again.');
                 showToast('Failed to create an account. Please try again.', 'error');
             }
         } finally {
             setIsLoading(false);
         }
     };
+    
 
     const handleSocialAuth = async (provider) => {
         setIsLoading(true);

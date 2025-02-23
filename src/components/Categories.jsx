@@ -357,7 +357,7 @@ const Categories = () => {
 
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 via-white to-gray-50">
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto md:px-4 max-w-7xl">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}

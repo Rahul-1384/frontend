@@ -71,7 +71,7 @@ const OurServices = () => {
         </div>
 
         {/* Enhanced Services Grid */}
-        <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
           {services.map((service, index) => (
             <div
               key={index}

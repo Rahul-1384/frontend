@@ -1,0 +1,157 @@
+{
+  "recentManga": [
+    {
+      "id": 1,
+      "title": "Demon Slayer",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974711123/demon-slayer-kimetsu-no-yaiba-vol-12-9781974711123_lg.jpg",
+      "chapters": 205
+    },
+    {
+      "id": 2,
+      "title": "One Piece",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781421561431/one-piece-vol-69-9781421561431_lg.jpg",
+      "chapters": 1082
+    },
+    {
+      "id": 3,
+      "title": "Jujutsu Kaisen",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974738748/jujutsu-kaisen-vol-20-9781974738748_lg.jpg",
+      "chapters": 230
+    },
+    {
+      "id": 4,
+      "title": "Chainsaw Man",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974740581/chainsaw-man-vol-12-9781974740581_lg.jpg",
+      "chapters": 130
+    }
+  ],
+
+  "featuredManga": [
+    {
+      "id": 1,
+      "title": "My Hero Academia",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974719778/my-hero-academia-vol-26-9781974719778_lg.jpg",
+      "genre": "Action",
+      "chapters": 420,
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "title": "Attack on Titan",
+      "cover": "https://preview.redd.it/jp4s9c9qvn761.jpg?auto=webp&s=a60692a8829d2f76c744810ad234fbf0d697b2ab",
+      "genre": "Drama",
+      "chapters": 139,
+      "rating": 4.9
+    },
+    {
+      "id": 3,
+      "title": "Tokyo Revengers",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/b/b1/Tokyo_Revengers_volume_1_cover.jpg",
+      "genre": "Action",
+      "chapters": 278,
+      "rating": 4.6
+    },
+    {
+      "id": 4,
+      "title": "Spy x Family",
+      "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQshc396wla4kAkEu9yX2250js3HHHwl5n57Q&s",
+      "genre": "Comedy",
+      "chapters": 100,
+      "rating": 4.7
+    },
+    {
+      "id": 5,
+      "title": "Blue Lock",
+      "cover": "https://m.media-amazon.com/images/M/MV5BNjliYmU5N2EtYmNjNi00NGM0LWEzZWItN2Q0YzM5YTk4Y2Q1XkEyXkFqcGc@._V1_.jpg",
+      "genre": "Sports",
+      "chapters": 230,
+      "rating": 4.5
+    }
+  ],
+
+  "trendingManga": [
+    {
+      "id": 1,
+      "title": "Chainsaw Man",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974740581/chainsaw-man-vol-12-9781974740581_lg.jpg",
+      "genre": "Horror",
+      "chapters": 130,
+      "rating": 4.9,
+      "author": "Tatsuki Fujimoto",
+      "status": "Ongoing"
+    },
+    {
+      "id": 2,
+      "title": "Jujutsu Kaisen",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974738748/jujutsu-kaisen-vol-20-9781974738748_lg.jpg",
+      "genre": "Supernatural",
+      "chapters": 230,
+      "rating": 4.8,
+      "author": "Gege Akutami",
+      "status": "Ongoing"
+    },
+    {
+      "id": 3,
+      "title": "One Punch Man",
+      "cover": "https://m.media-amazon.com/images/M/MV5BNzMwOGQ5MWItNzE3My00ZDYyLTk4NzAtZWIyYWI0NTZhYzY0XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+      "genre": "Action",
+      "chapters": 189,
+      "rating": 4.7,
+      "author": "ONE",
+      "status": "Ongoing"
+    },
+    {
+      "id": 4,
+      "title": "Berserk",
+      "cover": "https://m.media-amazon.com/images/M/MV5BOTY0ZGMwZmEtNDVmMy00OWJmLWFlNjEtMGZkNTdlN2EzOWVmXkEyXkFqcGc@._V1_.jpg",
+      "genre": "Dark Fantasy",
+      "chapters": 364,
+      "rating": 4.9,
+      "author": "Kentaro Miura",
+      "status": "Ongoing"
+    }
+  ],
+
+  "latestUpdates": [
+    {
+      "id": 1,
+      "title": "Jujutsu Kaisen",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974738748/jujutsu-kaisen-vol-20-9781974738748_lg.jpg",
+      "chapter": 230,
+      "timeAgo": "3 hours ago",
+      "genre": "Action"
+    },
+    {
+      "id": 2,
+      "title": "One Piece",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781421561431/one-piece-vol-69-9781421561431_lg.jpg",
+      "chapter": 1082,
+      "timeAgo": "1 day ago",
+      "genre": "Adventure"
+    },
+    {
+      "id": 3,
+      "title": "My Hero Academia",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974719778/my-hero-academia-vol-26-9781974719778_lg.jpg",
+      "chapter": 420,
+      "timeAgo": "2 days ago",
+      "genre": "Action"
+    },
+    {
+      "id": 4,
+      "title": "Tokyo Revengers",
+      "cover": "https://upload.wikimedia.org/wikipedia/en/b/b1/Tokyo_Revengers_volume_1_cover.jpg",
+      "chapter": 278,
+      "timeAgo": "3 days ago",
+      "genre": "Drama"
+    },
+    {
+      "id": 5,
+      "title": "Chainsaw Man",
+      "cover": "https://d28hgpri8am2if.cloudfront.net/book_images/onix/cvr9781974740581/chainsaw-man-vol-12-9781974740581_lg.jpg",
+      "chapter": 130,
+      "timeAgo": "4 days ago",
+      "genre": "Horror"
+    }
+  ]
+}

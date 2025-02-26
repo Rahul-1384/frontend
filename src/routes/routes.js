@@ -1,5 +1,6 @@
 import { elements } from "chart.js";
 import { lazy } from "react";
+import MangaReaderApp from "../Pages/MangaReaderApp";
 
 // Lazy-load Pages for better performance
 const Homepage = lazy(() => import("../Pages/Homepage"));
@@ -20,7 +21,6 @@ const Wishlist = lazy(() => import("../Pages/WishList"));
 const MyOrders = lazy(() => import("../Pages/MyOrders"));
 const TrackOrders = lazy(() => import("../Pages/TrackOrders"));
 const Profile = lazy(() => import("../Pages/Profile"));
-
 const Rent = lazy(() => import("../Pages/Rent"));
 const Categories = lazy(() => import("../Pages/Categories"));
 const CategoryDetails = lazy(() => import("../Pages/CategoryDetails"));
@@ -63,6 +63,8 @@ export const publicRoutes = [
   { path: "/orders", element: <MyOrders /> },
   { path: "/track-orders", element: <TrackOrders /> },
   { path: "/profile", element: <Profile /> },
+  { path: "/manga", element: <MangaReaderApp /> },
+
 
 ];
 

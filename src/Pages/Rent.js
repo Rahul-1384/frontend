@@ -56,7 +56,6 @@ const Rent = () => {
     { id: 'academic', name: 'Academic' },
     { id: 'fiction', name: 'Fiction' },
     { id: 'non-fiction', name: 'Non-Fiction' },
-    { id: 'manga', name: 'Manga' },
   ];
 
   const durations = [

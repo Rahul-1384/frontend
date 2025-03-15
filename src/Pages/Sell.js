@@ -1,341 +1,358 @@
-import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
+import React, { useState, useEffect } from 'react';
+import { PlusCircle, X, Camera, Upload, Check } from 'lucide-react';
 
-const SellBooks = () => {
-  const [formData, setFormData] = useState({
+// Component for the book selling page
+const Sell = () => {
+  // State for form data
+  const [bookData, setBookData] = useState({
     title: '',
     author: '',
-    book_type: '',
-    photos: null,
-    condition: '',
-    quantity: '',
+    description: '',
     price: '',
-    payment: '',
-    address: '',
-    pincode: '',
-    phone: '',
-    secure_details: false,
+    condition: 'new',
+    category: '',
+    location: ''
   });
+  
+  // State for photo uploads
+  const [photos, setPhotos] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [error, setError] = useState('');
 
-  const [bookDetailsMethod, setBookDetailsMethod] = useState('manual');
-  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBookData(prev => ({ ...prev, [name]: value }));
+  };
 
-  const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
-    if (type === 'checkbox') {
-      setFormData({ ...formData, [name]: checked });
-    } else if (type === 'file') {
-      setFormData({ ...formData, [name]: files });
-    } else {
-      setFormData({ ...formData, [name]: value });
+  // Handle photo selection
+  const handlePhotoSelect = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const newPhotos = [...photos];
+      const newPreviews = [...previewImages];
+      
+      Array.from(e.target.files).forEach(file => {
+        if (newPhotos.length < 6) { // Limit to 6 photos
+          newPhotos.push(file);
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            newPreviews.push(event.target.result);
+            setPreviewImages([...newPreviews]);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      
+      setPhotos(newPhotos);
     }
   };
 
-  const handleBookDetailsChange = (method) => {
-    setBookDetailsMethod(method);
-    setIsCameraOpen(method === 'ai');
+  // Remove a photo
+  const removePhoto = (index) => {
+    const newPhotos = [...photos];
+    const newPreviews = [...previewImages];
+    newPhotos.splice(index, 1);
+    newPreviews.splice(index, 1);
+    setPhotos(newPhotos);
+    setPreviewImages(newPreviews);
   };
 
-  const handleSubmit = (e) => {
+  // Get authentication token from localStorage
+  // Get authentication token from localStorage
+const getAuthToken = () => {
+  try {
+    const authData = JSON.parse(localStorage.getItem('authToken'));
+    if (authData && authData.access) {
+      return authData.access;
+    }
+    return null;
+  } catch (error) {
+    console.error('Error retrieving auth token:', error);
+    return null;
+  }
+};
+
+  // Submit the form with actual API calls
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { phone, pincode } = formData;
+    setIsSubmitting(true);
+    setError('');
 
-    if (!/^[0-9]{10}$/.test(phone)) {
-      alert('Phone number must be 10 digits.');
-      return;
+    try {
+      const token = getAuthToken();
+      if (!token) {
+        throw new Error('Authentication required. Please log in.');
+      }
+
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      };
+
+      // Step 1: Create the book listing
+      const bookResponse = await fetch('http://127.0.0.1:8000/api/post-sell/sell-detail/', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          sell_detail: {
+            book_title: bookData.title,
+            book_author: bookData.author,
+            book_description: bookData.description,
+            book_expected_price: parseFloat(bookData.price),
+            book_condition: bookData.condition,
+            book_category: bookData.category,
+            book_location: bookData.location,
+            book_quantity: 1
+          }
+        })        
+      });
+
+      if (!bookResponse.ok) {
+        const errorData = await bookResponse.json();
+        throw new Error(errorData.error || 'Failed to create book listing');
+      }
+
+      const bookResult = await bookResponse.json();
+      const bookId = bookResult.id;
+
+      // Step 2: Upload photos one by one
+      for (const photo of photos) {
+        const photoFormData = new FormData();
+        photoFormData.append('book', bookId);
+        photoFormData.append('photo', photo);
+
+        const photoResponse = await fetch('http://127.0.0.1:8000/api/post-sell/book-photos/', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+            // Don't set Content-Type here - FormData will set it with the boundary
+          },
+          body: photoFormData
+        });
+
+        if (!photoResponse.ok) {
+          throw new Error('Failed to upload one or more photos');
+        }
+      }
+
+      // Success state
+      setSubmitSuccess(true);
+      
+      // Reset form after success
+      setTimeout(() => {
+        setBookData({
+          title: '',
+          author: '',
+          description: '',
+          price: '',
+          condition: 'new',
+          category: '',
+          location: ''
+        });
+        setPhotos([]);
+        setPreviewImages([]);
+        setSubmitSuccess(false);
+      }, 3000);
+    } catch (err) {
+      setError(err.message || 'Failed to list your book. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    if (!/^[0-9]{6}$/.test(pincode)) {
-      alert('Pin code must be 6 digits.');
-      return;
-    }
-
-    alert('Form submitted successfully!');
-    // Form submission logic goes here
   };
 
   return (
-    <div className="flex flex-col items-center bg-gray-50  px-0">
-      <Navbar />
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-6xl">
-        <h1 className="text-3xl font-semibold mb-6 text-center text-[#c7ae6f]">Sell Your Used Books</h1>
-        <form className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2 lg:px-24" onSubmit={handleSubmit}>
-          {/* Book Details Method */}
-          <div className="col-span-2">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Book Details</label>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <label className="inline-flex items-center">
-                <input
-                  type="radio"
-                  name="book_details_method"
-                  value="manual"
-                  checked={bookDetailsMethod === 'manual'}
-                  onChange={() => handleBookDetailsChange('manual')}
-                  className="w-4 h-4 cursor-pointer text-[#fdb604] border-gray-300 focus:ring-[#fdb604]"
-                />
-                <span className="ml-2 text-sm cursor-pointer text-gray-700">Enter Book Details Manually</span>
-              </label>
-              <label className="inline-flex items-center">
-                <input
-                  type="radio"
-                  name="book_details_method"
-                  value="ai"
-                  checked={bookDetailsMethod === 'ai'}
-                  onChange={() => handleBookDetailsChange('ai')}
-                  className="w-4 h-4 text-[#fdb604] cursor-pointer border-gray-300 focus:ring-[#fdb604]"
-                />
-                <span className="ml-2 text-sm cursor-pointer text-gray-700">Enter the Details with AI</span>
-              </label>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-2xl font-bold text-gray-800">List Your Book For Sale</h1>
+              {submitSuccess && (
+                <div className="flex items-center text-green-600">
+                  <Check className="w-5 h-5 mr-1" />
+                  <span>Book listed successfully!</span>
+                </div>
+              )}
             </div>
-          </div>
 
-          {/* AI Input Section */}
-          {isCameraOpen && (
-            <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Capture Book Images</label>
-              <p className="text-sm text-gray-500 mb-3">
-                Please follow these instructions for capturing images of the book:
-              </p>
-              <ul className="list-disc pl-5 text-sm text-gray-500 mb-4">
-                <li>Ensure the environment is well-lit to avoid shadows or glare.</li>
-                <li>Position the book straight and ensure all text is readable.</li>
-                <li>Capture the following:
-                  <ul className="list-disc pl-5">
-                    <li><strong>Front Cover:</strong> Clearly showing the title, author, and any other text.</li>
-                    <li><strong>Back Cover:</strong> Ensure the synopsis and barcode are visible.</li>
-                    <li><strong>Key Pages:</strong> Include the copyright page, ISBN, or any relevant details.</li>
-                  </ul>
-                </li>
-                <li>Avoid blurry or cropped images for accurate AI reading.</li>
-              </ul>
-              <input
-                type="file"
-                accept="image/*"
-                capture="environment"
-                multiple
-                onChange={handleChange}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
-              />
-              <p className="text-sm text-gray-500 mt-2">
-                Once you've captured the images, they will be uploaded for AI processing to extract book details automatically.
-              </p>
-            </div>
-          )}
-
-
-
-          {/* Manual Input Section */}
-          {
-            bookDetailsMethod === 'manual' && (
-              <>
-
-                {/* Title */}
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Book Title</label>
                   <input
                     type="text"
                     name="title"
-                    value={formData.title}
-                    onChange={handleChange}
+                    value={bookData.title}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
                   />
                 </div>
-
-                {/* Author */}
-                <div className="col-span-2">
+                
+                <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
                   <input
                     type="text"
                     name="author"
-                    value={formData.author}
-                    onChange={handleChange}
+                    value={bookData.author}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
                   />
                 </div>
-
-                  {/* Book Type */}
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Book Type</label>
-                  <select
-                    name="book_type" 
-                    value={formData.book_type}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-3 border cursor-pointer border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
-                  >
-                    <option value="">Select a type</option>
-                    <option value="fiction">Fiction</option>
-                    <option value="non-fiction">Non-fiction</option>
-                    <option value="educational">Educational</option>
-                    <option value="cbse">CBSE</option>
-                    <option value="icse">ICSE</option>
-                    <option value="state-board">State Board</option>
-                    <option value="international">International</option>
-                    <option value="jee">JEE</option>
-                    <option value="neet">NEET</option>
-                    <option value="upsc">UPSC</option>
-                    <option value="banking">Banking Exams</option>
-                    <option value="ssc">SSC Exams</option>
-                    <option value="ca">CA (Chartered Accountant)</option>
-                    <option value="medical">Medical Entrance</option>
-                    <option value="engineering">Engineering Entrance</option>
-                    <option value="commerce">Commerce</option>
-                    <option value="law">Law Entrance</option>
-                    <option value="self-development">Self-Development</option>
-                    <option value="biography">Biography</option>
-                    <option value="children">Children's Books</option>
-                  </select>
-                </div>
-
-                {/* Photos */}
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Photos</label>
-                  <input
-                    type="file"
-                    name="photos"
-                    accept="image/*"
-                    multiple
-                    onChange={handleChange}
-                    className="w-full p-3 border cursor-pointer border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
-                  />
-                </div>
-              </>
-          )
-          }
-          
-          {/* Condition */}
-          <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Condition</label>
-                  <div className="flex flex-wrap gap-4">
-                    {['Bad', 'Average', 'Good'].map((condition) => (
-                      <label key={condition} className="inline-flex items-center">
-                        <input
-                          type="radio"
-                          name="condition"
-                          value={condition.toLowerCase()}
-                          checked={formData.condition === condition.toLowerCase()}
-                          onChange={handleChange}
-                          className="w-4 h-4 cursor-pointer text-[#fdb604] border-gray-300 focus:ring-[#fdb604]"
-                        />
-                        <span className="ml-2 text-sm text-gray-700">{condition}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Quantity */}
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Quantity</label>
-                  <input
-                    type="number"
-                    name="quantity"
-                    value={formData.quantity}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
-                  />
-                </div>
-
-                {/* Expected Price */}
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Expected Price</label>
+              </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea
+                  name="description"
+                  value={bookData.description}
+                  onChange={handleInputChange}
+                  rows="4"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                  required
+                ></textarea>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Price (USD)</label>
                   <input
                     type="number"
                     name="price"
-                    value={formData.price}
-                    onChange={handleChange}
+                    min="0"
+                    step="0.01"
+                    value={bookData.price}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
                   />
                 </div>
-
-                {/* Payment */}
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Payment</label>
-                  <div className="flex flex-wrap gap-4">
-                    {['UPI', 'Bank Transfer', 'Cash'].map((paymentMethod) => (
-                      <label key={paymentMethod} className="inline-flex items-center">
-                        <input
-                          type="radio"
-                          name="payment"
-                          value={paymentMethod.toLowerCase()}
-                          checked={formData.payment === paymentMethod.toLowerCase()}
-                          onChange={handleChange}
-                          className="w-4 h-4 cursor-pointer text-[#fdb604] border-gray-300 focus:ring-[#fdb604]"
-                        />
-                        <span className="ml-2 text-sm text-gray-700">{paymentMethod}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Address */}
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                  <textarea
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Condition</label>
+                  <select
+                    name="condition"
+                    value={bookData.condition}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
-                  ></textarea>
+                  >
+                    <option value="new">New</option>
+                    <option value="like-new">Like New</option>
+                    <option value="good">Good</option>
+                    <option value="fair">Fair</option>
+                    <option value="poor">Poor</option>
+                  </select>
                 </div>
-
-                {/* Pin Code */}
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Pin Code</label>
-                  <input
-                    type="text"
-                    name="pincode"
-                    value={formData.pincode}
-                    onChange={handleChange}
+                
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                  <select
+                    name="category"
+                    value={bookData.category}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
-                  />
+                  >
+                    <option value="">Select a category</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="non-fiction">Non-Fiction</option>
+                    <option value="textbook">Textbook</option>
+                    <option value="children">Children's Book</option>
+                    <option value="comic">Comic/Graphic Novel</option>
+                  </select>
                 </div>
+              </div>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <input
+                  type="text"
+                  name="location"
+                  value={bookData.location}
+                  onChange={handleInputChange}
+                  placeholder="City, State"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+              
+              {/* Photo upload section */}
+              <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Photos</label>
+                <p className="text-sm text-gray-500 mb-3">Add up to 6 photos of your book</p>
+                
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                  {previewImages.map((preview, index) => (
+                    <div key={index} className="relative h-32 bg-gray-100 rounded-lg overflow-hidden">
+                      <img 
+                        src={preview} 
+                        alt={`Book preview ${index + 1}`} 
+                        className="w-full h-full object-cover"
+                      />
+                      <button 
+                        type="button"
+                        onClick={() => removePhoto(index)}
+                        className="absolute top-1 right-1 bg-white rounded-full p-1 shadow"
+                      >
+                        <X className="w-4 h-4 text-gray-700" />
+                      </button>
+                    </div>
+                  ))}
+                  
+                  {photos.length < 6 && (
+                    <label className="h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50">
+                      <Camera className="w-8 h-8 text-gray-400 mb-1" />
+                      <span className="text-xs text-gray-500">Add Photo</span>
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handlePhotoSelect} 
+                        className="hidden" 
+                        multiple={photos.length < 5}
+                      />
+                    </label>
+                  )}
+                </div>
+              </div>
 
-                {/* Phone */}
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone (Alternative)</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#fdb604] focus:outline-none"
-                  />
+              {error && (
+                <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg">
+                  {error}
                 </div>
-          
-          {/* Submit Button */}
-          <div className="col-span-2">
-            {/* Checkbox */}
-            <div className="col-span-2">
-                  <label className="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      name="secure_details"
-                      checked={formData.secure_details}
-                      onChange={handleChange}
-                      className="w-5 cursor-pointer h-5 text-[#fdb604] border-gray-300 rounded focus:ring-[#fdb604]"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">Keep my details secure</span>
-                  </label>
-                </div>
-
-            <button
-              type="submit"
-              className="w-full py-3 bg-[#fdb604] text-black rounded-lg hover:bg-[#cda84a] transition-all"
-            >
-              Post Your Book Advertisement
-            </button>
+              )}
+              
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 flex items-center"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Listing Book...
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-5 h-5 mr-1" />
+                      List Book for Sale
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SellBooks;
+export default Sell;

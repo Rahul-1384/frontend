@@ -1,0 +1,14 @@
+@keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-1 * var(--total-width)));
+    }
+  }
+  
+  .animate-slide {
+    animation: slide 20s linear infinite;
+    display: flex;
+    gap: 2rem; /* Equivalent to space-x-8 in Tailwind */
+  }

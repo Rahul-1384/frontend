@@ -225,38 +225,38 @@ const Trending = () => {
   }
 
   return (
-    <div className="w-full bg-gradient-to-b from-slate-900 to-slate-800 py-20">
-      <div className="container mx-auto px-4">
+    <div className="w-full bg-gradient-to-b from-slate-900 to-slate-800 py-12 sm:py-20">
+      <div className="container mx-auto px-3 sm:px-4">
         {notification.show && (
-          <div className="fixed top-4 right-4 z-50">
+          <div className="fixed top-4 right-4 z-50 w-[calc(100%-2rem)] sm:w-auto">
             <Alert variant={notification.type === 'error' ? 'destructive' : 'default'}>
-              <AlertDescription>{notification.message}</AlertDescription>
+              <AlertDescription className="text-sm sm:text-base">{notification.message}</AlertDescription>
             </Alert>
           </div>
         )}
 
-        <div className="flex flex-col items-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-4">
+        <div className="flex flex-col items-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-3 sm:mb-4">
             Trending Books
           </h2>
-          <div className="h-1 w-24 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
+          <div className="h-1 w-20 sm:w-24 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full" />
         </div>
-        
+
         <div className="relative max-w-6xl mx-auto">
-          <div className="flex justify-between absolute top-1/2 -translate-y-1/2 right-8 w-full -mx-6 md:-mx-8 z-1">
+          <div className="flex justify-between absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 w-full -mx-3 sm:-mx-6 md:-mx-8 z-1">
             <button
               onClick={() => navigate('prev')}
-              className="bg-white/10 hover:bg-white/20 text-white p-2 md:p-4 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110"
+              className="bg-white/10 hover:bg-white/20 text-white p-2 sm:p-3 md:p-4 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110"
               aria-label="Previous book"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button
               onClick={() => navigate('next')}
-              className="bg-white/10 hover:bg-white/20 text-white p-2 md:p-4 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110"
+              className="bg-white/10 hover:bg-white/20 text-white p-2 sm:p-3 md:p-4 rounded-full backdrop-blur-sm transition-all duration-300 hover:scale-110"
               aria-label="Next book"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
 
@@ -266,59 +266,59 @@ const Trending = () => {
               style={{ transform: `translateX(-${index * 100}%)` }}
             >
               {books.map((book) => (
-                <div key={book.id} className="min-w-full px-4">
+                <div key={book.id} className="min-w-full px-2 sm:px-4">
                   <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 rounded-xl backdrop-blur-sm shadow-xl">
-                    <div className="p-6 md:p-8">
-                      <div className="flex flex-col md:flex-row gap-8 items-center">
-                        <div className="w-48 h-64 relative flex-shrink-0 group">
+                    <div className="p-4 sm:p-6 md:p-8">
+                      <div className="flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 items-center">
+                        <div className="w-40 sm:w-48 h-52 sm:h-64 relative flex-shrink-0 group">
                           <img
                             src={book.imageUrl || "/api/placeholder/192/256"}
                             alt={book.title}
                             className="w-full h-full object-cover rounded-lg shadow-xl transition-transform duration-300 group-hover:scale-105"
                           />
-                          <button 
+                          <button
                             onClick={() => toggleWishlist(book.id)}
-                            className="absolute top-2 right-2 p-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm transition-all"
+                            className="absolute top-2 right-2 p-1.5 sm:p-2 bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm transition-all"
                           >
-                            <Heart 
-                              className={`w-5 h-5 ${wishlist.has(book.id) ? 'fill-pink-400 text-pink-400' : 'text-white'}`} 
+                            <Heart
+                              className={`w-4 h-4 sm:w-5 sm:h-5 ${wishlist.has(book.id) ? 'fill-pink-400 text-pink-400' : 'text-white'}`} 
                             />
                           </button>
                         </div>
                         <div className="flex-1 text-center md:text-left">
-                          <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">
                             {book.title}
                           </h3>
-                          <p className="text-purple-300 mb-4 text-lg">by {book.author}</p>
-                          <p className="text-slate-300 mb-6 line-clamp-3 text-lg">
+                          <p className="text-purple-300 mb-3 sm:mb-4 text-base sm:text-lg">by {book.author}</p>
+                          <p className="text-slate-300 mb-4 sm:mb-6 line-clamp-3 text-sm sm:text-base md:text-lg">
                             {book.description}
                           </p>
-                          <div className="flex flex-wrap gap-4 justify-center md:justify-start items-center mb-6">
+                          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center md:justify-start items-center mb-4 sm:mb-6">
                             <div className="flex items-center gap-2">
-                              <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                              <span className="text-white font-medium">{book.rating}</span>
-                              <span className="text-slate-400">({book.reviewCount.toLocaleString()} reviews)</span>
+                              <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-yellow-400" />
+                              <span className="text-white font-medium text-sm sm:text-base">{book.rating}</span>
+                              <span className="text-slate-400 text-sm sm:text-base">({book.reviewCount.toLocaleString()} reviews)</span>
                             </div>
                             {book.isLimitedOffer && (
                               <div className="flex items-center gap-2">
-                                <Clock className="w-5 h-5 text-purple-400" />
-                                <span className="text-slate-400">Limited time offer</span>
+                                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
+                                <span className="text-slate-400 text-sm sm:text-base">Limited time offer</span>
                               </div>
                             )}
                           </div>
-                          <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                            <button 
+                          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center md:justify-start">
+                            <button
                               onClick={() => handleBuyNow(book.id)}
-                              className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium hover:opacity-90 transition-opacity flex items-center gap-2"
+                              className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium hover:opacity-90 transition-opacity flex items-center gap-2 text-sm sm:text-base"
                             >
                               Buy Now - ${book.price}
                             </button>
-                            <button 
+                            <button
                               onClick={() => addToCart(book.id)}
                               disabled={cart.has(book.id)}
-                              className="px-6 py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="px-4 sm:px-6 py-2 sm:py-3 bg-white/10 text-white rounded-full font-medium hover:bg-white/20 transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                             >
-                              <ShoppingCart className="w-5 h-5" />
+                              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
                               {cart.has(book.id) ? 'In Cart' : 'Add to Cart'}
                             </button>
                           </div>
@@ -331,13 +331,13 @@ const Trending = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-8 gap-3">
+          <div className="flex justify-center mt-6 sm:mt-8 gap-2 sm:gap-3">
             {books.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setIndex(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === index ? 'w-8 bg-gradient-to-r from-purple-400 to-pink-400' : 'w-2 bg-white/30'
+                className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
+                  i === index ? 'w-6 sm:w-8 bg-gradient-to-r from-purple-400 to-pink-400' : 'w-1.5 sm:w-2 bg-white/30'
                 }`}
                 aria-label={`Go to slide ${i + 1}`}
               />

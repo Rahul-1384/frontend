@@ -26,6 +26,9 @@ const Categories = lazy(() => import("../Pages/Categories"));
 const CategoryDetails = lazy(() => import("../Pages/CategoryDetails"));
 const ChangePassword = lazy(() => import("../Pages/ChangePassword"));
 const EBooksSection = lazy(() => import("../Pages/EBooksSection"));
+const CheckoutPage = lazy(() => import("../Pages/CheckoutPage"));
+const GameDashboard = lazy(() => import("../Pages/GameDashboard"));
+
 
 
 
@@ -51,6 +54,7 @@ export const publicRoutes = [
   { path: "/aboutus", element: <AboutUs /> },
   { path: "/contactus", element: <ContactUs /> },
   { path: "/books/:id/:title/:author/:category/:condition", element: <BookDetail /> },
+  { path: "/books/:id", element: <BookDetail /> },
   { path: "/search-results", element: <SearchResults /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/reset-password", element: <ResetPassword /> },
@@ -64,6 +68,9 @@ export const publicRoutes = [
   { path: "/track-orders", element: <TrackOrders /> },
   { path: "/profile", element: <Profile /> },
   { path: "/manga", element: <MangaReaderApp /> },
+  { path: "/checkout", element: <CheckoutPage /> },
+  { path: "/game", element: <GameDashboard /> },
+
 
 
 ];

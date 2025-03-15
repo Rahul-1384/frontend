@@ -299,13 +299,13 @@ const AboutUs = () => {
                 </div>
 
                 <div className="mt-6 flex space-x-4">
-                  <NavLink target='__blank' to={leader.socialLinks.linkedin} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  <NavLink target='__blank' to={leader.socialLinks.linkedin} aria-label='linkedin' className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fab fa-linkedin text-xl"></i>
                   </NavLink>
-                  <NavLink target='__blank' to={leader.socialLinks.github} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  <NavLink target='__blank' to={leader.socialLinks.github} aria-label='github' className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fab fa-github text-xl"></i>
                   </NavLink>
-                  <NavLink target='__blank' to={leader.socialLinks.email} className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
+                  <NavLink target='__blank' to={leader.socialLinks.email} aria-label='email' className="text-gray-600 hover:text-blue-600 transition-colors duration-300">
                     <i className="fas fa-envelope text-xl"></i>
                   </NavLink>
                 </div>

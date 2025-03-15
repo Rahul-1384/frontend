@@ -7,6 +7,7 @@ import Loading from "./components/Loading";
 import PublicLayout from "./components/layout/PublicLayout";
 import AdminLayout from "./components/layout/AdminLayout";
 import { publicRoutes, adminRoutes } from "./routes/routes";
+import { ThemeProvider } from "./context/ThemeContext";
 
 const ProtectedRoute = ({ children }) => {
   const { isAdminAuthenticated } = useAuth();
@@ -18,19 +19,21 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <ChatProvider>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              {/* Public Routes */}
-              {publicRoutes.map((route, index) => (
-                <Route key={index} path={route.path} element={<PublicLayout>{route.element}</PublicLayout>} />
-              ))}
+          <ThemeProvider>
+            <Suspense fallback={<Loading />}>
+              <Routes>
+                {/* Public Routes */}
+                {publicRoutes.map((route, index) => (
+                  <Route key={index} path={route.path} element={<PublicLayout>{route.element}</PublicLayout>} />
+                ))}
 
-              {/* Admin Routes */}
-              {adminRoutes.map((route, index) => (
-                <Route key={index} path={route.path} element={<ProtectedRoute><AdminLayout>{route.element}</AdminLayout></ProtectedRoute>} />
-              ))}
-            </Routes>
-          </Suspense>
+                {/* Admin Routes */}
+                {adminRoutes.map((route, index) => (
+                  <Route key={index} path={route.path} element={<ProtectedRoute><AdminLayout>{route.element}</AdminLayout></ProtectedRoute>} />
+                ))}
+              </Routes>
+            </Suspense>
+          </ThemeProvider>
         </ChatProvider>
       </CartProvider>
     </AuthProvider>

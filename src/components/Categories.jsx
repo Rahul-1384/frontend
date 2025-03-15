@@ -7,6 +7,7 @@ import {
   Binary, BookMarked, Baby, Rocket, Search, Filter, 
   Grid, List, X, ChevronDown 
 } from "lucide-react";
+import { useDebounce } from "use-debounce";
 
 // Categories data
 const categories = [
@@ -90,6 +91,9 @@ const SearchBar = ({ onSearch, suggestions, searchTerm, setSearchTerm }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchRef = useRef(null);
+  const inputRef = useRef(null);
+  const suggestionsRef = useRef(null);
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -144,7 +148,7 @@ const SearchBar = ({ onSearch, suggestions, searchTerm, setSearchTerm }) => {
   };
 
   return (
-    <div className="relative w-full sm:w-96" ref={searchRef}>
+    <div className="relative w-full sm:w-96" ref={searchRef} role="search">
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
       <input
         type="text"
@@ -171,6 +175,9 @@ const SearchBar = ({ onSearch, suggestions, searchTerm, setSearchTerm }) => {
       <AnimatePresence>
         {showSuggestions && suggestions.length > 0 && searchTerm && (
           <motion.div
+            ref={suggestionsRef}
+            id="search-suggestions"
+            role="listbox"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -182,6 +189,9 @@ const SearchBar = ({ onSearch, suggestions, searchTerm, setSearchTerm }) => {
                 <button
                   key={suggestion.item.id}
                   onClick={() => handleSuggestionClick(suggestion)}
+                  role="option"
+                  id={`suggestion-${index}`}
+                  aria-selected={index === selectedIndex}
                   className={`w-full px-4 py-2 text-left hover:bg-gray-50 flex items-center space-x-3 ${
                     index === selectedIndex ? 'bg-blue-50' : ''
                   }`}

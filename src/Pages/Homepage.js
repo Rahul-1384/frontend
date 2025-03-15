@@ -10,6 +10,9 @@ import Categories from "../components/Categories";
 import Trending from "../components/Trending";
 import OurServices from "../components/OurServices";
 import DownloadApp from "../components/DownloadApp";
+import Brands from "../components/Brands";
+import BookBrands from "../components/BookBrands";
+import WhyChooseUs from "../components/WhyChooseUs";
 
 const Homepage = () => {
     return(
@@ -18,11 +21,14 @@ const Homepage = () => {
             <Navbar/>
             <Hero/>
             <Trending/>
+            <Brands />
             <Categories/>
             <HowItWorks/>
             <OurServices/>
             <HappyUser/>
+            <WhyChooseUs />
             <Testimonial/>
+            <BookBrands />
             <DownloadApp/>
             <Contact/>
             <Footer/>

@@ -2,6 +2,8 @@ import React, { useState, useEffect, Suspense, useRef, useCallback } from 'react
 import { NavLink } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useChatbot } from '../context/ChatContext';
+import ChatBot from './ChatBot';
+
 import AppDownloadButtons from './AppDownloadButtons';
 
 // Import images
@@ -296,7 +298,7 @@ const NavigationButton = ({ direction, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="absolute top-1/2 -translate-y-1/2 z-20 p-3 bg-black/30 hover:bg-black/50 rounded-full text-white/70 hover:text-white transition-all duration-300 backdrop-blur-sm group hidden lg:block"
+      className="absolute top-1/2 -translate-y-1/2 z-10 p-3 bg-black/30 hover:bg-black/50 rounded-full text-white/70 hover:text-white transition-all duration-300 backdrop-blur-sm group hidden lg:block"
       style={{ [direction]: '2rem' }}
       aria-label={`Go to ${direction} slide`}
     >
@@ -309,7 +311,7 @@ const NavigationButton = ({ direction, onClick }) => {
 
 // Main Hero component
 const Hero = () => {
-  const { toggleChatbot } = useChatbot();
+  const { toggleChatbot, isChatbotOpen, closeChatbot } = useChatbot();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const touchStartX = useRef(0);
@@ -429,6 +431,8 @@ const Hero = () => {
           </span>
         </button>
       </div>
+      <ChatBot isOpen={isChatbotOpen} onClose={closeChatbot} />
+
     </div>
   );
 };

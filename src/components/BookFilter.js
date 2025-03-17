@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+// import React, { useState, useMemo, useCallback, useEffect } from 'react';
 // import { useCart } from "../context/CartContext";
 // import { useNavigate } from 'react-router-dom';
 // import debounce from 'lodash.debounce';
@@ -820,6 +820,7 @@ import CartButton from "./CartButton";
 import { Star, Search, Gift, Truck, ShoppingCart, Heart, Check, X } from 'lucide-react';
 import DropdownFilter from './DropdownFIlter'; // Import the DropdownFilter component
 import { toast } from 'react-toastify';
+import AuthErrorModal from './AuthErrorModal';
 
 
 
@@ -846,28 +847,40 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const { dispatch, fetchCartItems } = useCart();
+  const [errorMessage, setErrorMessage] = useState(""); // UI error state
+  const [showAuthModal, setShowAuthModal] = useState(false); // New state for auth modal
 
   const discountedPrice = useMemo(() => (
     Math.max(0, (book.price || 0) - (book.discount || 0)).toFixed(2)
   ), [book.price, book.discount]);
+
+  // Handle login button click
+  const handleLogin = () => {
+    // Navigate to login page or trigger login flow
+    // This depends on your app's routing/authentication setup
+    window.location.href = '/login'; // Basic example - adjust as needed
+    setShowAuthModal(false);
+  };
 
   const handleAddToCart = useCallback(async (e) => {
     e.stopPropagation();
     if (isAddingToCart) return;
   
     setIsAddingToCart(true);
+    setErrorMessage(""); // Reset UI error message
+  
     try {
-      // ✅ Correctly retrieve access token
-      const tokens = JSON.parse(localStorage.getItem("authToken"));
-      const accessToken = tokens ? tokens[0] : null; 
+      const authToken = localStorage.getItem("authToken");
+      const accessToken = authToken ? JSON.parse(authToken).access : null;
   
       if (!accessToken) {
-        toast.error("Authentication error. Please log in.");
+        // Show auth modal instead of toast for authentication errors
+        setShowAuthModal(true);
         setIsAddingToCart(false);
         return;
       }
   
-      const response = await fetch("http://127.0.0.1:8000/api/cart/add/", {
+      const response = await fetch("http://127.0.0.1:8000/api/cart/cart-detail/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -875,9 +888,34 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
         },
         body: JSON.stringify({ book_id: book.id, quantity: 1 })
       });
-      console.log(accessToken);
-      if (!response.ok) throw new Error("Failed to add item to cart");
   
+      // Check if the response is an error
+      if (!response.ok) {
+        let errorText = "Failed to add item to cart.";
+        try {
+          const errorData = await response.json();
+          console.error("Error Response:", errorData.error);
+  
+          // Extract detailed error messages
+          if (errorData?.message) {
+            errorText = errorData.message;
+          } else if (errorData?.errors) {
+            errorText = Object.values(errorData.errors).flat().join(", ");
+          } else if (typeof errorData === "object") {
+            errorText = JSON.stringify(errorData.error);
+          }
+        } catch (jsonError) {
+          console.error("Error parsing response:", jsonError);
+          errorText = "Unexpected server error.";
+        }
+  
+        setErrorMessage(errorText); // Show error in UI
+        toast.error(errorText); // Show toast notification
+        setIsAddingToCart(false);
+        return;
+      }
+  
+      // Success case
       dispatch({ type: 'ADD_TO_CART', payload: book });
       setIsAdded(true);
       await fetchCartItems();
@@ -888,11 +926,15 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
         setIsAddingToCart(false);
       }, 2000);
     } catch (error) {
-      toast.error("Error adding to cart.");
+      console.error("Add to Cart Error:", error);
+  
+      // Handle network or unexpected errors
+      const finalErrorMessage = error.message || "Network error. Please try again.";
+      setErrorMessage(finalErrorMessage);
+      toast.error(finalErrorMessage);
       setIsAddingToCart(false);
     }
   }, [book, isAddingToCart, dispatch, fetchCartItems]);
-  
 
   return (
     <div
@@ -950,7 +992,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
                 <span className="text-2xl text-gray-600">₹</span>
                 <span className="text-xl sm:text-2xl font-medium">{discountedPrice}</span>
               </div>
-              {book.price && (
+              {book.price > 0 && book.discount > 0 && (
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-gray-500 line-through">₹{book.price}</span>
                   <span className="text-red-600">({Math.round((book.discount / book.price) * 100)}% off)</span>
@@ -1011,6 +1053,54 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
           </div>
         </div>
       </div>
+      
+      {/* Error Toast */}
+      {errorMessage && (
+        <div 
+          className="fixed top-20 right-4 p-6 bg-gray-800 border border-yellow-500 rounded-md shadow-lg text-yellow-400 text-sm mt-2 flex items-center justify-between transition-all duration-300 z-50"
+          style={{
+            animation: "0.3s ease-out forwards slideIn",
+          }}
+          ref={(node) => {
+            if (node) {
+              const timer = setTimeout(() => {
+                setErrorMessage(null);
+              }, 2000);
+              
+              node.timeoutId = timer;
+              
+              return () => {
+                if (node.timeoutId) {
+                  clearTimeout(node.timeoutId);
+                }
+              };
+            }
+          }}
+        >
+          <span>{errorMessage}</span>
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setErrorMessage(null);
+            }} 
+            className="ml-4 text-yellow-300 hover:text-yellow-100 focus:outline-none transition-colors duration-200"
+            aria-label="Close error message"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      )}
+      
+      {/* Authentication Modal */}
+      <AuthErrorModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onLogin={handleLogin}
+      />
     </div>
   );
 };

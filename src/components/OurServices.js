@@ -10,42 +10,48 @@ const OurServices = () => {
       title: "Buy & Sell Books",
       description: "Find your next favorite read or give your books a new home. Get the best prices on pre-loved books.",
       tag: "Most Popular",
-      stats: "10K+ Books Available"
+      stats: "10K+ Books Available",
+      comingSoon: false
     },
     {
       icon: <Library />,
       title: "Book Rental",
       description: "Rent books for as long as you need. Perfect for students and avid readers on a budget.",
-      tag: "Best Value",
-      stats: "500+ Weekly Rentals"
+      // tag: "Best Value",
+      stats: "500+ Weekly Rentals",
+      comingSoon: true
     },
     {
       icon: <Heart />,
       title: "Book Donation",
       description: "Share the joy of reading by donating your books. Help us make literature accessible to everyone.",
-      tag: "Community",
-      stats: "2K+ Books Donated"
+      // tag: "Community",
+      stats: "2K+ Books Donated",
+      comingSoon: true
     },
     {
       icon: <BookOpen />,
       title: "Manga Collection",
       description: "Explore our extensive manga section featuring both popular series and rare editions.",
-      tag: "New",
-      stats: "1K+ Manga Titles"
+      // tag: "New",
+      stats: "1K+ Manga Titles",
+      comingSoon: true
     },
     {
       icon: <Truck />,
       title: "Doorstep Service",
       description: "Convenient pickup and delivery right at your doorstep. Schedule a time that works best for you.",
       tag: "Free Delivery",
-      stats: "24hr Delivery"
+      stats: "24hr Delivery",
+      comingSoon: false
     },
     {
       icon: <IndianRupee />,
       title: "Affordable Prices",
       description: "Quality books shouldn't break the bank. Enjoy reading without compromising your budget.",
       tag: "Best Deals",
-      stats: "Up to 70% Off"
+      stats: "Up to 70% Off",
+      comingSoon: false
     }
   ];
 
@@ -80,6 +86,7 @@ const OurServices = () => {
                 transition-all duration-500 hover:shadow-2xl border border-gray-100
                 transform hover:-translate-y-2 cursor-pointer
                 ${hoveredIndex === index ? 'bg-gray-50 scale-105' : ''}
+                ${service.comingSoon ? 'overflow-hidden shadow-lg' : ''}
               `}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -91,6 +98,14 @@ const OurServices = () => {
               <div className="absolute -top-3 right-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white text-sm px-4 py-1 rounded-full font-medium transform group-hover:scale-110 transition-transform duration-300">
                 {service.tag}
               </div>
+
+              {/* Coming Soon Banner */}
+              {service.comingSoon && (
+                <div className="absolute rotate-45 bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white font-bold py-1 -right-12 top-7 w-44 flex items-center justify-center shadow-lg">
+                  <span className="relative z-10 text-sm">COMING SOON</span>
+                  <div className="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
+                </div>
+              )}
 
               {/* Enhanced Icon */}
               <div className="mb-6">
@@ -132,6 +147,25 @@ const OurServices = () => {
                   </svg>
                 </div>
               </div>
+
+              {/* Special Overlay for Coming Soon Items */}
+              {service.comingSoon && (
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/30 to-indigo-900/30 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                  <div className="bg-white/90 px-6 py-4 rounded-lg shadow-lg transform scale-0 group-hover:scale-100 transition-transform duration-300">
+                    <div className="text-center">
+                      <div className="inline-block p-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 mb-4">
+                        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                          <svg className="w-5 h-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-1">Coming Soon!</h4>
+                      <p className="text-sm text-gray-600">We're working hard to bring this service to you.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>

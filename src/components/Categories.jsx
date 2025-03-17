@@ -48,24 +48,6 @@ const categories = [
     path: "/categories/competition"
   },
   {
-    id: "academic",
-    name: "Academic",
-    image: "https://freebookbrowser.com/images/cool-icon/textbooks.jpg",
-    description: "Essential academic resources and textbooks.",
-    icon: Binary,
-    bookCount: 423,
-    path: "/categories/academic"
-  },
-  {
-    id: "biographies",
-    name: "Biographies",
-    image: "https://lh3.googleusercontent.com/b8zxs8X2mcj2r7shj1ZpYaCSSwgHTqPxEQ6nIY5RjoMQFAd04V1nn2axjVKRWKfMQv8=h315",
-    description: "Inspiring stories of remarkable individuals.",
-    icon: Users,
-    bookCount: 156,
-    path: "/categories/biographies"
-  },
-  {
     id: "children",
     name: "Children's Books",
     image: "https://t3.ftcdn.net/jpg/07/56/38/12/240_F_756381268_sf9rCDhnKkCY23xLKd4BwDK9Y3w9PUKN.jpg",
@@ -74,15 +56,7 @@ const categories = [
     bookCount: 278,
     path: "/categories/children"
   },
-  {
-    id: "science-fiction",
-    name: "Science Fiction",
-    image: "https://t3.ftcdn.net/jpg/08/79/51/50/240_F_879515003_ukQ11qgvmN14F4inTjPYQvt36miz8GdM.jpg",
-    description: "Explore futuristic and imaginative worlds.",
-    icon: Rocket,
-    bookCount: 198,
-    path: "/categories/science-fiction"
-  }
+
 ];
 
 

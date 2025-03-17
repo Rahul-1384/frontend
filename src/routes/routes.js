@@ -28,6 +28,7 @@ const ChangePassword = lazy(() => import("../Pages/ChangePassword"));
 const EBooksSection = lazy(() => import("../Pages/EBooksSection"));
 const CheckoutPage = lazy(() => import("../Pages/CheckoutPage"));
 const GameDashboard = lazy(() => import("../Pages/GameDashboard"));
+const Donate = lazy(() => import("../Pages/Donate"));
 
 
 
@@ -70,7 +71,7 @@ export const publicRoutes = [
   { path: "/manga", element: <MangaReaderApp /> },
   { path: "/checkout", element: <CheckoutPage /> },
   { path: "/game", element: <GameDashboard /> },
-
+  { path: "/donate", element: <Donate /> },
 
 
 ];

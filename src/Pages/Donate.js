@@ -1,6 +1,6 @@
 import ComingSoon from '../components/ComingSoon';
 
-const Rent = () => {
+const Donate = () => {
   return (
     <div>
       <ComingSoon />
@@ -8,4 +8,4 @@ const Rent = () => {
   );
 };
 
-export default Rent;
+export default Donate;

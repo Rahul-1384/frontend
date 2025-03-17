@@ -9,7 +9,7 @@ const Sell = () => {
     author: '',
     description: '',
     price: '',
-    condition: 'new',
+    condition: 'Good',
     category: '',
     location: ''
   });
@@ -96,7 +96,7 @@ const getAuthToken = () => {
         method: 'POST',
         headers: headers,
         body: JSON.stringify({
-          sell_detail: {
+        
             book_title: bookData.title,
             book_author: bookData.author,
             book_description: bookData.description,
@@ -105,7 +105,7 @@ const getAuthToken = () => {
             book_category: bookData.category,
             book_location: bookData.location,
             book_quantity: 1
-          }
+        
         })        
       });
 
@@ -218,12 +218,12 @@ const getAuthToken = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Price (USD)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Price (INR)</label>
                   <input
                     type="number"
                     name="price"
                     min="0"
-                    step="0.01"
+                    step="1"
                     value={bookData.price}
                     onChange={handleInputChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
@@ -240,11 +240,9 @@ const getAuthToken = () => {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required
                   >
-                    <option value="new">New</option>
-                    <option value="like-new">Like New</option>
                     <option value="good">Good</option>
-                    <option value="fair">Fair</option>
-                    <option value="poor">Poor</option>
+                    <option value="better">Better</option>
+                    <option value="best">Best</option>
                   </select>
                 </div>
                 
@@ -258,11 +256,11 @@ const getAuthToken = () => {
                     required
                   >
                     <option value="">Select a category</option>
-                    <option value="fiction">Fiction</option>
-                    <option value="non-fiction">Non-Fiction</option>
-                    <option value="textbook">Textbook</option>
+                    <option value="fiction">Class 4-8</option>
+                    <option value="non-fiction">Class 9-12</option>
+                    <option value="textbook">Reference Books</option>
                     <option value="children">Children's Book</option>
-                    <option value="comic">Comic/Graphic Novel</option>
+                    <option value="comic">Competition Books</option>
                   </select>
                 </div>
               </div>

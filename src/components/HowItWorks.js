@@ -108,7 +108,7 @@ const HowItWorks = () => {
           {/* Buy Section */}
           <motion.div
             variants={containerVariants}
-            initial="hidden"
+            // initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
@@ -142,7 +142,7 @@ const HowItWorks = () => {
           {/* Sell Section */}
           <motion.div
             variants={containerVariants}
-            initial="hidden"
+            // initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
@@ -162,7 +162,7 @@ const HowItWorks = () => {
           </motion.div>
 
           {/* Enhanced AI Help Banner */}
-          <motion.div 
+          {/* <motion.div 
             onClick={toggleChatbot}
             className="group relative overflow-hidden bg-gradient-to-r from-red-500/20 to-purple-500/20 rounded-xl p-8 text-center cursor-pointer hover:scale-105 transition-all duration-700"
             initial={{ opacity: 0, y: 20 }}
@@ -170,12 +170,10 @@ const HowItWorks = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            {/* Shine effect overlay */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
               <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/10 to-transparent" />
             </div>
 
-            {/* Content */}
             <div className="relative z-10">
               <div className="flex justify-center mb-4">
                 <div className="bg-red-500/20 p-3 rounded-full group-hover:scale-110 transition-transform duration-300">
@@ -189,7 +187,7 @@ const HowItWorks = () => {
                 Click here to get instant support 24/7 for any questions about buying, selling, or book recommendations
               </p>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </div>

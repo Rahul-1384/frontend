@@ -13,6 +13,7 @@ import DownloadApp from "../components/DownloadApp";
 import Brands from "../components/Brands";
 import BookBrands from "../components/BookBrands";
 import WhyChooseUs from "../components/WhyChooseUs";
+import ComingSoon from "../components/ComingSoon";
 
 const Homepage = () => {
     return(
@@ -25,11 +26,11 @@ const Homepage = () => {
             <Categories/>
             <HowItWorks/>
             <OurServices/>
-            <HappyUser/>
+            {/* <HappyUser/> */}
             <WhyChooseUs />
             <Testimonial/>
             <BookBrands />
-            <DownloadApp/>
+            {/* <DownloadApp/> */}
             <Contact/>
             <Footer/>
         </div>

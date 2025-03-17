@@ -119,7 +119,7 @@ const LoginForm = () => {
                 setTimeout(() => {
                     navigate("/", { replace: true });
                 }, 300); // Wait for toast exit animation
-            }, 4000);
+            }, 1500);
 
             // navigate("/", { replace: true });
         } catch (error) {

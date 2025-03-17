@@ -3,15 +3,27 @@ import React, { createContext, useContext, useState } from 'react';
 const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
-  const [isChatbotVisible, setChatbotVisible] = useState(false);
+  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
 
-  const toggleChatbot = () => setChatbotVisible(!isChatbotVisible);
+  const toggleChatbot = () => {
+    setIsChatbotOpen(prev => !prev);
+  };
+
+  const closeChatbot = () => {
+    setIsChatbotOpen(false);
+  };
 
   return (
-    <ChatContext.Provider value={{ isChatbotVisible, toggleChatbot }}>
+    <ChatContext.Provider value={{ isChatbotOpen, toggleChatbot, closeChatbot }}>
       {children}
     </ChatContext.Provider>
   );
 };
 
-export const useChatbot = () => useContext(ChatContext);
+export const useChatbot = () => {
+  const context = useContext(ChatContext);
+  if (!context) {
+    throw new Error('useChatbot must be used within a ChatProvider');
+  }
+  return context;
+};

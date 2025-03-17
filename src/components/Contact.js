@@ -120,7 +120,7 @@ const Contact = () => {
         {notification && (
           <div 
             className={`
-              fixed top-20 right-6 max-w-md p-4 rounded-xl shadow-lg flex items-center gap-3
+              fixed top-20 right-6 max-w-md p-4 z-10 rounded-xl shadow-lg flex items-center gap-3
               animate-slide-in-right
               ${notification.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}
             `}

@@ -130,17 +130,6 @@ const AboutUs = () => {
       email: "siddharth@Bookefy.com"
     },
       quote: "Building robust server-side architecture to support our growing platform and ensure scalability."
-    },
-    {
-      name: "Deepak",
-      role: "Design Lead",
-      image: Deepak,
-      socialLinks: {
-      linkedin: "https://linkedin.com/in/siddharth",
-      github: "https://github.com/siddharth",
-      email: "siddharth@Bookefy.com"
-    },
-      quote: "Creating intuitive user experiences through thoughtful design and seamless interactions."
     }
   ];
 

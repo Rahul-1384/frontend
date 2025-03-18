@@ -8,6 +8,8 @@ import PublicLayout from "./components/layout/PublicLayout";
 import AdminLayout from "./components/layout/AdminLayout";
 import { publicRoutes, adminRoutes } from "./routes/routes";
 import { ThemeProvider } from "./context/ThemeContext";
+import { AddressProvider } from './context/AddressContext'; // Import AddressProvider
+
 
 const ProtectedRoute = ({ children }) => {
   const { isAdminAuthenticated } = useAuth();
@@ -17,25 +19,27 @@ const ProtectedRoute = ({ children }) => {
 function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <ChatProvider>
-          <ThemeProvider>
-            <Suspense fallback={<Loading />}>
-              <Routes>
-                {/* Public Routes */}
-                {publicRoutes.map((route, index) => (
-                  <Route key={index} path={route.path} element={<PublicLayout>{route.element}</PublicLayout>} />
-                ))}
+      <AddressProvider>
+        <CartProvider>
+          <ChatProvider>
+            <ThemeProvider>
+              <Suspense fallback={<Loading />}>
+                <Routes>
+                  {/* Public Routes */}
+                  {publicRoutes.map((route, index) => (
+                    <Route key={index} path={route.path} element={<PublicLayout>{route.element}</PublicLayout>} />
+                  ))}
 
-                {/* Admin Routes */}
-                {adminRoutes.map((route, index) => (
-                  <Route key={index} path={route.path} element={<ProtectedRoute><AdminLayout>{route.element}</AdminLayout></ProtectedRoute>} />
-                ))}
-              </Routes>
-            </Suspense>
-          </ThemeProvider>
-        </ChatProvider>
-      </CartProvider>
+                  {/* Admin Routes */}
+                  {adminRoutes.map((route, index) => (
+                    <Route key={index} path={route.path} element={<ProtectedRoute><AdminLayout>{route.element}</AdminLayout></ProtectedRoute>} />
+                  ))}
+                </Routes>
+              </Suspense>
+            </ThemeProvider>
+          </ChatProvider>
+        </CartProvider>
+      </AddressProvider>
     </AuthProvider>
   );
 }

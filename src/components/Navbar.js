@@ -6,9 +6,12 @@ import {
 } from 'lucide-react';
 import logo from '../images/rebook-logo.png';
 import { useAuth } from '../context/AuthContext';
+import { useAddressContext } from '../context/AddressContext';
+import AddressDisplay from './address/AddressDisplay';
 
 const Navbar = () => {
     const { isAuthenticated, user, logoutUser } = useAuth();
+    const { defaultAddress } = useAddressContext(); // Get the default address from context
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
     const [isScrolled, setIsScrolled] = useState(false);
@@ -204,6 +207,8 @@ const Navbar = () => {
                             <span className="text-slate-900 font-bold text-xl tracking-wider"><img src={logo} alt="" /></span>
                         </div>
                     </NavLink>
+                    <AddressDisplay address={defaultAddress} />
+
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center space-x-1">

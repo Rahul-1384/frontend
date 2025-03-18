@@ -29,7 +29,8 @@ const EBooksSection = lazy(() => import("../Pages/EBooksSection"));
 const CheckoutPage = lazy(() => import("../Pages/CheckoutPage"));
 const GameDashboard = lazy(() => import("../Pages/GameDashboard"));
 const Donate = lazy(() => import("../Pages/Donate"));
-
+const AddressList = lazy(() => import("../components/address/AddressList"));
+const AddressForm = lazy(() => import("../components/address/AddressForm"));
 
 
 
@@ -72,7 +73,9 @@ export const publicRoutes = [
   { path: "/checkout", element: <CheckoutPage /> },
   { path: "/game", element: <GameDashboard /> },
   { path: "/donate", element: <Donate /> },
-
+  { path: "/addresses", element: <AddressList /> },
+  { path: "/address/add", element: <AddressForm /> },
+  { path: "/address/edit/:id", element: <AddressForm /> },
 
 ];
 

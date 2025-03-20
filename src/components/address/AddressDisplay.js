@@ -1,11 +1,28 @@
 // src/components/address/AddressDisplay.jsx
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { MapPin } from 'lucide-react';
+import { MapPin, Plus } from 'lucide-react';
 
 const AddressDisplay = ({ address }) => {
-  if (!address) return null;
-  
+  if (!address) {
+    return (
+      <div className="flex lg:justify-start md:flex-1 md:justify-start">
+        <NavLink 
+          to="/addresses" 
+          className="flex rounded-md text-gray-200 duration-200 hover:bg-slate-800 items-center no-underline px-2 py-1 transition-colors"
+        >
+          <Plus 
+            size={16} 
+            className="flex-shrink-0 text-gray-400" 
+            strokeWidth={2.5}
+          />
+          <span className="text-gray-400 text-sm font-medium ml-1.5">
+            Add Address
+          </span>
+        </NavLink>
+      </div>
+    );
+  }
   const {
     full_name,
     mobile_number,
@@ -19,24 +36,24 @@ const AddressDisplay = ({ address }) => {
   } = address;
   
   return (
-    <div className="flex md:flex-1 md:justify-start lg:justify-start">
+    <div className="flex lg:justify-start md:flex-1 md:justify-start">
       <NavLink 
         to="/addresses" 
-        className="flex items-center no-underline text-gray-200 hover:bg-slate-800 px-2 py-1 rounded-md transition-colors duration-200"
+        className="flex rounded-md text-gray-200 duration-200 hover:bg-slate-800 items-center no-underline px-2 py-1 transition-colors"
       >
         <MapPin 
           size={16} 
-          className="text-gray-400 flex-shrink-0" 
+          className="flex-shrink-0 text-gray-400" 
           strokeWidth={2.5}
         />
-        <div className="ml-1.5 flex flex-col">
-          <span className="text-xs font-normal text-gray-400 hidden sm:inline">
+        <div className="flex flex-col ml-1.5">
+          <span className="text-gray-400 text-xs font-normal hidden sm:inline">
             Deliver to {full_name}
           </span>
-          <span className="text-xs font-normal text-gray-400 sm:hidden">
+          <span className="text-gray-400 text-xs font-normal sm:hidden">
             Deliver to {full_name?.split(' ')[0]}
           </span>
-          <div className="flex text-sm items-center gap-1">
+          <div className="flex text-sm gap-1 items-center">
             <span className="font-medium">{city}</span>
             <span className="font-medium">{pincode}</span>
           </div>

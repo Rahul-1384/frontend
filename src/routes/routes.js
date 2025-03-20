@@ -1,6 +1,10 @@
 import { elements } from "chart.js";
 import { lazy } from "react";
 import MangaReaderApp from "../Pages/MangaReaderApp";
+import BookList from "../components/BookList";
+import BookUploadForm from "../components/BookUploadForm";
+import AdminBookPanel from "../components/AdminBookPanel";
+import OrderList from "../components/OrderList";
 
 // Lazy-load Pages for better performance
 const Homepage = lazy(() => import("../Pages/Homepage"));
@@ -46,7 +50,7 @@ const SettingsPage = lazy(() => import("../Pages/SettingsPage"));
 // Public Routes
 export const publicRoutes = [
   { path: "/", element: <Homepage /> },
-  { path: "/sell", element: <Sell /> },
+  // { path: "/sell", element: <Sell /> },
   { path: "/login", element: <LoginForm /> },
   { path: "/signup", element: <SignupForm /> },
   { path: "/verify-email", element: <VerifyEmail /> },
@@ -76,6 +80,10 @@ export const publicRoutes = [
   { path: "/addresses", element: <AddressList /> },
   { path: "/address/add", element: <AddressForm /> },
   { path: "/address/edit/:id", element: <AddressForm /> },
+  { path: "/BooksListed", element: <BookList /> },
+  { path: "/sell", element: <BookUploadForm /> },
+  { path: "/pricing", element: <AdminBookPanel /> },
+  { path: "/my-orders", element: <OrderList /> },
 
 ];
 

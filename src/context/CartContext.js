@@ -64,7 +64,7 @@ export const CartProvider = ({ children }) => {
       const data = await response.json();
       dispatch({ type: 'SET_CART', payload: data });
     } catch (error) {
-      console.error('Error fetching cart:', error);
+      // console.error('Error fetching cart:', error);
     }
   };
 

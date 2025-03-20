@@ -33,21 +33,21 @@
 
 //   return (
 //     <div
-//       className=" rounded-md overflow-hidden hover:shadow-2xl transform transition-all duration-300 ease-in-out  bg-white"
+//       className="bg-white rounded-md duration-300 ease-in-out hover:shadow-2xl overflow-hidden transform transition-all"
 //       aria-label={`Book card for ${book.title || 'Untitled'}`}
 //       tabIndex={0}
 //       onClick={onClick}
 //     >
 //       {/* Image Section */}
-//       <div className="relative h-64">
+//       <div className="h-64 relative">
 //         <img
 //           src={book.image || 'https://via.placeholder.com/150'}
 //           alt={`Cover of ${book.title || 'Untitled'}`}
-//           className="absolute inset-0 w-full h-full object-cover"
+//           className="h-full w-full absolute inset-0 object-cover"
 //           loading="lazy"
 //         />
-//         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent rounded-t-xl"></div>
-//         <div className="absolute bottom-4 left-4 text-white">
+//         <div className="bg-gradient-to-t rounded-t-xl absolute from-black/70 inset-0 to-transparent via-transparent"></div>
+//         <div className="text-white absolute bottom-4 left-4">
 //           <h3 className="text-lg font-bold">
 //             {book.title || 'Untitled'}
 //           </h3>
@@ -57,15 +57,15 @@
 
 //       {/* Details Section */}
 //       <div className="p-4">
-//         <div className="mb-2 flex flex-col xsm:flex-row xsm:items-center justify-between">
-//           <div className="flex items-center gap-2">
-//             <p className="text-3xl font-bold text-blue-600">
+//         <div className="flex flex-col justify-between mb-2 xsm:flex-row xsm:items-center">
+//           <div className="flex gap-2 items-center">
+//             <p className="text-3xl text-blue-600 font-bold">
 //               ₹{discountedPrice}
 //             </p>
 //             {book.price && (
-//               <p className="text-sm text-gray-400">
+//               <p className="text-gray-400 text-sm">
 //                 <span className="font-medium">M.R.P:</span>{" "}
-//                 <span className="line-through text-gray-400">
+//                 <span className="text-gray-400 line-through">
 //                   ₹{book.price}
 //                 </span>
 //               </p>
@@ -75,8 +75,8 @@
 //             {book.board || 'General'}
 //           </p>
 //         </div>
-//         <div className="flex items-center justify-between mb-4">
-//           <p className="text-sm text-gray-600">
+//         <div className="flex justify-between items-center mb-4">
+//           <p className="text-gray-600 text-sm">
 //             <span className="font-medium">Condition:</span>{" "}
 //             <span
 //               className={`px-2 py-1 text-xs text-white font-bold rounded-md ${
@@ -90,7 +90,7 @@
 //               {book.condition || 'Unknown'}
 //             </span>
 //           </p>
-//           <p className="text-sm text-gray-600">
+//           <p className="text-gray-600 text-sm">
 //             <span className="font-medium">Language:</span>{" "}
 //             {book.language || 'N/A'}
 //           </p>
@@ -100,7 +100,7 @@
 //         <div className="flex flex-col gap-2">
 //           <Button
 //             onClick={() => console.log(`Buying ${book.title}`)}
-//             className="buy-btn flex-1 bg-gradient-to-r bg-blue-600 transition-all duration-1000 text-white font-semibold hover:bg-blue-700 "
+//             className="flex-1 bg-blue-600 bg-gradient-to-r text-white buy-btn duration-1000 font-semibold hover:bg-blue-700 transition-all"
 //             ariaLabel={`Buy ${book.title || 'this book'} now`}
 //           >
 
@@ -449,18 +449,18 @@
 //         {/* Close Button */}
 //         <button
 //           onClick={() => setIsFilterOpen(false)}
-//           className="sticky top-2 left-[100%] text-white bg-red-600 p-2 md:hidden rounded-full hover:bg-red-700 transition-colors duration-300"
+//           className="bg-red-600 p-2 rounded-full text-white duration-300 hover:bg-red-700 left-[100%] md:hidden sticky top-2 transition-colors"
 //           title="Close Filters"
 //         >
 //           <FaTimes size={20} />
 //         </button>
-//         <p className='-mt-8 font-extrabold text-[1.5rem] tracking-widest md:-mt-0'>Filters</p>
+//         <p className='text-[1.5rem] -mt-8 font-extrabold md:-mt-0 tracking-widest'>Filters</p>
 //         {/* Board Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Boards</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Boards</label>
 //           <div>
 //             {['CBSE', 'ICSE', 'UP'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -476,10 +476,10 @@
 
 //         {/* Category Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Categories</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Categories</label>
 //           <div>
 //             {['NCERT'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -495,10 +495,10 @@
 
 //         {/* Subject Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Subject</label>
 //           <div>
 //             {['Mathematics', 'English', 'Physics', 'Chemistry', 'Biology', 'History', 'Geography', 'Political Science', 'Economics', 'Civics', 'Hindi', 'Business Studies', 'Accounts'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -514,10 +514,10 @@
 
 //         {/* Reference Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Reference Books</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Reference Books</label>
 //           <div>
 //             {['Arihant Publications', 'Oswaal Books', 'Disha Publications', 'S. Chand', 'R.D. Sharma', 'R.S. Aggarwal', 'S.L. Arora', 'Full Marks Series', 'Wren & Martin', 'Golden Guides'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -533,10 +533,10 @@
 
 //         {/* Competitive Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Competitive Exams</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Competitive Exams</label>
 //           <div>
 //             {['JEE', 'NEET', 'GATE', 'UPSC', 'SSC'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -552,10 +552,10 @@
 
 //         {/* Condition Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Condition</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Condition</label>
 //           <div>
 //             {['New', 'Good', 'Acceptable'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -571,10 +571,10 @@
 
 //         {/* Language Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Language</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Language</label>
 //           <div>
 //             {['English', 'Hindi'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -590,10 +590,10 @@
 
 //         {/* Genre Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Genre</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Genre</label>
 //           <div>
 //             {['Fiction', 'Non-Fiction', 'Children', 'Sci-Fi', 'Biography', 'School', 'Comics', 'Mystery', 'Thriller'].map((option) => (
-//               <label key={option} className="block text-sm">
+//               <label key={option} className="text-sm block">
 //                 <input
 //                   type="checkbox"
 //                   value={option.toLowerCase()}
@@ -609,11 +609,11 @@
 
 //         {/* Sort By Filter */}
 //         <div className="mb-4">
-//           <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+//           <label className="text-gray-700 text-sm block font-medium mb-2">Sort By</label>
 //           <select
 //             value={filters.sortBy}
 //             onChange={(e) => debouncedFilter({ ...filters, sortBy: e.target.value })}
-//             className="w-full p-2 border border-gray-300 rounded-md"
+//             className="border border-gray-300 p-2 rounded-md w-full"
 //           >
 //             <option value="">Select</option>
 //             <option value="price-low-high">Price: Low to High</option>
@@ -636,16 +636,16 @@
 //             genre: [],
 //             sortBy: '',
 //           })}
-//           className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all mb-4"
+//           className="bg-red-600 rounded-md text-white hover:bg-red-700 mb-4 px-4 py-2 transition-all"
 //         >
 //           <span>Clear All Filters</span>
 //         </button>
 //       </div>
 
 //       {/* Books Grid */}
-//       <div className="w-full p-2">
+//       <div className="p-2 w-full">
 //       {/* Search Input */}
-//       <div className="md:w-full py-4 flex gap-2">
+//       <div className="flex gap-2 md:w-full py-4">
 //         <input
 //             autoFocus
 //             placeholder="search.."
@@ -654,36 +654,36 @@
 //             onKeyDown={handleKeyPress}
 //             name="text"
 //             type="text"
-//             className="w-full p-2 border border-gray-300 rounded-md"
+//             className="border border-gray-300 p-2 rounded-md w-full"
 //           />
 //           <button
 //             onClick={handleSearchSubmit}
-//             className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+//             className="bg-blue-500 rounded-md text-white hover:bg-blue-600 px-4 py-2"
 //           >
 //             Search
 //           </button>
 //       </div>
 //         {loading ? (
-//           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+//           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 sm:grid-cols-2">
 //             {Array.from({ length: booksPerPage }).map((_, index) => (
-//               <div key={index} className="bg-white p-4 border border-gray-200 rounded-xl shadow-md animate-pulse">
-//                 <div className="relative h-64 bg-gray-300 rounded-md"></div>
+//               <div key={index} className="bg-white border border-gray-200 p-4 rounded-xl shadow-md animate-pulse">
+//                 <div className="bg-gray-300 h-64 rounded-md relative"></div>
 //                 <div className="p-4 mt-4">
-//                   <div className="h-6 bg-gray-200 rounded-md mb-2"></div>
-//                   <div className="h-4 bg-gray-200 rounded-md mb-2"></div>
-//                   <div className="h-6 bg-gray-200 rounded-md mb-2"></div>
+//                   <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
+//                   <div className="bg-gray-200 h-4 rounded-md mb-2"></div>
+//                   <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
 //                 </div>
 //               </div>
 //             ))}
 //           </div>
 //         ) : filteredBooks.length === 0 ? (
-//           <div className="flex flex-col items-center justify-center py-16">
+//           <div className="flex flex-col justify-center items-center py-16">
 //             <img
 //               src="https://media.tenor.com/OJalYnY8qjAAAAAj/oops-oops-sorry.gif"
 //               alt="No books found"
-//               className="w-32 h-32 mb-4"
+//               className="h-32 w-32 mb-4"
 //             />
-//             <h2 className="text-xl font-semibold text-gray-700 mb-2">
+//             <h2 className="text-gray-700 text-xl font-semibold mb-2">
 //               No books found
 //             </h2>
 //             <p className="text-gray-500 mb-4">Try adjusting your filters or clearing them to see more results.</p>
@@ -702,13 +702,13 @@
 //                   page: 1, // Reset to the first page
 //                 })
 //               }
-//               className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
+//               className="bg-red-600 rounded-md text-white duration-300 hover:bg-red-700 px-4 py-2 transition"
 //             >
 //               Reset Filters
 //             </button>
 //           </div>
 //         ) : (
-//           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+//           <div className="grid grid-cols-2 gap-2 lg:grid-cols-4 sm:grid-cols-2">
 //             {/* Render filtered books */}
 //             {currentBooks.map((book) => (
 //               <BookCard key={book.id} book={book} addToCart={addToCart} onClick={() => handleCardClick(book.id, book.title, book.author, book.category, book.condition)} />
@@ -718,7 +718,7 @@
 
 //         {/* Pagination */}
 //         {filteredBooks.length > 0 && (
-//           <div className="flex items-center justify-center mt-6 space-x-2">
+//           <div className="flex justify-center items-center mt-6 space-x-2">
 //             <button
 //             onClick={handlePrev}
 //             disabled={currentPage === 1}
@@ -938,22 +938,22 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
 
   return (
     <div
-      className="bg-white p-3 mb-2 sm:p-4 rounded-sm hover:shadow-2xl transition-shadow duration-300"
+      className="bg-white p-3 rounded-sm duration-300 hover:shadow-2xl mb-2 sm:p-4 transition-shadow"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label={`Book card for ${book.title || 'Untitled'}`}
       onClick={onClick}
     >
-      <div className="flex flex-col sm:flex-col items-center gap-4">
-        <div className="relative w-full sm:w-48 h-48 sm:h-64 flex-shrink-0">
+      <div className="flex flex-col gap-4 items-center sm:flex-col">
+        <div className="flex-shrink-0 h-48 w-full relative sm:h-64 sm:w-48">
           <img
             src={book.image || "/api/placeholder/400/320"}
             alt={book.title}
-            className="w-full h-full object-contain sm:object-cover hover:scale-105 transition-transform duration-300"
+            className="h-full w-full duration-300 hover:scale-105 object-contain sm:object-cover transition-transform"
           />
           {book.isPrime && (
-            <div className="absolute top-2 right-2">
-              <div className="bg-blue-600 text-white text-xs px-2 py-1 rounded">
+            <div className="absolute right-2 top-2">
+              <div className="bg-blue-600 rounded text-white text-xs px-2 py-1">
                 Prime
               </div>
             </div>
@@ -963,13 +963,13 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
 
         <div className="flex-grow min-w-0">
           <div className="mb-2">
-            <h2 className="text-base sm:text-lg font-medium text-blue-600 hover:text-orange-500 hover:underline cursor-pointer line-clamp-2">
+            <h2 className="text-base text-blue-600 cursor-pointer font-medium hover:text-orange-500 hover:underline line-clamp-2 sm:text-lg">
               {book.title}
             </h2>
-            <p className="text-sm text-gray-600">by {book.author}</p>
+            <p className="text-gray-600 text-sm">by {book.author}</p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+          <div className="flex flex-wrap gap-2 items-center mb-2">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
                 <Star
@@ -981,46 +981,46 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
                 />
               ))}
             </div>
-            <span className="text-sm text-blue-600 hover:text-orange-500 cursor-pointer">
+            <span className="text-blue-600 text-sm cursor-pointer hover:text-orange-500">
               {book.reviews?.toLocaleString()} ratings
             </span>
           </div>
 
           <div className="mb-3">
-            <div className="flex flex-wrap items-baseline gap-2">
+            <div className="flex flex-wrap gap-2 items-baseline">
               <div className="flex items-baseline">
                 <span className="text-2xl text-gray-600">₹</span>
-                <span className="text-xl sm:text-2xl font-medium">{discountedPrice}</span>
+                <span className="text-xl font-medium sm:text-2xl">{discountedPrice}</span>
               </div>
               {book.price > 0 && book.discount > 0 && (
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex text-sm gap-2 items-center">
                   <span className="text-gray-500 line-through">₹{book.price}</span>
                   <span className="text-red-600">({Math.round((book.discount / book.price) * 100)}% off)</span>
                 </div>
               )}
             </div>
             {book.isPrime && (
-              <div className="flex items-center gap-1 text-sm text-gray-700 mt-1">
-                <Truck className="w-4 h-4" />
+              <div className="flex text-gray-700 text-sm gap-1 items-center mt-1">
+                <Truck className="h-4 w-4" />
                 <span className="line-clamp-1">FREE delivery by {book.deliveryDate}</span>
               </div>
             )}
           </div>
 
-          <div className="space-y-1 mb-4">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Gift className="w-4 h-4 flex-shrink-0" />
+          <div className="mb-4 space-y-1">
+            <div className="flex text-gray-600 text-sm gap-2 items-center">
+              <Gift className="flex-shrink-0 h-4 w-4" />
               <span>Gift wrap available</span>
             </div>
             {book.condition === 'New' && (
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0" />
+              <div className="flex text-gray-600 text-sm gap-2 items-center">
+                <div className="flex-shrink-0 bg-green-500 h-2 rounded-full w-2" />
                 <span>Brand New</span>
               </div>
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col gap-2 sm:flex-row">
             <button
               onClick={handleAddToCart}
               disabled={isAddingToCart}
@@ -1031,12 +1031,12 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
             >
               {isAdded ? (
                 <>
-                  <Check className="w-5 h-5" />
+                  <Check className="h-5 w-5" />
                   Added
                 </>
               ) : (
                 <>
-                  <ShoppingCart className="w-5 h-5" />
+                  <ShoppingCart className="h-5 w-5" />
                   <span className='text-sm'>Add to Cart</span>
                 </>
               )}
@@ -1048,7 +1048,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
               }}
               className={`hidden sm:block p-2 border border-gray-300 rounded-full hover:bg-gray-50 ${isInWishlist ? 'text-red-600' : 'text-gray-700'}`}
             >
-              <Heart className="w-5 h-5" />
+              <Heart className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -1057,7 +1057,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
       {/* Error Toast */}
       {errorMessage && (
         <div 
-          className="fixed top-20 right-4 p-6 bg-gray-800 border border-yellow-500 rounded-md shadow-lg text-yellow-400 text-sm mt-2 flex items-center justify-between transition-all duration-300 z-50"
+          className="flex bg-gray-800 border border-yellow-500 justify-between p-6 rounded-md shadow-lg text-sm text-yellow-400 duration-300 fixed items-center mt-2 right-4 top-20 transition-all z-50"
           style={{
             animation: "0.3s ease-out forwards slideIn",
           }}
@@ -1084,7 +1084,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
               e.stopPropagation();
               setErrorMessage(null);
             }} 
-            className="ml-4 text-yellow-300 hover:text-yellow-100 focus:outline-none transition-colors duration-200"
+            className="text-yellow-300 duration-200 focus:outline-none hover:text-yellow-100 ml-4 transition-colors"
             aria-label="Close error message"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -1463,12 +1463,12 @@ const BookFilter = () => {
         {/* Close Button */}
         <button
           onClick={() => setIsFilterOpen(false)}
-          className="sticky top-2 left-[100%] text-white bg-red-600 p-2 md:hidden rounded-full hover:bg-red-700 transition-colors duration-300"
+          className="bg-red-600 p-2 rounded-full text-white duration-300 hover:bg-red-700 left-[100%] md:hidden sticky top-2 transition-colors"
           title="Close Filters"
         >
           <FaTimes size={20} />
         </button>
-        <p className='-mt-8 font-extrabold text-[1.5rem] tracking-widest md:-mt-0'>Filters</p>
+        <p className='text-[1.5rem] -mt-8 font-extrabold md:-mt-0 tracking-widest'>Filters</p>
         {/* Board Filter */}
         <DropdownFilter
           label="Boards"
@@ -1476,7 +1476,7 @@ const BookFilter = () => {
           selectedOptions={filters.board}
           toggleSelection={(value) => toggleSelection(value, 'board')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
         {/* Category Filter */}
         <DropdownFilter
@@ -1485,7 +1485,7 @@ const BookFilter = () => {
           selectedOptions={filters.category}
           toggleSelection={(value) => toggleSelection(value, 'category')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
         {/* Subject Filter */}
         <DropdownFilter
           label="Subject"
@@ -1493,7 +1493,7 @@ const BookFilter = () => {
           selectedOptions={filters.subject}
           toggleSelection={(value) => toggleSelection(value, 'subject')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
         {/* Reference Filter */}
         <DropdownFilter
@@ -1502,7 +1502,7 @@ const BookFilter = () => {
           selectedOptions={filters.reference}
           toggleSelection={(value) => toggleSelection(value, 'reference')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
         {/* Competitive Filter */}
         <DropdownFilter
@@ -1511,7 +1511,7 @@ const BookFilter = () => {
           selectedOptions={filters.competitive}
           toggleSelection={(value) => toggleSelection(value, 'competitive')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
         {/* Condition Filter */}
         <DropdownFilter
@@ -1520,7 +1520,7 @@ const BookFilter = () => {
           selectedOptions={filters.condition}
           toggleSelection={(value) => toggleSelection(value, 'condition')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
         {/* Language Filter */}
         <DropdownFilter
@@ -1529,7 +1529,7 @@ const BookFilter = () => {
           selectedOptions={filters.language}
           toggleSelection={(value) => toggleSelection(value, 'language')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
 
         {/* Genre Filter */}
@@ -1539,15 +1539,15 @@ const BookFilter = () => {
           selectedOptions={filters.genre}
           toggleSelection={(value) => toggleSelection(value, 'genre')}
         />
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
         {/* Sort By Filter */}
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+          <label className="text-gray-700 text-sm block font-medium mb-2">Sort By</label>
           <select
             value={filters.sortBy}
             onChange={(e) => debouncedFilter({ ...filters, sortBy: e.target.value })}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="border border-gray-300 p-2 rounded-md w-full"
           >
             <option value="">Select</option>
             <option value="price-low-high">Price: Low to High</option>
@@ -1556,7 +1556,7 @@ const BookFilter = () => {
             <option value="oldest">Oldest First</option>
           </select>
         </div>
-        <div className='w-full border mb-3' />
+        <div className='border w-full mb-3' />
 
         {/* Reset Filters Button */}
         <button
@@ -1571,16 +1571,16 @@ const BookFilter = () => {
             genre: [],
             sortBy: '',
           })}
-          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-all mb-4"
+          className="bg-red-600 rounded-md text-white hover:bg-red-700 mb-4 px-4 py-2 transition-all"
         >
           <span>Clear All Filters</span>
         </button>
       </div>
 
       {/* Books Grid */}
-      <div className="w-full lg:mx-2 bg-white my-2 p-2">
+      <div className="bg-white p-2 w-full lg:mx-2 my-2">
         {/* Search Input */}
-        <div className="md:w-full py-4 flex gap-2 relative">
+        <div className="flex gap-2 md:w-full py-4 relative">
           <input
             autoFocus
             placeholder="Search..."
@@ -1589,38 +1589,38 @@ const BookFilter = () => {
             onKeyDown={handleKeyPress}
             name="text"
             type="text"
-            className="w-full pl-10  border border-gray-300 rounded-md" // Add padding to the left for the icon
+            className="border border-gray-300 rounded-md w-full pl-10" // Add padding to the left for the icon
           />
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" /> {/* Lucide Search icon */}
+          <Search className="text-gray-400 -translate-y-1/2 absolute left-3 top-1/2 transform" /> {/* Lucide Search icon */}
           <button
             onClick={() => setSearchQuery('')}
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="bg-blue-500 rounded-md text-white hover:bg-blue-600 px-4 py-2"
           >
             Search
           </button>
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 sm:grid-cols-2">
             {Array.from({ length: booksPerPage }).map((_, index) => (
-              <div key={index} className="bg-white p-4 border border-gray-200 rounded-xl shadow-md animate-pulse">
-                <div className="relative h-64 bg-gray-300 rounded-md"></div>
+              <div key={index} className="bg-white border border-gray-200 p-4 rounded-xl shadow-md animate-pulse">
+                <div className="bg-gray-300 h-64 rounded-md relative"></div>
                 <div className="p-4 mt-4">
-                  <div className="h-6 bg-gray-200 rounded-md mb-2"></div>
-                  <div className="h-4 bg-gray-200 rounded-md mb-2"></div>
-                  <div className="h-6 bg-gray-200 rounded-md mb-2"></div>
+                  <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
+                  <div className="bg-gray-200 h-4 rounded-md mb-2"></div>
+                  <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : filteredBooks.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16">
+          <div className="flex flex-col justify-center items-center py-16">
             <img
               src="https://media.tenor.com/OJalYnY8qjAAAAAj/oops-oops-sorry.gif"
               alt="No books found"
-              className="w-32 h-32 mb-4"
+              className="h-32 w-32 mb-4"
             />
-            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+            <h2 className="text-gray-700 text-xl font-semibold mb-2">
               No books found
             </h2>
             <p className="text-gray-500 mb-4">Try adjusting your filters or clearing them to see more results.</p>
@@ -1637,7 +1637,7 @@ const BookFilter = () => {
                 sortBy: '',
                 page: 1,
               })}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition duration-300"
+              className="bg-red-600 rounded-md text-white duration-300 hover:bg-red-700 px-4 py-2 transition"
             >
               Reset Filters
             </button>
@@ -1660,7 +1660,7 @@ const BookFilter = () => {
 
         {/* Pagination */}
 {filteredBooks.length > 0 && (
-  <div className="flex relative z-10 items-center justify-center mt-6 space-x-2">
+  <div className="flex justify-center items-center mt-6 relative space-x-2 z-10">
     <button
       onClick={handlePrev}
       disabled={currentPage === 1}
@@ -1696,8 +1696,8 @@ const BookFilter = () => {
 
       {/* Quick View Modal */}
       {quickViewProduct && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-90vh overflow-y-auto">
+        <div className="flex bg-black bg-opacity-50 justify-center p-4 fixed inset-0 items-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-h-90vh max-w-4xl overflow-y-auto">
             <div className="flex justify-end p-2">
               <button
                 className="p-1 text-gray-500 hover:text-gray-700"
@@ -1707,24 +1707,24 @@ const BookFilter = () => {
               </button>
             </div>
             <div className="p-6">
-              <div className="flex flex-col md:flex-row gap-8">
+              <div className="flex flex-col gap-8 md:flex-row">
                 <div className="md:w-1/2">
                   <img
                     src={quickViewProduct.image}
                     alt={quickViewProduct.title}
-                    className="w-full h-auto object-cover rounded-lg"
+                    className="h-auto rounded-lg w-full object-cover"
                   />
                 </div>
                 <div className="md:w-1/2">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-2">{quickViewProduct.title}</h2>
+                  <h2 className="text-2xl text-gray-900 font-bold mb-2">{quickViewProduct.title}</h2>
                   <p className="text-gray-600 mb-4">by {quickViewProduct.author}</p>
-                  <div className="flex items-baseline gap-2 mb-2">
-                    <span className="text-lg font-bold text-gray-900">₹{quickViewProduct.price}</span>
+                  <div className="flex gap-2 items-baseline mb-2">
+                    <span className="text-gray-900 text-lg font-bold">₹{quickViewProduct.price}</span>
                     {quickViewProduct.originalPrice > quickViewProduct.price && (
-                      <span className="text-lg text-gray-500 line-through">₹{quickViewProduct.originalPrice}</span>
+                      <span className="text-gray-500 text-lg line-through">₹{quickViewProduct.originalPrice}</span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">{quickViewProduct.description}</p>
+                  <p className="text-gray-600 text-sm mb-4">{quickViewProduct.description}</p>
                   <button
                     className={`w-full py-3 rounded-lg font-medium ${quickViewProduct.stockStatus === 'Out of Stock' ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700'}`}
                     disabled={quickViewProduct.stockStatus === 'Out of Stock'}

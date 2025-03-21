@@ -9,6 +9,8 @@ import { useCart } from "../context/CartContext";
 import CartButton from "../components/CartButton";
 import Navbar from '../components/Navbar';
 import DropdownFilter from '../components/DropdownFIlter';
+import Breadcrumbs from "../components/Breadcrumbs";
+
 
 // Reusable Button Component
 const Button = ({ onClick, children, className, ariaLabel }) => (
@@ -345,6 +347,7 @@ const [isScrolled, setIsScrolled] = useState(false);
     <div className="search-results ">
       {/* <BooksNavbar/> */}
       <Navbar />
+      <Breadcrumbs />
 
       <div className='items-center md:items-start flex flex-col md:flex-row'>
       <button

@@ -84,17 +84,18 @@ const CheckoutPage = () => {
     fetchInitialData();
   }, []);
 
+  const token = localStorage.getItem('authToken');
+  const parsedToken = JSON.parse(token);
   const fetchCartData = async () => {
     try {
-      const token = localStorage.getItem('authToken');
-      if (!token) {
+      if (!parsedToken && !parsedToken.access) {
         navigate('/login', { state: { from: '/checkout' } });
         return;
       }
 
       const response = await fetch('http://127.0.0.1:8000/api/cart/cart-detail/', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${parsedToken.access}`,
         },
       });
 
@@ -118,12 +119,11 @@ const CheckoutPage = () => {
 
   const fetchSavedAddresses = async () => {
     try {
-      const token = localStorage.getItem('authToken');
-      if (!token) return;
+      if (!parsedToken && !parsedToken.access) return;
 
-      const response = await fetch('http://127.0.0.1:8000/api/user/addresses/', {
+      const response = await fetch('http://127.0.0.1:8000/api/address/create-get/', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${parsedToken.access}`,
         },
       });
 

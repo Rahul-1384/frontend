@@ -112,7 +112,7 @@ function BookList() {
 
       {/* Error UI */}
       {error.message && error.type !== 'authentication' && (
-        <div className="flex flex-col h-screen justify-center text-red-600 items-center">
+        <div className="flex flex-col pt-52 justify-center text-red-600 items-center">
           <AlertCircle className="h-12 text-red-600 w-12 mb-4" /> {/* Lucide error icon */}
           <p className="text-xl font-semibold">Oops! Something went wrong.</p>
           <p className="text-gray-600 text-sm mt-2">{error.message}</p>

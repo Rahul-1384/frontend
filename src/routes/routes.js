@@ -3,7 +3,6 @@ import { lazy } from "react";
 import MangaReaderApp from "../Pages/MangaReaderApp";
 import BookList from "../components/BookList";
 import BookUploadForm from "../components/BookUploadForm";
-import AdminBookPanel from "../components/AdminBookPanel";
 import OrderList from "../components/OrderList";
 
 // Lazy-load Pages for better performance
@@ -82,7 +81,6 @@ export const publicRoutes = [
   { path: "/address/edit/:id", element: <AddressForm /> },
   { path: "/BooksListed", element: <BookList /> },
   { path: "/sell", element: <BookUploadForm /> },
-  { path: "/pricing", element: <AdminBookPanel /> },
   { path: "/my-orders", element: <OrderList /> },
 
 ];

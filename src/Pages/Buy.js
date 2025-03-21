@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import BooksNavbar from '../components/BooksNavbar';
 import BookFilter from '../components/BookFilter';
 import Navbar from '../components/Navbar';
+import Breadcrumbs from "../components/Breadcrumbs";
+
 
 const Buy = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,6 +17,7 @@ const Buy = () => {
     <div>
       {/* <BooksNavbar onSearch={handleSearch} /> */}
       <Navbar onSearch={handleSearch} />
+      <Breadcrumbs />
       <BookFilter searchQuery={searchQuery} />
     </div>
   );

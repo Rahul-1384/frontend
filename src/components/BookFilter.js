@@ -849,6 +849,8 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
   const { dispatch, fetchCartItems } = useCart();
   const [errorMessage, setErrorMessage] = useState(""); // UI error state
   const [showAuthModal, setShowAuthModal] = useState(false); // New state for auth modal
+  const navigate = useNavigate();
+  
 
   const discountedPrice = useMemo(() => (
     Math.max(0, (book.price || 0) - (book.discount || 0)).toFixed(2)
@@ -858,7 +860,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
   const handleLogin = () => {
     // Navigate to login page or trigger login flow
     // This depends on your app's routing/authentication setup
-    window.location.href = '/login'; // Basic example - adjust as needed
+    navigate(`/login?returnUrl=${encodeURIComponent('/products')}`);
     setShowAuthModal(false);
   };
 

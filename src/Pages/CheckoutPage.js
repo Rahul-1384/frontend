@@ -126,6 +126,7 @@ const CheckoutPage = () => {
           'Authorization': `Bearer ${parsedToken.access}`,
         },
       });
+      
 
       if (!response.ok) {
         throw new Error('Failed to fetch addresses');

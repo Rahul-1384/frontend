@@ -22,10 +22,13 @@ const AddressList = () => {
     } catch (err) {
       console.error('Error fetching addresses:', err);
       
-      // Check if error is authentication-related
-      if (err.response && (err.response.status === 401 || err.response.status === 403)) {
-        setErrorType('auth');
-        setError('You need to be logged in to view your addresses');
+      // Check for 401 status code or the specific error message about authentication credentials
+      if (
+        (err.response && err.response.status === 401) || 
+        (err.detail === 'Authentication credentials were not provided.')
+      ) {
+        navigate(`/login?returnUrl=${encodeURIComponent('/addresses')}`);
+        return; // Exit the function early
       } else if (err.message && err.message.includes('network')) {
         setErrorType('network');
         setError('Network error. Please check your internet connection and try again.');

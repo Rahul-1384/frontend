@@ -5,16 +5,10 @@ import { CartProvider } from "./context/CartContext";
 import { ChatProvider } from './context/ChatContext';
 import Loading from "./components/Loading";
 import PublicLayout from "./components/layout/PublicLayout";
-import AdminLayout from "./components/layout/AdminLayout";
 import { publicRoutes, adminRoutes } from "./routes/routes";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AddressProvider } from './context/AddressContext'; // Import AddressProvider
 
-
-const ProtectedRoute = ({ children }) => {
-  const { isAdminAuthenticated } = useAuth();
-  return isAdminAuthenticated ? children : <Navigate to="/admin-login" />;
-};
 
 function App() {
   return (
@@ -30,10 +24,6 @@ function App() {
                     <Route key={index} path={route.path} element={<PublicLayout>{route.element}</PublicLayout>} />
                   ))}
 
-                  {/* Admin Routes */}
-                  {adminRoutes.map((route, index) => (
-                    <Route key={index} path={route.path} element={<ProtectedRoute><AdminLayout>{route.element}</AdminLayout></ProtectedRoute>} />
-                  ))}
                 </Routes>
               </Suspense>
             </ThemeProvider>

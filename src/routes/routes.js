@@ -7,7 +7,6 @@ import OrderList from "../components/OrderList";
 
 // Lazy-load Pages for better performance
 const Homepage = lazy(() => import("../Pages/Homepage"));
-const Sell = lazy(() => import("../Pages/Sell"));
 const LoginForm = lazy(() => import("../Pages/LoginForm"));
 const SignupForm = lazy(() => import("../Pages/SignupForm"));
 const VerifyEmail = lazy(() => import("../Pages/VerifyEmail"));
@@ -36,15 +35,6 @@ const AddressList = lazy(() => import("../components/address/AddressList"));
 const AddressForm = lazy(() => import("../components/address/AddressForm"));
 
 
-
-// Admin Pages
-const OverviewPage = lazy(() => import("../Pages/OverviewPage"));
-const BooksPage = lazy(() => import("../Pages/BooksPage"));
-const UsersPage = lazy(() => import("../Pages/UsersPage"));
-const SalesPage = lazy(() => import("../Pages/SalesPage"));
-const OrdersPage = lazy(() => import("../Pages/OrdersPage"));
-const AnalyticsPage = lazy(() => import("../Pages/AnalyticsPage"));
-const SettingsPage = lazy(() => import("../Pages/SettingsPage"));
 
 // Public Routes
 export const publicRoutes = [
@@ -85,13 +75,3 @@ export const publicRoutes = [
 
 ];
 
-// Admin Routes
-export const adminRoutes = [
-  { path: "/admin", element: <OverviewPage /> },
-  { path: "/admin/books", element: <BooksPage /> },
-  { path: "/admin/users", element: <UsersPage /> },
-  { path: "/admin/sales", element: <SalesPage /> },
-  { path: "/admin/orders", element: <OrdersPage /> },
-  { path: "/admin/analytics", element: <AnalyticsPage /> },
-  { path: "/admin/settings", element: <SettingsPage /> },
-];

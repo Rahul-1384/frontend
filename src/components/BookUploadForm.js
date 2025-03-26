@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast'; // Add this import
 
@@ -6,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast'; // Add this import
 function BookUploadForm() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
   const [book, setBook] = useState({
     book_title: '',
     book_author: '',
@@ -199,8 +201,12 @@ function BookUploadForm() {
 
   // Login redirect function
   const redirectToLogin = () => {
-    window.location.href = '/login';
+    navigate(`/login?returnUrl=${encodeURIComponent('/sell')}`);
   };
+  const redirectToSignup = () => {
+    navigate(`/signup?returnUrl=${encodeURIComponent('/sell')}`);
+  };
+  
 
   // Loading state
   if (isLoading) {
@@ -240,7 +246,7 @@ function BookUploadForm() {
                 Log In
               </button>
               <a 
-                href="/register" 
+                onClick={redirectToSignup}
                 className="w-full bg-gray-200 no-underline text-gray-800 py-2 px-4 rounded-md hover:bg-gray-300 transition duration-200 text-center"
               >
                 Register

@@ -69,9 +69,10 @@ const LoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [loginError, setLoginError] = useState('');
+    const params = new URLSearchParams(location.search);
+    const returnUrl = params.get('returnUrl');
 
-    const from = location.state?.from?.pathname || '/';
-
+    const from = returnUrl || location.state?.from?.pathname || '/';
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -117,7 +118,7 @@ const LoginForm = () => {
             setTimeout(() => {
                 setShowToast(false);
                 setTimeout(() => {
-                    navigate("/", { replace: true });
+                    navigate(from, { replace: true });
                 }, 300); // Wait for toast exit animation
             }, 1500);
 

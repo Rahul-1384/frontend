@@ -33,6 +33,7 @@ const GameDashboard = lazy(() => import("../Pages/GameDashboard"));
 const Donate = lazy(() => import("../Pages/Donate"));
 const AddressList = lazy(() => import("../components/address/AddressList"));
 const AddressForm = lazy(() => import("../components/address/AddressForm"));
+const Help = lazy(() => import("../Pages/Help"));
 
 
 
@@ -72,6 +73,7 @@ export const publicRoutes = [
   { path: "/BooksListed", element: <BookList /> },
   { path: "/sell", element: <BookUploadForm /> },
   { path: "/my-orders", element: <OrderList /> },
+  { path: "/help", element: <Help /> },
 
 ];
 

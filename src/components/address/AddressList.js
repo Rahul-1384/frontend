@@ -20,7 +20,7 @@ const AddressList = () => {
       setError(null);
       setErrorType(null);
     } catch (err) {
-      console.error('Error fetching addresses:', err);
+      // console.error('Error fetching addresses:', err);
       
       // Check for 401 status code or the specific error message about authentication credentials
       if (
@@ -66,7 +66,7 @@ const AddressList = () => {
           setErrorType('general');
           setError('Failed to delete address. Please try again.');
         }
-        console.error(err);
+        // console.error(err);
       }
     }
   };

@@ -896,7 +896,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
         let errorText = "Failed to add item to cart.";
         try {
           const errorData = await response.json();
-          console.error("Error Response:", errorData.error);
+          // console.error("Error Response:", errorData.error);
   
           // Extract detailed error messages
           if (errorData?.message) {
@@ -907,7 +907,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
             errorText = JSON.stringify(errorData.error);
           }
         } catch (jsonError) {
-          console.error("Error parsing response:", jsonError);
+          // console.error("Error parsing response:", jsonError);
           errorText = "Unexpected server error.";
         }
   
@@ -928,7 +928,7 @@ const BookCard = ({ book, addToCart, onClick, onAddToWishlist, isInWishlist }) =
         setIsAddingToCart(false);
       }, 2000);
     } catch (error) {
-      console.error("Add to Cart Error:", error);
+      // console.error("Add to Cart Error:", error);
   
       // Handle network or unexpected errors
       const finalErrorMessage = error.message || "Network error. Please try again.";
@@ -1162,12 +1162,12 @@ const BookFilter = () => {
   // Function to add the selected book to the cart
   const handleCardClick = (id, title, author, category, condition) => {
     navigate(`/books/${id}/${title}/${author}/${category}/${condition}`);
-    console.log("Id of the book", id);
+    // console.log("Id of the book", id);
   };
 
   const addToCart = (book) => {
     setCart((prevCart) => {
-      console.log('Book Added to cart', book);
+      // console.log('Book Added to cart', book);
       const isBookInCart = prevCart.some((item) => item.id === book.id);
       if (isBookInCart) {
         return prevCart; // Prevent adding the same book again
@@ -1202,6 +1202,7 @@ const BookFilter = () => {
   const [currentPage, setCurrentPage] = useState(filters.page || 1);
   const booksPerPage = 9;
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [errorState, setErrorState] = useState(null);
 
   // Sync filters with searchParams
   useEffect(() => {
@@ -1220,30 +1221,89 @@ const BookFilter = () => {
 
 
   // Function to fetch books from the API
-  const fetchBooks = async () => {
-    setLoading(true); // Set loading to true at the start of the request
+// Enhanced fetchBooks function with retry mechanism
+const fetchBooks = async (retryCount = 0, maxRetries = 3) => {
+  setLoading(true);
+  setErrorState(null); // Clear any previous errors
 
-    try {
-      const response = await fetch('http://localhost:5000/books');
-      const data = await response.json();
-      console.log("Fetched books:", data);
-
-      // Filter out duplicate books based on the 'id'
-      const uniqueBooks = data.filter((book, index, self) =>
-        index === self.findIndex((b) => b.id === book.id)
-      );
-
-      setBooks(uniqueBooks);
-    } catch (error) {
-      console.error('Error fetching books:', error);
-    } finally {
-      setLoading(false); // Set loading to false after the request is completed
+  try {
+    const response = await fetch('http://localhost:5000/books');
+    
+    if (!response.ok) {
+      throw new Error(`Server responded with status: ${response.status}`);
     }
-  };
+    
+    const data = await response.json();
+
+    // Filter out duplicate books based on the 'id'
+    const uniqueBooks = data.filter((book, index, self) =>
+      index === self.findIndex((b) => b.id === book.id)
+    );
+
+    setBooks(uniqueBooks);
+    setErrorState(null); // Clear error state on success
+  } catch (error) {
+    // Check if we should retry
+    if (retryCount < maxRetries) {
+      setErrorState({
+        type: 'retrying',
+        message: `Connection issue. Retrying (${retryCount + 1}/${maxRetries})...`,
+      });
+      
+      // Exponential backoff: 1s, 2s, 4s, etc.
+      const backoffTime = Math.pow(2, retryCount) * 1000;
+      
+      setTimeout(() => fetchBooks(retryCount + 1, maxRetries), backoffTime);
+      return;
+    }
+    
+    // Network error or other fetch-related error
+    if (!navigator.onLine) {
+      setErrorState({
+        type: 'offline',
+        message: 'You appear to be offline. Please check your internet connection and try again.',
+      });
+    } else {
+      setErrorState({
+        type: 'error',
+        message: 'We could not load the books. Please try again later.',
+        details: error.message,
+      });
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     fetchBooks(); // Initial fetch when component mounts
   }, []);
+
+  // Add this useEffect in your component to detect network status changes
+useEffect(() => {
+  const handleOnlineStatusChange = () => {
+    if (navigator.onLine) {
+      // We're back online, attempt to fetch data again if we had an offline error
+      if (errorState?.type === 'offline') {
+        fetchBooks();
+      }
+    } else {
+      // We're offline
+      setErrorState({
+        type: 'offline',
+        message: 'You appear to be offline. Please check your internet connection.',
+      });
+    }
+  };
+
+  window.addEventListener('online', handleOnlineStatusChange);
+  window.addEventListener('offline', handleOnlineStatusChange);
+
+  return () => {
+    window.removeEventListener('online', handleOnlineStatusChange);
+    window.removeEventListener('offline', handleOnlineStatusChange);
+  };
+}, [errorState]);
 
   // Filter books based on search term and other filters
   const filteredBooks = useMemo(() => {
@@ -1580,121 +1640,178 @@ const BookFilter = () => {
       </div>
 
       {/* Books Grid */}
-      <div className="bg-white p-2 w-full lg:mx-2 my-2">
-        {/* Search Input */}
-        <div className="flex gap-2 md:w-full py-4 relative">
-          <input
-            autoFocus
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={handleSearchChange}
-            onKeyDown={handleKeyPress}
-            name="text"
-            type="text"
-            className="border border-gray-300 rounded-md w-full pl-10" // Add padding to the left for the icon
-          />
-          <Search className="text-gray-400 -translate-y-1/2 absolute left-3 top-1/2 transform" /> {/* Lucide Search icon */}
-          <button
-            onClick={() => setSearchQuery('')}
-            className="bg-blue-500 rounded-md text-white hover:bg-blue-600 px-4 py-2"
-          >
-            Search
-          </button>
-        </div>
-
-        {loading ? (
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 sm:grid-cols-2">
-            {Array.from({ length: booksPerPage }).map((_, index) => (
-              <div key={index} className="bg-white border border-gray-200 p-4 rounded-xl shadow-md animate-pulse">
-                <div className="bg-gray-300 h-64 rounded-md relative"></div>
-                <div className="p-4 mt-4">
-                  <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
-                  <div className="bg-gray-200 h-4 rounded-md mb-2"></div>
-                  <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : filteredBooks.length === 0 ? (
-          <div className="flex flex-col justify-center items-center py-16">
-            <img
-              src="https://media.tenor.com/OJalYnY8qjAAAAAj/oops-oops-sorry.gif"
-              alt="No books found"
-              className="h-32 w-32 mb-4"
-            />
-            <h2 className="text-gray-700 text-xl font-semibold mb-2">
-              No books found
-            </h2>
-            <p className="text-gray-500 mb-4">Try adjusting your filters or clearing them to see more results.</p>
-            <button
-              onClick={() => setFilters({
-                board: [],
-                category: [],
-                subject: [],
-                reference: [],
-                competitive: [],
-                condition: [],
-                language: [],
-                genre: [],
-                sortBy: '',
-                page: 1,
-              })}
-              className="bg-red-600 rounded-md text-white duration-300 hover:bg-red-700 px-4 py-2 transition"
-            >
-              Reset Filters
-            </button>
-          </div>
-        ) : (
-          <div className={viewMode === 'grid' ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2" : "flex flex-col"}>
-            {/* Render filtered books */}
-            {filteredBooks.map((book) => (
-              <BookCard
-                key={book.id}
-                book={book}
-                addToCart={addToCart}
-                onClick={() => handleCardClick(book.id, book.title, book.author, book.category, book.condition)}
-                onAddToWishlist={handleAddToWishlist}
-                isInWishlist={wishlist.some(item => item.id === book.id)}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Pagination */}
-{filteredBooks.length > 0 && (
-  <div className="flex justify-center items-center mt-6 relative space-x-2 z-10">
+<div className="bg-white p-2 w-full lg:mx-2 my-2">
+  {/* Search Input */}
+  <div className="flex gap-2 md:w-full py-4 relative">
+    <input
+      autoFocus
+      placeholder="Search..."
+      value={searchQuery}
+      onChange={handleSearchChange}
+      onKeyDown={handleKeyPress}
+      name="text"
+      type="text"
+      className="border border-gray-300 rounded-md w-full pl-10" // Add padding to the left for the icon
+    />
+    <Search className="text-gray-400 -translate-y-1/2 absolute left-3 top-1/2 transform" /> {/* Lucide Search icon */}
     <button
-      onClick={handlePrev}
-      disabled={currentPage === 1}
-      className={`flex items-center justify-center w-10 h-10 rounded-full ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+      onClick={() => setSearchQuery('')}
+      className="bg-blue-500 rounded-md text-white hover:bg-blue-600 px-4 py-2"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-      </svg>
-    </button>
-
-    {paginationRange.map((page) => (
-      <button
-        key={page}
-        onClick={() => handlePageChange(page)}
-        className={`w-10 h-10 flex items-center justify-center rounded-full ${currentPage === page ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
-      >
-        {page}
-      </button>
-    ))}
-
-    <button
-      onClick={handleNext}
-      disabled={currentPage === totalPages}
-      className={`flex items-center justify-center w-10 h-10 rounded-full ${currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-      </svg>
+      Search
     </button>
   </div>
-)}
-      </div>
+
+  {/* Error Display - Only shown when there's an error */}
+  {errorState && (
+    <div className={`flex flex-col items-center justify-center py-16 px-4 text-center ${
+      errorState.type === 'retrying' ? 'bg-yellow-50' : 'bg-red-50'
+    } rounded-md mb-4`}>
+      {errorState.type === 'offline' ? (
+        <div className="flex flex-col items-center">
+          <svg className="w-16 h-16 text-red-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3m8.293 8.293l1.414 1.414"></path>
+          </svg>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">{errorState.message}</h2>
+          <p className="text-gray-600 mb-4">Your data will load automatically when you're back online.</p>
+          <button 
+            onClick={() => fetchBooks()} 
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      ) : errorState.type === 'retrying' ? (
+        <div className="flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
+          <p className="text-gray-700">{errorState.message}</p>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center">
+          <svg className="w-16 h-16 text-red-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">{errorState.message}</h2>
+          {errorState.details && <p className="text-sm text-gray-500 mb-3">Technical details: {errorState.details}</p>}
+          <div className="flex gap-4">
+            <button 
+              onClick={() => fetchBooks()} 
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+            >
+              Try Again
+            </button>
+            <button 
+              onClick={() => navigate('/help')} 
+              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+            >
+              Get Help
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )}
+
+  {/* Loading skeleton */}
+  {loading && !errorState && (
+    <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 sm:grid-cols-2">
+      {Array.from({ length: booksPerPage }).map((_, index) => (
+        <div key={index} className="bg-white border border-gray-200 p-4 rounded-xl shadow-md animate-pulse">
+          <div className="bg-gray-300 h-64 rounded-md relative"></div>
+          <div className="p-4 mt-4">
+            <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
+            <div className="bg-gray-200 h-4 rounded-md mb-2"></div>
+            <div className="bg-gray-200 h-6 rounded-md mb-2"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+
+  {/* No books found UI - Only shown when not loading, no error, and filtered books is empty */}
+  {!loading && !errorState && filteredBooks.length === 0 && (
+    <div className="flex flex-col justify-center items-center py-16">
+      <img
+        src="https://media.tenor.com/OJalYnY8qjAAAAAj/oops-oops-sorry.gif"
+        alt="No books found"
+        className="h-32 w-32 mb-4"
+      />
+      <h2 className="text-gray-700 text-xl font-semibold mb-2">
+        No books found
+      </h2>
+      <p className="text-gray-500 mb-4">Try adjusting your filters or clearing them to see more results.</p>
+      <button
+        onClick={() => setFilters({
+          board: [],
+          category: [],
+          subject: [],
+          reference: [],
+          competitive: [],
+          condition: [],
+          language: [],
+          genre: [],
+          sortBy: '',
+          page: 1,
+        })}
+        className="bg-red-600 rounded-md text-white duration-300 hover:bg-red-700 px-4 py-2 transition"
+      >
+        Reset Filters
+      </button>
+    </div>
+  )}
+
+  {/* Books grid - Only shown when not loading, no error, and filtered books has items */}
+  {!loading && !errorState && filteredBooks.length > 0 && (
+    <div className={viewMode === 'grid' ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2" : "flex flex-col"}>
+      {/* Render filtered books */}
+      {filteredBooks.map((book) => (
+        <BookCard
+          key={book.id}
+          book={book}
+          addToCart={addToCart}
+          onClick={() => handleCardClick(book.id, book.title, book.author, book.category, book.condition)}
+          onAddToWishlist={handleAddToWishlist}
+          isInWishlist={wishlist.some(item => item.id === book.id)}
+        />
+      ))}
+    </div>
+  )}
+
+  {/* Pagination - Only shown when not loading, no error, and filtered books has items */}
+  {!loading && !errorState && filteredBooks.length > 0 && (
+    <div className="flex justify-center items-center mt-6 relative space-x-2 z-10">
+      <button
+        onClick={handlePrev}
+        disabled={currentPage === 1}
+        className={`flex items-center justify-center w-10 h-10 rounded-full ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      {paginationRange.map((page) => (
+        <button
+          key={page}
+          onClick={() => handlePageChange(page)}
+          className={`w-10 h-10 flex items-center justify-center rounded-full ${currentPage === page ? 'bg-blue-600 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
+        >
+          {page}
+        </button>
+      ))}
+
+      <button
+        onClick={handleNext}
+        disabled={currentPage === totalPages}
+        className={`flex items-center justify-center w-10 h-10 rounded-full ${currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  )}
+</div>
 
       {/* Quick View Modal */}
       {quickViewProduct && (

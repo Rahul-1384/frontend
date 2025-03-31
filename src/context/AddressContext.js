@@ -25,7 +25,7 @@ export const AddressProvider = ({ children }) => {
       setError(null);
     } catch (err) {
       setError('Failed to load addresses');
-      console.error(err);
+      // console.error(err);
     } finally {
       setLoading(false);
     }

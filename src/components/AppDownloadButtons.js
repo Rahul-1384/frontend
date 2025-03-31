@@ -3,6 +3,7 @@ import QR from '../images/bookefy_06_qr.png';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "../components/ui/Dialog";
@@ -44,6 +45,9 @@ const AppDownloadButtons = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Download iOS App</DialogTitle>
+            <DialogDescription>
+              Scan the QR code below with your iOS device camera
+            </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center justify-center p-6">
             <img
@@ -63,6 +67,9 @@ const AppDownloadButtons = () => {
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Download Android App</DialogTitle>
+            <DialogDescription>
+              Scan the QR code below with your Android device camera
+            </DialogDescription>
           </DialogHeader>
           <div className="flex flex-col items-center justify-center p-6">
             <img

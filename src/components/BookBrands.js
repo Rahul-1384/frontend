@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Info } from 'lucide-react';
+import "./bookBrands.css";
 
 const BookBrands = () => {
   const [selectedBrand, setSelectedBrand] = useState(null);
@@ -56,7 +57,7 @@ const BookBrands = () => {
   ];
 
   return (
-    <div className="w-full py-12 px-4 bg-gray-50">
+    <div className="w-full py-12 px-4 bg-gray-50 animate-fade-in">
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
         <div className="text-center mb-12">
@@ -120,24 +121,6 @@ const BookBrands = () => {
           ))}
         </div>
       </div>
-
-      {/* Custom Animation */}
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { 
-            opacity: 0; 
-            transform: scale(0.95); 
-          }
-          to { 
-            opacity: 1; 
-            transform: scale(1); 
-          }
-        }
-
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-out;
-        }
-      `}</style>
     </div>
   );
 };

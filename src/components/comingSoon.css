@@ -1,0 +1,147 @@
+    /* General styles */
+.coming-soon-container {
+    min-height: 100vh;
+    background: black;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Background Effects */
+  .gradient-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, #6B21A8, #312E81, #000);
+    opacity: 0.8;
+  }
+  
+  .starry-background {
+    position: absolute;
+    inset: 0;
+  }
+  
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  
+  /* Content */
+  .content {
+    position: relative;
+    z-index: 10;
+    max-width: 600px;
+    text-align: center;
+    color: white;
+    padding: 20px;
+  }
+  
+  .logo-container {
+    display: inline-block;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+  }
+  
+  .logo-icon {
+    width: 50px;
+    height: 50px;
+    color: white;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(to right, white, #D8BFD8, #FFB6C1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .subtitle {
+    color: #FFB6C1;
+    font-size: 1rem;
+  }
+  
+  /* Orbit animation */
+  .orbit-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 30px auto;
+  }
+  
+  .orbit-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: rotate-slow 30s linear infinite;
+  }
+  
+  .orbit-layer.medium {
+    animation-duration: 20s;
+  }
+  
+  .orbit-layer.fast {
+    animation-duration: 10s;
+  }
+  
+  .orbit-dot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  }
+  
+  .orbit-dot.purple {
+    background: #6B21A8;
+  }
+  
+  .orbit-dot.pink {
+    background: #FF1493;
+  }
+  
+  .orbit-dot.blue {
+    background: #1E90FF;
+  }
+  
+  /* Social Media */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .social-icon {
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .social-icon:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.7);
+  }
+  
+  /* Animations */
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  

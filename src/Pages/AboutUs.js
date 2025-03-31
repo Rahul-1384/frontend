@@ -85,8 +85,41 @@ const AboutUs = () => {
       github: "https://github.com/Rahul1384",
       email: "siddharth@Bookefy.com"
     },
-      quote: "Leading the frontend development with modern web technologies to create an intuitive and user-friendly interface."
-    },
+    quote: "Leading the frontend development with modern web technologies to create an intuitive and user-friendly interface."
+  },
+  {
+    name: "Siddharth",
+    role: "Backend Lead",
+    image: Siddharth,
+    socialLinks: {
+    linkedin: "https://linkedin.com/in/siddharth",
+    github: "https://github.com/siddharth",
+    email: "siddharth@Bookefy.com"
+  },
+    quote: "Building robust server-side architecture to support our growing platform and ensure scalability."
+  },
+  {
+    name: "Rahul Jadon",
+    role: "Business Strategy Lead",
+    image: RahulJadon,
+    socialLinks: {
+    linkedin: "https://linkedin.com/in/siddharth",
+    github: "https://github.com/siddharth",
+    email: "siddharth@Bookefy.com"
+  },
+    quote: "Driving our mission to make education accessible while building a sustainable community."
+  },
+  {
+    name: "Yashvi Sharma",
+    role: "UI/UX Designer",
+    image: Deepak,
+    socialLinks: {
+    linkedin: "https://linkedin.com/in/siddharth",
+    github: "https://github.com/siddharth",
+    email: "siddharth@Bookefy.com"
+  },
+    quote: "Designing intuitive and engaging user interfaces that enhance usability and drive customer satisfaction."
+  },
     {
       name: "Mradul",
       role: "Database Architect",
@@ -99,17 +132,6 @@ const AboutUs = () => {
       quote: "Optimizing database systems to ensure seamless access to information and efficient data management."
     },
     {
-      name: "Rahul Jadon",
-      role: "Business Strategy Lead",
-      image: RahulJadon,
-      socialLinks: {
-      linkedin: "https://linkedin.com/in/siddharth",
-      github: "https://github.com/siddharth",
-      email: "siddharth@Bookefy.com"
-    },
-      quote: "Driving our mission to make education accessible while building a sustainable community."
-    },
-    {
       name: "Yash Rajput",
       role: "AI Development Lead",
       image: YashRajput,
@@ -120,17 +142,6 @@ const AboutUs = () => {
     },
       quote: "Training our AI models with historical data to deliver accurate price predictions for our book inventory."
     },
-    {
-      name: "Siddharth",
-      role: "Backend Lead",
-      image: Siddharth,
-      socialLinks: {
-      linkedin: "https://linkedin.com/in/siddharth",
-      github: "https://github.com/siddharth",
-      email: "siddharth@Bookefy.com"
-    },
-      quote: "Building robust server-side architecture to support our growing platform and ensure scalability."
-    }
   ];
 
   return (

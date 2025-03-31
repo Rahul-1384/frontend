@@ -280,6 +280,7 @@ const HeroSlide = ({ title, subtitle, description, images, extra, isActive, prio
                 isActive ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
               aria-label={`Explore ${title}`}
+              onClick={(e) => e.stopPropagation()}
             >
               Explore Now
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />

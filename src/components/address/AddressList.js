@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import addressService from '../../services/addressService';
 import AddressCard from './AddressCard';
 import { PlusIcon,Edit2, Trash2, AlertCircle, LogIn, UserX, RefreshCw, CheckCircle } from 'lucide-react';
-import bookefy from '../../images/rebook-logo.png';
+import bookefy from '../../images/rebook-logo.jpg';
+
 
 const AddressList = () => {
   const [addresses, setAddresses] = useState([]);

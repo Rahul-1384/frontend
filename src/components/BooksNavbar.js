@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "../images/rebook-logo.png";
+import logo from "../images/rebook-logo.jpg";
 import "./booksnavbar.css";
 import { NavLink } from "react-router-dom";
 import { FiShoppingCart } from "react-icons/fi";

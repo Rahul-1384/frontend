@@ -4,7 +4,7 @@ import {
     Search, Menu, X, LogIn, UserPlus, Home, ShoppingCart, BookOpen, Mail, Info, ChevronDown, Package, Heart,
     Settings, User, LogOut, Clock
 } from 'lucide-react';
-import logo from '../images/rebook-logo.png';
+import logo from '../images/rebook-logo.jpg';
 import { useAuth } from '../context/AuthContext';
 import { useAddressContext } from '../context/AddressContext';
 import AddressDisplay from './address/AddressDisplay';

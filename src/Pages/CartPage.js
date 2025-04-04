@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { Trash2, MinusCircle, PlusCircle, ShoppingCart, LogIn, UserPlus, Heart, Share2, ArrowLeft, Check, X, Info } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -17,6 +17,8 @@ const CartPage = () => {
   const [saveForLaterItems, setSaveForLaterItems] = useState([]);
   const { loginUser } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation(); // Add this for return URL functionality
+
 
   // Calculate cart totals based on selected items
   const selectedItemsArray = cartItems.filter(item => selectedItems[item.book_details.book_id]);
@@ -57,10 +59,14 @@ const CartPage = () => {
         } else {
           setIsAuthenticated(false);
           setLoading(false);
+          // Redirect to login with return URL
+          navigate(`/login?returnUrl=${encodeURIComponent(location.pathname)}`);
         }
       } catch (err) {
         setIsAuthenticated(false);
         setLoading(false);
+        // Redirect to login with return URL
+        navigate(`/login?returnUrl=${encodeURIComponent(location.pathname)}`);
       }
     } else {
       setIsAuthenticated(false);
@@ -81,10 +87,21 @@ const CartPage = () => {
       setCartItems(response.data);
       setLoading(false);
     } catch (err) {
+      // Check for authentication errors (401)
+      if (err.response && err.response.status === 401) {
+        setIsAuthenticated(false);
+        // Redirect to login with return URL
+        navigate(`/login?returnUrl=${encodeURIComponent(location.pathname)}`);
+        return;
+      }
       setError('Failed to fetch cart items');
       setLoading(false);
       console.error(err);
     }
+  };
+
+  const handleLogin = () => {
+    navigate(`/login?returnUrl=${encodeURIComponent(location.pathname)}`);
   };
 
   const updateQuantity = async (bookId, newQuantity) => {
@@ -217,7 +234,7 @@ const CartPage = () => {
           <div className="p-6">
             <div className="space-y-4">
               <NavLink
-                to="/login"
+                to={`/login?returnUrl=${encodeURIComponent(location.pathname)}`}
                 className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
                 <LogIn size={18} className="mr-2" />
@@ -259,7 +276,7 @@ const CartPage = () => {
         </h1>
         <NavLink 
           to="/products" 
-          className="text-blue-600 hover:text-blue-800 flex items-center"
+          className="text-blue-600 no-underline hover:text-blue-800 flex items-center"
         >
           <ArrowLeft size={16} className="mr-1" />
           <span>Continue Shopping</span>
@@ -274,7 +291,7 @@ const CartPage = () => {
             <p className="text-gray-500 mb-6">Looks like you haven't added anything to your cart yet.</p>
             <NavLink
               to="/products"
-              className="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200"
+              className="bg-blue-600 no-underline text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200"
             >
               Start Shopping
             </NavLink>

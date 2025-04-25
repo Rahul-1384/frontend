@@ -29,7 +29,7 @@ const AddressList = () => {
         (err.detail === 'Authentication credentials were not provided.')
       ) {
         navigate(`/login?returnUrl=${encodeURIComponent('/addresses')}`);
-        return;
+        return; // Exit the function early
       } else if (err.message && err.message.includes('network')) {
         setErrorType('network');
         setError('Network error. Please check your internet connection and try again.');

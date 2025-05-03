@@ -6,11 +6,10 @@ import { NavLink } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import RahulRajput from '../images/Leaders/RahulRajput.jpeg';
-import Chirag from '../images/Leaders/Chirag.jpg';
+import Mradul from '../images/Leaders/Mradul.png';
 import RahulJadon from '../images/Leaders/RahulJadon.jpg';
-import Gourang from '../images/Leaders/Gourang.jpg';
-// import Siddharth from '../images/Leaders/Siddharth.jpg';
-// import Deepak from '../images/Leaders/Deepak.jpeg';
+import YashRajput from '../images/Leaders/YashRajput.jpg';
+import Siddharth from '../images/Leaders/Siddharth.jpg';
 
 const AboutUs = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -87,17 +86,17 @@ const AboutUs = () => {
     },
     quote: "Leading the frontend development with modern web technologies to create an intuitive and user-friendly interface."
   },
-  // {
-  //   name: "Siddharth",
-  //   role: "Backend Lead",
-  //   image: Siddharth,
-  //   socialLinks: {
-  //   linkedin: "https://linkedin.com/in/siddharth",
-  //   github: "https://github.com/siddharth",
-  //   email: "siddharth@Bookefy.com"
-  // },
-  //   quote: "Building robust server-side architecture to support our growing platform and ensure scalability."
-  // },
+  {
+    name: "Siddharth",
+    role: "Backend Lead",
+    image: Siddharth,
+    socialLinks: {
+    linkedin: "https://linkedin.com/in/siddharth",
+    github: "https://github.com/siddharth",
+    email: "siddharth@Bookefy.com"
+  },
+    quote: "Building robust server-side architecture to support our growing platform and ensure scalability."
+  },
   {
     name: "Rahul Jadon",
     role: "Business Strategy Lead",
@@ -121,9 +120,9 @@ const AboutUs = () => {
   //   quote: "Designing intuitive and engaging user interfaces that enhance usability and drive customer satisfaction."
   // },
     {
-      name: "Chirag Agarwal",
+      name: "Mradul",
       role: "Database Architect",
-      image: Chirag,
+      image: Mradul,
       socialLinks: {
       linkedin: "https://linkedin.com/in/siddharth",
       github: "https://github.com/siddharth",
@@ -132,9 +131,9 @@ const AboutUs = () => {
       quote: "Optimizing database systems to ensure seamless access to information and efficient data management."
     },
     {
-      name: "Gourang Gautam",
-      role: "Backend Lead",
-      image: Gourang,
+      name: "Yash Rajput",
+      role: "AI Lead",
+      image: YashRajput,
       socialLinks: {
       linkedin: "https://linkedin.com/in/siddharth",
       github: "https://github.com/siddharth",
@@ -271,7 +270,7 @@ const AboutUs = () => {
           </motion.div>
 
           {/* Desktop View */}
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {leaders.map((leader, index) => (
               <motion.div 
                 key={index}
